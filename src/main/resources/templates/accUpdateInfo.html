@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>机构资料修改</title>
+    <script type="text/javascript" src="../static/js/updateAccClient.js"></script>
+    <style>
+        form { margin-left: 100px}
+        label {  width:250px; float:left; text-align:right; }
+        .button{ width: 70px; }
+        #search{ margin-left: 200px}
+    </style>
+    <script type="text/javascript">
+      /*  function changeType(){
+            $("#inputId").attr('readonly', 'readonly');//不可输入
+            $("#inputId").css('background-color', '#eaeaea');//置为灰色
+        }*/
+    </script>
+</head>
+<body>
+    <form action="" id="form_update_info">
+           <!-- style="border-collapse:separate; border-spacing:0px 10px;" 设置表格行高-->
+        <table  style="border-collapse:separate; border-spacing:0px 10px;">
+            <!--<tr>
+                <td><label >账户类型：</label><select name="" >
+                    <option value="">&#45;&#45;请选择&#45;&#45;</option>
+                    <option value="1">交易账号</option>
+                    <option value="2">基金账号</option>
+                </select></td>
+            </tr>-->
+            <tr>
+                <td><label>交易账号：</label><input type="text" name="accAccount" value="" id="accValue"/></td>
+                <!--<td><label>基金账号：</label><input type="text" name="fundAccount" value=""/></td>-->
+            </tr>
+            <tr>
+                <td><label>密    码：</label><input type="password" name="tradePassword" value="" id="pwd"/></td>
+                <td><input class="button" type="button" value="查询" id="search" /></td>
+            </tr>
+        </table>
+    </form>
+    <div id="acc_client_info"></div>
+
+
+</body>
+</html>

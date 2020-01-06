@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="../static/css/basic_layout.css" rel="stylesheet" type="text/css">
+<link href="../static/css/fundAccountOpening.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../static/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript">
+    /*function mo() {
+        var url = "/fundAccountController/getConditional"
+        $.get(url,{"fundAccount":fundAccount,"fundPassword":fundPassword},function (data) {
+            var res =data.data;
+            if (data.resultCode.equals("ERROR")){
+                alert(data.message);
+            }else {
+                alert(data.message);
+
+            }
+        });
+    }
+
+    function transactionWithdrawalSelect() {
+        var url = "/redemptionController/transactionWithdrawal";
+        $.get(url,{"counterId":counterId,"fundAccount":fundAccount},function (data) {
+
+        })
+    }*/
+    function mo() {
+        var fundAccount = $("#f").val();
+        var clientAccount = $("#c").val();
+        var password = $("#pa").val();
+        $.ajax({
+            url:"/fund/mo",
+            type:"post",
+            data:{"fundAccount":fundAccount,"clientAccount":clientAccount,"password":password},
+            success:function(obj){
+                if(obj){
+                    var li = obj.list;
+                    console.log(li);
+                    $("#myfu").empty("");
+                    for(var i = 0;i<li.length;i++){
+                        $(".fu").append("<tr><td id='fundCode"+i+"'>"+li[i].acFund.fundCode+"</td><td>"+li[i].shareCategory+"</td><td>"+li[i].purchaseAmount+"</td><td>"+li[i].amountAvailable+"</td><td>0.00</td><td>0.00</td><td>"+li[i].availableShare+"</td><td><input type='button'  onclick='up("+i+")' value='转托管'></td></tr>");
+                    }
+                    console.log(obj.ac);
+                    var ac = obj.ac;
+                    var cl = obj.cl;
+                    var me = obj.message;
+                    var ab = obj.ab;
+                    var abn = obj.abn;
+                    $("[name='clientName']").val(ac.clientName);
+                    $("#ct").val(ac.acClientDocuments.documentsName);
+                    $("#cn").val(ac.clientNum);
+                    $("#cp").val(ac.acClient.clientPeople);
+                    $("#pu").val(ac.acFundMoney.purchaseAmount);
+                    $("#sh").val(ac.acFundMoney.shareCategory);
+                    $("#na").val(ac.clientName);
+                    alert(ab.bankNameId)
+                    $("#bnd").val(ab.bankNameId)
+                    $("#bkn").val(abn.bankName);
+
+                    if(cl.acAdmin != null){
+                        $("#br").val(cl.acAdmin.adminAccount);
+                        $("#br1").val(cl.acAdmin.adminAccount);
+                        $("#an").val(cl.acAdmin.adminNum);
+                        $("#at").val(cl.acClientDocuments.documentsName);
+                    }
+                    alert(me);
+                }
+            },
+            dataType:"json"
+        })
+    }
+
+    function yan() {
+        var fundAccount = $("#f").val();
+        var password = $("#pa").val();
+        var clientAccount = $("#c").val();
+        $.ajax({
+            url:"/fund/jiao",
+            type:"post",
+            data:{"fundAccount":fundAccount,"clientAccount":clientAccount,"password":password},
+            success:function (obj) {
+                var me=obj.message;
+                if(obj){
+                    alert(me);
+                }else{
+                    alert(me);
+                }
+            },
+            dataType:"json"
+        })
+    }
+
+    function liu(i) {
+        var counterId = $("#ll").val();
+        var password = $("#pa").val();
+        var fundCode = $("#fundCode"+i).text();
+        $.ajax({
+            url:"/fund/liu",
+            type:"post",
+            data:{"counterId":counterId,"password":password,"fundCode":fundCode},
+            success:function (obj) {
+                alert("查询成功");
+                var li = obj.list;
+                console.log(li);
+                $("#myfu").empty("");
+                for(var i = 0;i<li.length;i++){
+                    $(".fu").append("<tr><td id='fundCode"+i+"'>"+li[i].acFund.fundCode+"</td><td>"+li[i].shareCategory+"</td><td>"+li[i].purchaseAmount+"</td><td>"+li[i].amountAvailable+"</td><td>0.00</td><td>0.00</td><td>"+li[i].availableShare+"</td><td><input type='button'  onclick='up("+i+")' value='转托管'></td></tr>");
+                }
+            },
+            dataType:"json"
+        })
+    }
+
+</script>
+<title>交易撤单</title>
+</head>
+<body>
+<table class="aa">
+    <tr>
+        <td class="cc">委托方式:</td>
+        <td class="cc">
+            <select name="fundWei">
+            <option>柜台交易</option>
+            <option>网上交易</option>
+        </select>
+        </td>
+        <td class="cc">账户类型: </td>
+        <td class="cc">
+            <select name="accountType">
+                <option>交易账号</option>
+                <option>基金账号</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td class="cc">交易账号: </td>
+        <td class="cc">
+            <input type="text" id="c" name="clientAccount">
+        </td>
+        <td class="cc">基金账号: </td>
+        <td class="cc">
+            <input type="text" id="f" name="fundAccount">
+        </td>
+    </tr>
+    <tr>
+        <td class="cc">密码: </td>
+        <td class="cc">
+            <input id="pa" name="fundPassword" type="password" onchange="yan()" >
+        </td>
+        <td class="cc">
+            <button onclick="mo()" value="查询">查询</button>
+        </td>
+    </tr>
+    <tr></tr>
+    <tr>
+        <td class="cc">申请编号: </td>
+        <td class="cc">
+            <input type="text" id="ll" name="counterId" onchange="liu()"> <!--onchange="transactionWithdrawalSelect()"-->
+        </td>
+    </tr>
+    <tr></tr>
+    <tr>
+        <td class="cc" style="color: #316AC5">客户名称: </td>
+        <td class="cc">
+            <input id="ss" type="text" name="clientName" >
+        </td>
+    </tr>
+    <tr>
+        <td class="cc" style="color: #316AC5">证件类型: </td>
+        <td class="cc">
+            <input id="ct" type="text" name="clientType" >
+        </td>
+        <td class="cc" style="color: #316AC5">证件号码: </td>
+        <td class="cc">
+            <input id="cn" type="text" name="clientNum" >
+        </td>
+    </tr>
+    <tr>
+        <td class="cc" style="color: #316AC5">客户类型: </td>
+        <td class="cc">
+            <input  type="text" value="普通客户">
+        </td>
+        <td class="cc" style="color: #316AC5">经办人: </td>
+        <td class="cc">
+            <input id="br" type="text" name="adminAccount">
+        </td>
+    </tr>
+    <tr>
+        <td class="cc" style="color: #316AC5">经办人证件: </td>
+        <td class="cc">
+            <input id="at" type="text" name="adminType" >
+        </td>
+        <td class="cc" style="color: #316AC5">经办人号码: </td>
+        <td class="cc">
+            <input id="an" type="text" name="adminNum" >
+        </td>
+    </tr>
+    <tr>
+        <td class="cc" style="color: #316AC5">银行编号: </td>
+        <td class="cc">
+            <input id="bnd"  type="text" name="bankNameId" >
+        </td>
+        <td class="cc" style="color: #316AC5">银行名称: </td>
+        <td class="cc">
+            <input id="bkn" type="text" name="bankName" >
+        </td>
+    </tr>
+    <tr>
+        <td class="cc" style="color: #316AC5">银行户名: </td>
+        <td class="cc">
+            <input type="text" name="clientName">
+        </td>
+        <td class="cc" style="color: #316AC5">银行账号: </td>
+        <td class="cc">
+            <input type="text" name="bankAccount" >
+        </td>
+    </tr>
+</table>
+<table style="text-align: center;margin-left: 12%;margin-top: -2%" border="1">
+
+    <tbody class="fu" id="myfu">
+    </tbody>
+    <tr>
+        <td  colspan="8">
+            <button  value="授权">授权</button>
+            <button type="button" onclick="up()" value="提交">提交</button>
+            <button type="reset" value="取消">取消</button>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

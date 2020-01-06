@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>修改客户资料</title>
+    <script type="text/javascript" src="../static/js/jquery-2.1.0.js"></script>
+    <script type="text/javascript">
+        var acClient = "";
+        function findAcClient(){
+            if($("#accont").val()!=""&&$("#accont").val()!=null){
+                $.ajax({
+                    type: "get",
+                    url: "findAcClient?clientAccount="+$("#accont").val(),
+                    dataType: "json",
+                    success: function (AcClient) {
+                        acClient=AcClient;
+                    }
+                });
+            }
+        }
+
+        function login() {
+            if (acClient.clientPassword != "") {
+                if (acClient.clientPassword == $("#pwd").val()) {
+                    $("#aaa").html("");
+                    $("#aaa").append("<form action=\"/updateAcClient\" method='post' id=\"rmor\">\n" +
+                        "    <span style=\"font-size: 20px;color: red\">基本信息</span>\n" +
+                        "    <input name=\"clientAccount\" id='ddacount' type=\"hidden\" />\n" +
+                        "    <table id=\"tblea\">\n" +
+                        "        <tr>\n" +
+                        "            <td colspan=\"2\">\n" +
+                        "                <hr width=\"\" color=\"red\"/>\n" +
+                        "            </td>\n" +
+                        "            <td>\n" +
+                        "            </td>\n" +
+                        "        </tr>\n" +
+                        "        <tr>\n" +
+                        "            <td class=\"fff\">客户姓名</td>\n" +
+                        "            <td><input value='" + acClient.clientName + "' type=\"text\" name=\"clientName\"/></td>\n" +
+                        "        </tr>\n" +
+                        "        <tr>\n" +
+                        "            <td class=\"fff\"> 性别:</td>\n" +
+                        "            <td><select name=\"clientSex\">\n" +
+                        "                <option value=\"\">请选择</option>\n" +
+                        "                <option value=\"男\">男</option>\n" +
+                        "                <option value=\"女\">女</option>\n" +
+                        "            </select></td>\n" +
+                        "        </tr>\n" +
+                        "        <tr>\n" +
+                        "            <td class=\"fff\">证件类型</td>\n" +
+                        "            <td><select name=\"clientType\">\n" +
+                        "                <option value=\"\">请选择</option>\n" +
+                        "                <option value=\"0\">身份证</option>\n" +
+                        "                <option value=\"1\">居民身份证</option>\n" +
+                        "                <option value=\"2\">出生证</option>\n" +
+                        "                <option value=\"3\">护照</option>\n" +
+                        "                <option value=\"4\">警官证</option>\n" +
+                        "                <option value=\"5\">执行公务证</option>\n" +
+                        "                <option value=\"6\">学生证</option>\n" +
+                        "            </select></td>\n" +
+                        "        </tr>\n" +
+                        "        <tr>\n" +
+                        "            <td class=\"fff\">证件号码:</td>\n" +
+                        "            <td><input type=\"text\" value='" + acClient.clientNum + "' name=\"clientNum\"/></td>\n" +
+                        "        </tr>\n" +
+                        "        <tr>\n" +
+                        "            <td class=\"fff\">证件有效期:</td>\n" +
+                        "            <td><input type=\"date\"  name=\"clientValidity\"/></td>\n" +
+                        "            <td><input type=\"checkbox\" name=\"clientValidity1\" value=\"长期有效\" />长期有效</td>\n" +
+                        "        </tr>\n" +
+                        "        <tr>\n" +
+                        "            <td class=\"fff\">客户生日</td>\n" +
+                        "            <td><input type=\"date\" value='" + acClient.clientBirthday + "' name=\"clientBirthday\" value=\"\"/></td>\n" +
+                        "        </tr>\n" +
+                        "        <tr>\n" +
+                        "            <td class=\"fff\">省:</td>\n" +
+                        "            <td><select onchange=\"getCityes()\" id=\"province\" name=\"clientProvince\"></select></td>\n" +
+                        "        </tr>\n" +
+                        "        <tr>\n" +
+                        "            <td class=\"fff\">市:</td>\n" +
+                        "            <td><select id=\"shi\" name=\"clientCity\"></select></td>\n" +
+                        "        </tr>\n" +
+                        "        <tr>\n" +
+                        "            <td class=\"fff\">详细地址:</td>\n" +
+                        "            <td><input type=\"text\" value='" + acClient.clientAddress + "' name=\"clientAddress\"/></td>\n" +
+                        "        </tr>\n" +
+                        "        <tr>\n" +
+                        "            <td class=\"fff\">邮政编码:</td>\n" +
+                        "            <td><input type=\"text\" value='" + acClient.clientPostcode + "' name=\"clientPostcode\"/></td>\n" +
+                        "        </tr>\n" +
+                        "        <tr>\n" +
+                        "            <td class=\"fff\">联系电话:</td>\n" +
+                        "            <td><input type=\"text\" value='" + acClient.clientTel + "' name=\"clientTel\"/></td>\n" +
+                        "        </tr>\n" +
+                        "        <tr>\n" +
+                        "            <td class=\"fff\">手机号码:</td>\n" +
+                        "            <td><input type=\"text\" value='" + acClient.clientPhone + "' name=\"clientPhone\"/></td>\n" +
+                        "        </tr>\n" +
+                        "        <tr>\n" +
+                        "            <td><span style=\"font-size: 20px;color: red\">客户其他信息</span></td>\n" +
+                        "        </tr>\n" +
+                        "        <tr>\n" +
+                        "            <td colspan=\"2\">\n" +
+                        "                <hr width=\"\" color=\"red\"/>\n" +
+                        "            </td>\n" +
+                        "        </tr>\n" +
+                        "        <tr>\n" +
+                        "            <td class=\"fff\">客户职业</td>\n" +
+                        "            <td><select name=\"clientOccupation\">\n" +
+                        "                <option value=\"\">请选择</option>\n" +
+                        "                <option value=\"农林牧渔\">农林牧渔</option>\n" +
+                        "                <option value=\"医药卫生\">医药卫生</option>\n" +
+                        "                <option value=\"建筑建材\">建筑建材</option>\n" +
+                        "                <option value=\"冶金矿产\">冶金矿产</option>\n" +
+                        "                <option value=\"石油化工\">石油化工</option>\n" +
+                        "                <option value=\"其他\">其他</option>\n" +
+                        "            </select></td>\n" +
+                        "            </td></tr>\n" +
+                        "        <tr>\n" +
+                        "            <td class=\"fff\">账户实际受益人</td>\n" +
+                        "            <td><input type=\"text\" value='" + acClient.clientBeneficiary + "' name=\"clientBeneficiary\"/></td>\n" +
+                        "        </tr>\n" +
+                        "        <tr>\n" +
+                        "            <td class=\"fff\">账户实际控制人</td>\n" +
+                        "            <td><input type=\"text\" value='" + acClient.clientController + "' name=\"clientController\"/></td>\n" +
+                        "        </tr>\n" +
+                        "        <tr>\n" +
+                        "            <td class=\"fff\">投资经历</td>\n" +
+                        "            <td><select name=\"clientExperience\">\n" +
+                        "                <option value=\"\">请选择</option>\n" +
+                        "                <option value=\"0\">有投资经历</option>\n" +
+                        "                <option value=\"1\">无投资经历</option>\n" +
+                        "            </select></td>\n" +
+                        "        </tr>\n" +
+                        "      <tr>\n" +
+                        "            <td><span style=\"font-size: 20px;color: red\">反洗钱信息</span></td>\n" +
+                        "        </tr>\n" +
+                        "        <tr>\n" +
+                        "            <td colspan=\"2\">\n" +
+                        "                <hr width=\"\" color=\"red\"/>\n" +
+                        "            </td>\n" +
+                        "            <td>\n" +
+                        "            </td>\n" +
+                        "        </tr>\n" +
+                        "        <tr>\n" +
+                        "            <td class=\"fff\">国籍:</td>\n" +
+                        "            <td><select name=\"laundNationality\">\n" +
+                        "                <option value=\"\">请选择</option>\n" +
+                        "                <option value=\"中国\">中国</option>\n" +
+                        "                <option value=\"外国\">外国</option>\n" +
+                        "            </select></td>\n" +
+                        "        </tr>\n" +
+                        "        <tr>\n" +
+                        "            <td class=\"fff\">年收入:</td>\n" +
+                        "            <td><select name=\"laundAnnualincome\">\n" +
+                        "                <option value=\"\">请选择客户年收入</option>\n" +
+                        "                <option value=\"五千以下\">5千以下</option>\n" +
+                        "                <option value=\"五千-一万\">5千到1万</option>\n" +
+                        "                <option value=\"三万-八万\">3万到8万</option>\n" +
+                        "                <option value=\"八万-十五万\">8万到15万</option>\n" +
+                        "                <option value=\"十五万-八十万\">15万到30万</option>\n" +
+                        "                <option value=\"三十万-五十万\">30万到50万</option>\n" +
+                        "                <option value=\"五十万-三百万\">50万到300万</option>\n" +
+                        "                <option value=\"三百万-一千万\">300万到1000万</option>\n" +
+                        "                <option value=\"一千万以上\">一千万以上</option>\n" +
+                        "            </select></td>\n" +
+                        "        </tr>\n" +
+                        "        <tr>\n" +
+                        "            <td class=\"fff\">客户学历:</td>\n" +
+                        "            <td><select name=\"laundEducation\">\n" +
+                        "                <option value=\"\">请选择</option>\n" +
+                        "                <option value=\"小学\">小学</option>\n" +
+                        "                <option value=\"中学\">中学</option>\n" +
+                        "                <option value=\"专科\">专科</option>\n" +
+                        "                <option value=\"本科\">本科</option>\n" +
+                        "                <option value=\"硕士研究生\">硕士研究生</option>\n" +
+                        "                <option value=\"博士研究生\">博士研究生</option>\n" +
+                        "            </select></td>\n" +
+                        "        </tr>\n" +
+                        "        <tr>\n" +
+                        "            <td class=\"fff\">社会关系:(是否为政要或亲属)</td>\n" +
+                        "            <td><input name=\"laundSocial\" id='laundSocial1' type=\"radio\" value=\"0\"/>是<input id='laundSocial2' name=\"laundSocial\" type=\"radio\" value=\"1\"/>否\n" +
+                        "            </td>\n" +
+                        "        </tr>\n" +
+                        "        <tr>\n" +
+                        "            <td class=\"fff\">职业风险:(是否从事高风险行业)</td>\n" +
+                        "            <td><input name=\"laundRisk\" id='laundRisk1' type=\"radio\" value=\"0\"/>是<input id='laundRisk2' name=\"laundRisk\" type=\"radio\" value=\"1\"/>否\n" +
+                        "            </td>\n" +
+                        "        </tr>\n" +
+                        "        <tr>\n" +
+                        "            <td class=\"fff\">婚姻:</td>\n" +
+                        "            <td><select onchange='theMarriage()' name=\"laundMarriage\">\n" +
+                        "                <option value=\"\">请选择</option>\n" +
+                        "                <option value=\"未婚\">未婚</option>\n" +
+                        "                <option value=\"已婚\">已婚</option>\n" +
+                        "                <option value=\"丧偶\">丧偶</option>\n" +
+                        "            </select></td>\n" +
+                        "        </tr>\n" +
+                        "        <tr id=\"theMarriage\">\n" +
+                        "        </tr>\n" +
+                        "        <tr>\n" +
+                        "            <td class=\"fff\">反洗钱风险等级</td>\n" +
+                        "            <td><select name=\"laundGrade\">\n" +
+                        "                <option value=\"\">请选择</option>\n" +
+                        "                <option value=\"0\">低</option>\n" +
+                        "                <option value=\"1\">中</option>\n" +
+                        "                <option value=\"2\">高</option>\n" +
+                        "            </select></td>\n" +
+                        "        </tr>\n" +
+                        "        <tr>\n" +
+                        "            <td class=\"fff\">反洗钱备注:</td>\n" +
+                        "            <td><input name=\"laundAntiremarks\" type=\"text\"/></td>\n" +
+                        "        </tr>\n" +
+                        "        <tr>\n" +
+                        "            <td class=\"fff\">备注</td>\n" +
+                        "            <td><textarea cols=\"30\" rows=\"5\" name='laundRemarks'></textarea></td>\n" +
+                        "        </tr>\n" +
+                        "    </table>\n" +
+                        "    <div style=\"position: absolute;left: 200px;\"><input type=\"button\" onclick=\"updateAcClient()\" value=\"修改\"/>&nbsp;&nbsp;&nbsp;<input\n" +
+                        "            type=\"button\" value=\"取消\"/></div>\n" +
+                        "</form>");
+                    $("#shi").append("<option value='0'>请选择</option>");
+                    $.ajax({
+                        type: "get",
+                        url: "getAllProvince",
+                        dataType: "json",
+                        success: function (acProvinceList) {
+                            $("#province").append("<option value='0'>请选择</option>");
+                            for (var i = 0; i < acProvinceList.length; i++) {
+                                if (acClient.clientProvince == acProvinceList[i].provinceCode) {
+                                    $("#province").append("<option value='" + acProvinceList[i].provinceCode + "' selected='selected'>" + acProvinceList[i].provinceName + "</option>");
+                                } else {
+                                    $("#province").append("<option value='" + acProvinceList[i].provinceCode + "'>" + acProvinceList[i].provinceName + "</option>");
+                                }
+                            }
+                            getCityes();
+                        }
+                    });
+                    $.ajax({
+                        type: "get",
+                        url: "findAcLaundering?clientAccount=" + $("#accont").val(),
+                        dataType: "json",
+                        success: function (AcLaundering) {
+                            $("select[name='laundNationality']").val(AcLaundering.laundNationality);
+                            $("select[name='laundAnnualincome']").val(AcLaundering.laundAnnualincome);
+                            $("select[name='laundEducation']").val(AcLaundering.laundEducation);
+                            if ($("#laundSocial1").val() == AcLaundering.laundSocial) {
+                                $("#laundSocial1").prop("checked", true);
+                                $("#laundSocial2").prop("checked", false);
+                            }
+                            if ($("#laundSocial2").val() == AcLaundering.laundSocial){
+                                $("#laundSocial1").prop("checked", false);
+                                $("#laundSocial2").prop("checked", true);
+                            }
+                            if ($("#laundRisk1").val() == AcLaundering.laundRisk) {
+                                $("#laundRisk1").prop("checked", true);
+                                $("#laundRisk2").prop("checked", false);
+                            }
+                            if ($("#laundRisk2").val() == AcLaundering.laundRisk){
+                                $("#laundRisk1").prop("checked", false);
+                                $("#laundRisk2").prop("checked", true);
+                            }
+                            $("select[name='laundMarriage']").val(AcLaundering.laundMarriage);
+                            if(AcLaundering.laundAddress!=""){
+                                $("input[name='laundAddress']").val(AcLaundering.laundAddress);
+                            }
+                            $("select[name='laundGrade']").val(AcLaundering.laundGrade);
+                            $("input[name='laundAntiremarks']").val(AcLaundering.laundAntiremarks);
+                            $("textarea[name='laundRemarks']").val(AcLaundering.laundRemarks);
+
+
+                        }
+                    });
+                    $("select[name='clientOccupation']").val(acClient.clientOccupation);
+                    $("select[name='clientSex']").val(acClient.clientSex);
+                    $("select[name='clientType']").val(acClient.clientType);
+                    if (acClient.clientValidity == "长期有效") {
+                        $("input[name='clientValidity1']").prop("checked", true);
+                    }
+                    if ($("input[name='clientValidity1']").prop("checked")) {
+                        $("input[name='clientValidity']").val("");
+                        $("input[name='clientValidity']").attr("disabled", "disabled");
+                    } else {
+                        $("input[name='clientValidity']").removeAttr("disabled");
+                        $("input[name='clientValidity']").val(acClient.clientValidity);
+                    }
+                    $("select[name='clientProvince']").val(acClient.clientProvince);
+                    $("select[name='clientCity']").val(acClient.clientCity);
+                    $("select[name='clientOccupation']").val(acClient.clientOccupation);
+                    $("select[name='clientExperience']").val(acClient.clientExperience);
+                    $("#ddacount").val($("#accont").val());
+                    } else {
+                        alert("密码错误");
+                    }
+                } else {
+                    alert("请输入密码");
+                }
+
+        }
+        function theMarriage() {
+            $("#theMarriage").empty();
+            if ($("select[name='laundMarriage']").val() == "已婚" || $("select[name='laundMarriage']").val() == "丧偶") {
+                $("#theMarriage").append("            <td class=\"fff\">证件登记地址:</td>\n" +
+                    "            <td><input name=\"laundAddress\" type=\"text\"/></td>");
+            }
+        }
+        function updateAcClient(){
+            document.getElementById("rmor").submit();
+        }
+            function getCityes() {
+                var provinceCode = $("#province").val();
+                $("#shi").empty();
+                $("#shi").append("<option value='0'>请选择</option>");
+                if (provinceCode != "" && provinceCode != null) {
+                    $.ajax({
+                        type: "get",
+                        url: "getCityByCode",
+                        data: {
+                            "code": provinceCode
+                        },
+                        dataType: "json",
+                        success: function (shi) {
+                            for (var i = 0; i < shi.length; i++) {
+                                if(acClient.clientCity==shi[i].cityId){
+                                    $("#shi").append("<option value='"  + shi[i].cityId + "' selected='selected'>" + shi[i].cityName + "</option>");
+                                }else{
+                                    $("#shi").append("<option value='" + shi[i].cityId + "'>" + shi[i].cityName + "</option>");
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+    </script>
+</head>
+<body>
+<table>
+    <tr>
+        <td>请输入客户的交易账号</td>
+        <td><input onblur="findAcClient()" id="accont" type="text"/></td>
+    </tr>
+    <tr>
+        <td>请让客户输入交易密码</td>
+        <td><input name="clientPassword" id="pwd" type="password"/></td>
+    </tr>
+    <tr>
+        <td><button onclick="login()">查询</button></td>
+        <td></td>
+    </tr>
+</table>
+<div id="aaa"></div>
+</body>
+</html>

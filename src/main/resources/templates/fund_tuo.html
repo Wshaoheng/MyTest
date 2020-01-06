@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>转托管出</title>
+</head>
+<link href="../static/css/basic_layout.css" rel="stylesheet" type="text/css">
+<link href="../static/css/fundAccountOpening.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../static/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript">
+    function mo() {
+        var fundAccount = $("#f").val();
+        var clientAccount = $("#c").val();
+        var password = $("#pa").val();
+        $.ajax({
+            url:"/fund/mo",
+            type:"post",
+            data:{"fundAccount":fundAccount,"clientAccount":clientAccount,"password":password},
+            success:function(obj){
+                if(obj){
+                    var li = obj.list;
+                    console.log(li);
+                    $("#myfu").empty("");
+                    for(var i = 0;i<li.length;i++){
+                        $(".fu").append("<tr><td id='fundCode"+i+"'>"+li[i].acFund.fundCode+"</td><td>"+li[i].shareCategory+"</td><td>"+li[i].purchaseAmount+"</td><td>"+li[i].amountAvailable+"</td><td>0.00</td><td>0.00</td><td>"+li[i].availableShare+"</td><td><input type='button'  onclick='up("+i+")' value='转托管'></td></tr>");
+                    }
+                    console.log(obj.ac);
+                    var ac = obj.ac;
+                    var cl = obj.cl;
+                    var me = obj.message;
+                    $("#ss").val(ac.clientName);
+                    $("#ct").val(ac.acClientDocuments.documentsName);
+                    $("#cn").val(ac.clientNum);
+                    $("#cp").val(ac.acClient.clientPeople);
+                    $("#pu").val(ac.acFundMoney.purchaseAmount);
+                    $("#sh").val(ac.acFundMoney.shareCategory);
+                    $(".na").val(ac.acFundMoney.fundName);
+                    if(cl.acAdmin != null){
+                        $("#br").val(cl.acAdmin.adminAccount);
+                        $("#an").val(cl.acAdmin.adminNum);
+                        $("#at").val(cl.acClientDocuments.documentsName);
+                    }
+                    alert(me);
+                }
+            },
+            dataType:"json"
+        })
+    }
+
+    function up(i) {
+        var price = $("#zh").val();
+        var fundAccount = $("#f").val();
+        var clientAccount = $("#c").val();
+        var password = $("#pa").val();
+        var fundCode = $("#fundCode"+i).text();
+        $.ajax({
+            url:"/fund/updateZhuan",
+            type:"post",
+            data:{"fundAccount":fundAccount,"clientAccount":clientAccount,"password":password,"price":price,"fundCode":fundCode},
+            success:function (obj) {
+                alert("修改成功");
+                var li = obj.list;
+                console.log(li);
+                $("#myfu").empty("");
+                for(var i = 0;i<li.length;i++){
+                    $(".fu").append("<tr><td id='fundCode"+i+"'>"+li[i].acFund.fundCode+"</td><td>"+li[i].shareCategory+"</td><td>"+li[i].purchaseAmount+"</td><td>"+li[i].amountAvailable+"</td><td>0.00</td><td>0.00</td><td>"+li[i].availableShare+"</td><td><input type='button'  onclick='up("+i+")' value='转托管'></td></tr>");
+                }
+            },
+            dataType:"json"
+        })
+    }
+
+    function yan() {
+        var fundAccount = $("#f").val();
+        var password = $("#pa").val();
+        var clientAccount = $("#c").val();
+        $.ajax({
+            url:"/fund/jiao",
+            type:"post",
+            data:{"fundAccount":fundAccount,"clientAccount":clientAccount,"password":password},
+            success:function (obj) {
+                var me=obj.message;
+                if(obj){
+                    alert(me);
+                }else{
+                    alert(me);
+                }
+            },
+            dataType:"json"
+        })
+    }
+</script>
+<body>
+<table class="aa">
+    <tr>
+        <td class="cc">委托方式: </td>
+        <td class="cc">
+            <select>
+                <option th:selected="${acFundAccount.fundWei}" th:value="柜台交易">柜台交易</option>
+                <option th:selected="${acFundAccount.fundWei}" th:value="网上交易">网上交易</option>
+            </select>
+        </td>
+        <td class="cc">账户类型: </td>
+        <td class="cc">
+            <select>
+                <option th:value="交易账号">交易账号</option>
+                <option th:value="基金账号">基金账号</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td class="cc">交易账号: </td>
+        <td class="cc"><input id="c" type="text" >
+        </td>
+        <td class="cc">基金账号: </td>
+        <td class="cc">
+            <input id="f"  type="text" >
+        </td>
+    </tr>
+    <tr>
+        <td class="cc">密码: </td>
+        <td class="cc">
+            <input id="pa" onchange="yan()"  type="password" >
+        </td>
+        <td class="cc">
+            <button type="button" onclick="mo()" value="查询">查询</button>
+        </td>
+    </tr>
+    <tr>
+        <td class="cc">基金名称: </td>
+        <td class="cc">
+            <select class="na">
+                <option th:each="f : ${flist}"  th:text="${{f.fundName}}"></option>
+            </select>
+        </td>
+        <td class="cc">份额类别: </td>
+        <td class="cc">
+            <select>
+                <option value="前收费">前收费</option>
+                <option value="水平收费">水平收费</option>
+                <option value="后收费">后收费</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td class="cc">转出份额: </td>
+        <td class="cc">
+            <input id="zh" type="text">
+        </td>
+    </tr>
+    <tr></tr>
+    <tr></tr>
+    <tr>
+        <td class="cc" style="color: #316AC5">客户名称: </td>
+        <td class="cc">
+            <input id="ss" type="text">
+        </td>
+    </tr>
+    <tr>
+        <td class="cc" style="color: #316AC5">证件类型: </td>
+        <td class="cc">
+            <input id="ct" type="text">
+        </td>
+        <td class="cc" style="color: #316AC5">证件号码: </td>
+        <td class="cc">
+            <input id="cn" type="text">
+        </td>
+    </tr>
+    <tr>
+        <td class="cc" style="color: #316AC5">客户类型: </td>
+        <td class="cc">
+            <input id="cp" type="text">
+        </td>
+        <td class="cc" style="color: #316AC5">经办人: </td>
+        <td class="cc">
+            <input id="br" type="text">
+        </td>
+    </tr>
+    <tr>
+        <td class="cc" style="color: #316AC5">经办人证件: </td>
+        <td class="cc">
+            <input id="at" type="text">
+        </td>
+        <td class="cc" style="color: #316AC5">经办人号码: </td>
+        <td class="cc">
+            <input id="an" type="text">
+        </td>
+    </tr>
+</table>
+<table style="text-align: center;margin-left: 12%;margin-top: -2%" border="1">
+    <tr>
+        <td>基金代码</td>
+        <td>收费方式</td>
+        <td>当前份额余额</td>
+        <td>可用份额余额</td>
+        <td>冻结份额余额</td>
+        <td>交易冻结份额</td>
+        <td>可用份额</td>
+        <td>转托管</td>
+    </tr>
+    <tbody id="myfu" class="fu">
+    <!--<tr th:each="l : ${list}" >
+        <td class="id" th:text="${{l.acFund.fundCode}}"></td>
+        <td  th:text="${l.shareCategory}"></td>
+        <td th:text="${{l.purchaseAmount}}"></td>
+        <td  th:text="${{l.amountAvailable}}"></td>
+        <td class="cc">0.00</td>
+        <td class="cc">0.00</td>
+        <td th:text="${{l.availableShare}}"></td>
+        <td class="ho">
+            <input type="button"  onclick="up()" value="转托管">
+        </td>
+    </tr>-->
+    </tbody>
+    <tr>
+        <td colspan="8" style="text-align: center">
+            <button type="button" value="授权">授权</button>
+            <button type="button" onclick="up()" value="提交">提交</button>
+            <button type="reset" value="取消">取消</button>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

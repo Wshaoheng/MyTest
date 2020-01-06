@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleleaf.org">
+<head>
+    <title>华夏基金后台系统</title>
+    <meta charset="utf-8"/>
+
+    <link rel="stylesheet" href="../static/css/style.css" media="screen" type="text/css" />
+    <script type="text/javascript" src="../static/js/jquery-2.1.0.js"></script>
+    <style type="text/css">
+        .main-sidebar{
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 1000px;
+            min-height: 100%;
+            width: 200px;
+            z-index: 810;
+            background-color: #222d32;
+        }
+        #content{
+            border:3px solid #F00;
+            position: absolute;
+            left: 12%;
+            top: 0%;
+            width: 1200px;
+        }
+        #fundWithName{
+            border:3px solid #F00;
+            position: absolute;
+            left: 70%;
+            top: 0%;
+        }
+        li{
+            list-style: none;
+            line-height:20px;
+            cursor:pointer;
+        }
+        #aa{
+            position:fixed;
+            z-index:0;
+            top: 0.5px;
+            width: 15%;
+            padding-left: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div id="fundWithName"><span id="acount" th:text="${session.fundAccount.clientAccount}"></span></div>
+    <aside class="main-sidebar">
+        <section id="aa" class="sidebar">
+            <ul  class="userMenu" >
+                <li style="padding-top: 0px">开户/登记
+                    <ul style="margin-top:5px">
+                       <li data-id="open">个人账户开户</li>
+                        <!--<li data-id="open">机构账户开户</li>-->
+                        <li data-id="fund_account_opening">个人账号登记</li>
+                       <!-- <li data-id="check">机构账号登记</li>-->
+                    </ul>
+                </li>
+                <!--<li>销户/取消登记
+                    <ul>
+                        <li>
+                            <li>交易账号销户</li>
+                            <li>基金帐号销户</li>
+                            <li>取消账号登记</li>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    资料修改
+                    <ul>
+                        <li>个人资料修改</li>
+                        <li>机构资料修改</li>
+                        <li>银行资料修改</li>
+                    </ul>
+                </li>
+                <li>问卷调查
+                    <ul>
+                        <li>个人问卷调查</li>
+                    </ul>
+                </li>
+                <li>密码管理
+                    <ul>
+                        <li>交易密码清密</li>
+                        <li>交易密码修改</li>
+                    </ul>
+                </li>-->
+                <li>日常交易
+                    <ul>
+                        <li data-id="go">基金申购</li>
+                        <!--<li>基金认购</li>-->
+                        <li data-id="shu">基金赎回</li>
+                        <!--<li>基金指定赎回</li>-->
+                    </ul>
+                </li>
+                <li>特殊交易
+                    <ul>
+                        <li data-id="out">外部转托管</li>
+                        <li data-id="zhuan">转托管出</li>
+                        <li data-id="in">转托管入</li>
+                        <li data-id="ac_fund_money">设置分红方式</li>
+                        <li data-id="che">撤销交易类申请</li>
+                        <!--<li data-id="fen">基金转换</li>-->
+                    </ul>
+                </li>
+                <!--<li>资金存入</li>
+                <li>账户信息查询
+                    <ul>
+                        <li>基金账户信息查询</li>
+                        <li>交易账户信息查询</li>
+                    </ul>
+                </li>
+                <li>客户银行信息查询</li>
+                <li>交易信息查询
+                    <ul>
+                        <li></li>
+                        <li>交易确认查询</li>
+                        <li>账户确认查询</li>
+                    </ul>
+                </li>-->
+            </ul>
+        </section>
+    </aside>
+    <div id="content"></div>
+</body>
+<script>
+    $(function() {
+        $(".userMenu").on("click", "li", function() {
+            var sId = $(this).data("id"); //获取data-id的值
+            window.location.hash = sId; //设置锚点
+            loadInner(sId);
+        });
+
+        function loadInner(sId) {
+            var sId = window.location.hash;
+            var pathn, i;
+            switch(sId) {
+                case "#center":
+                    pathn = "toIntroduce";
+                    i = 0;
+                    break;
+                case "#account":
+                    pathn = "toIntroduce";
+                    i = 1;
+                    break;
+                case "#fund_account_opening":
+                    pathn = "/fundAccountController/toFundAccountOpening?id="+$("#acount").text();
+                    i = 2;
+                    break;
+                case "#ac_fund_money":
+                    pathn = "/fund/toList";
+                    i = 3;
+                    break;
+                case "#zhuan":
+                    pathn = "/fund/zhuan";
+                    i = 4;
+                    break;
+                case "#in":
+                    pathn = "/fund/in";
+                    i = 5;
+                    break;
+                case "#out":
+                    pathn = "/fund/out";
+                    i = 6;
+                    break;
+                case "#open":
+                    pathn = "/fund/openAccClient";
+                    i = 7;
+                    break;
+                case "#check":
+                    pathn = "/fund/checkAccClient";
+                    i = 8;
+                    break;
+                case "#fen":
+                    pathn = "/fund/huan?id="+$("#acount").text();
+                    i = 9;
+                    break;
+                case "#go":
+                    pathn = "/fund/gou";
+                    i = 10;
+                    break;
+                case "#che":
+                    pathn = "/fund/che";
+                    i = 11;
+                    break;
+                case "#shu":
+                    pathn = "/fund/shu";
+                    i = 12;
+                    break;
+                    /**默认显示*/
+                default:
+                    pathn = "toIntroduce";
+                    i = 0;
+                    break;
+            }
+            $("#content").load(pathn); //加载相对应的内容
+            $(".userMenu li").eq(i).addClass("current").siblings().removeClass("current"); //当前列表高亮
+        }
+        var sId = window.location.hash;
+        loadInner(sId);
+    });
+</script>
+</html>

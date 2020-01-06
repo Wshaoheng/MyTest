@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ygjx.wyq.dao.AcFundMoneyMapper">
+  <resultMap id="BaseResultMap" type="com.ygjx.wyq.entity.AcFundMoney">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="fund_name" jdbcType="VARCHAR" property="fundName" />
+    <result column="share_category" jdbcType="VARCHAR" property="shareCategory" />
+    <result column="currency" jdbcType="VARCHAR" property="currency" />
+    <result column="discount_rate" jdbcType="VARCHAR" property="discountRate" />
+    <result column="fund_method" jdbcType="VARCHAR" property="fundMethod" />
+    <result column="broker" jdbcType="VARCHAR" property="broker" />
+    <result column="purchase_amount" jdbcType="DOUBLE" property="purchaseAmount" />
+    <result column="amount_available" jdbcType="DOUBLE" property="amountAvailable" />
+    <result column="available_share" jdbcType="INTEGER" property="availableShare" />
+    <result column="fen" jdbcType="VARCHAR" property="fen" />
+    <association property="acClient" javaType="com.ygjx.fxm.entity.AcClient">
+      <id column="client_account" jdbcType="VARCHAR" property="clientAccount"/>
+      <result column="client_name" jdbcType="VARCHAR" property="clientName"/>
+      <result column="client_sex" jdbcType="VARCHAR" property="clientSex"/>
+      <result column="client_type" jdbcType="INTEGER" property="clientType"/>
+      <result column="client_num" jdbcType="VARCHAR" property="clientNum"/>
+      <result column="client_validity" jdbcType="VARCHAR" property="clientValidity"/>
+      <result column="client_birthday" jdbcType="VARCHAR" property="clientBirthday"/>
+      <result column="client_province" jdbcType="VARCHAR" property="clientProvince"/>
+      <result column="client_city" jdbcType="INTEGER" property="clientCity"/>
+      <result column="client_address" jdbcType="VARCHAR" property="clientAddress"/>
+      <result column="client_postCode" jdbcType="VARCHAR" property="clientPostcode"/>
+      <result column="client_tel" jdbcType="VARCHAR" property="clientTel"/>
+      <result column="client_phone" jdbcType="VARCHAR" property="clientPhone"/>
+      <result column="client_password" jdbcType="VARCHAR" property="clientPassword"/>
+      <result column="client_occupation" jdbcType="VARCHAR" property="clientOccupation"/>
+      <result column="client_beneficiary" jdbcType="VARCHAR" property="clientBeneficiary"/>
+      <result column="client_controller" jdbcType="VARCHAR" property="clientController" />
+      <result column="client_experience" jdbcType="INTEGER" property="clientExperience" />
+      <result column="agent_id" jdbcType="INTEGER" property="agentId" />
+      <result column="client_people" jdbcType="VARCHAR" property="clientPeople" />
+    </association>
+    <association property="acAdmin" javaType="com.ygjx.wsh.entity.AcAdmin">
+      <id column="admin_id" jdbcType="INTEGER" property="adminId"/>
+      <result column="admin_account" jdbcType="VARCHAR" property="adminAccount"/>
+      <result column="admin_password" jdbcType="VARCHAR" property="adminPassword"/>
+      <result column="admin_state" jdbcType="INTEGER" property="adminState"/>
+      <result column="admin_type" jdbcType="INTEGER" property="adminType"/>
+      <result column="admin_num" jdbcType="VARCHAR" property="adminNum"/>
+      <result column="admin_dot" jdbcType="VARCHAR" property="adminDot"/>
+    </association>
+    <association property="acClientDocuments" javaType="com.ygjx.wsh.entity.AcClientDocuments">
+      <id column="documents_id" jdbcType="INTEGER" property="documentsId" />
+      <result column="documents_name" jdbcType="VARCHAR" property="documentsName" />
+    </association>
+    <association property="accClient" javaType="com.ygjx.wsh.entity.AccClient">
+      <id column="acc_account" jdbcType="VARCHAR" property="accAccount" />
+      <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+      <result column="certificate_type" jdbcType="VARCHAR" property="certificateType" />
+      <result column="certificate_num" jdbcType="VARCHAR" property="certificateNum" />
+      <result column="certificate_validity" jdbcType="VARCHAR" property="certificateValidity" />
+      <result column="province" jdbcType="VARCHAR" property="province" />
+      <result column="city" jdbcType="VARCHAR" property="city" />
+      <result column="correspondence_address" jdbcType="VARCHAR" property="correspondenceAddress" />
+      <result column="post_code" jdbcType="VARCHAR" property="postCode" />
+      <result column="telphone_1" jdbcType="VARCHAR" property="telphone1" />
+      <result column="telphone_2" jdbcType="VARCHAR" property="telphone2" />
+      <result column="custom_service" jdbcType="VARCHAR" property="customService" />
+      <result column="email_address" jdbcType="VARCHAR" property="emailAddress" />
+      <result column="phone" jdbcType="VARCHAR" property="phone" />
+      <result column="customer_referred" jdbcType="VARCHAR" property="customerReferred" />
+      <result column="fax_num_1" jdbcType="VARCHAR" property="faxNum1" />
+      <result column="fax_num_2" jdbcType="VARCHAR" property="faxNum2" />
+      <result column="trade_password" jdbcType="VARCHAR" property="tradePassword" />
+      <result column="send_confirmation" jdbcType="INTEGER" property="sendConfirmation" />
+      <result column="shanghai_stock_exchange_account" jdbcType="VARCHAR" property="shanghaiStockExchangeAccount" />
+      <result column="shenzhen_stock_exchange_account" jdbcType="VARCHAR" property="shenzhenStockExchangeAccount" />
+      <result column="ta_code" jdbcType="VARCHAR" property="taCode" />
+      <result column="fund_account" jdbcType="VARCHAR" property="fundAccount" />
+      <result column="channel_id" jdbcType="INTEGER" property="channelId" />
+      <result column="commissioned_by_facsimile" jdbcType="INTEGER" property="commissionedByFacsimile" />
+      <result column="client_acc" jdbcType="VARCHAR" property="clientAcc" />
+    </association>
+    <association property="acFund" javaType="com.ygjx.wyq.entity.AcFund">
+      <id column="fund_id" jdbcType="INTEGER" property="fundId"/>
+      <result column="fund_name" jdbcType="VARCHAR" property="fundName"/>
+      <result column="fund_type" jdbcType="INTEGER" property="fundType"/>
+      <result column="fund_risk" jdbcType="INTEGER" property="fundRisk"/>
+      <result column="fund_code" jdbcType="INTEGER" property="fundCode"/>
+      <result column="fund_share" jdbcType="INTEGER" property="fundShare"/>
+      <result column="share_price" jdbcType="VARCHAR" property="sharePrice"/>
+    </association>
+    <association property="acFundAccount" javaType="com.ygjx.wyq.entity.AcFundAccount">
+      <id column="fund_account" jdbcType="VARCHAR" property="fundAccount" />
+      <result column="fund_password" jdbcType="VARCHAR" property="fundPassword" />
+      <result column="fund_wei" jdbcType="VARCHAR" property="fundWei" />
+      <result column="client_name" jdbcType="VARCHAR" property="clientName" />
+      <result column="client_sex" jdbcType="VARCHAR" property="clientSex" />
+      <result column="account_type" jdbcType="VARCHAR" property="accountType" />
+      <result column="client_type" jdbcType="INTEGER" property="clientType" />
+      <result column="client_num" jdbcType="VARCHAR" property="clientNum" />
+      <result column="fund_nationality" jdbcType="VARCHAR" property="fundNationality" />
+      <result column="client_validity" jdbcType="VARCHAR" property="clientValidity" />
+      <result column="client_password" jdbcType="VARCHAR" property="clientPassword" />
+      <result column="client_taCode" jdbcType="VARCHAR" property="clientTacode" />
+      <result column="fund_sign" jdbcType="VARCHAR" property="fundSign" />
+      <result column="client_postCode" jdbcType="VARCHAR" property="clientPostcode" />
+      <result column="client_tel" jdbcType="VARCHAR" property="clientTel" />
+      <result column="fund_fax" jdbcType="VARCHAR" property="fundFax" />
+      <result column="client_phone" jdbcType="VARCHAR" property="clientPhone" />
+      <result column="mail_address" jdbcType="VARCHAR" property="mailAddress" />
+      <result column="email" jdbcType="VARCHAR" property="email" />
+      <result column="discount_rate" jdbcType="REAL" property="discountRate" />
+      <result column="fen" jdbcType="VARCHAR" property="fen" />
+      <result column="capital" jdbcType="VARCHAR" property="capital" />
+      <result column="billing" jdbcType="VARCHAR" property="billing" />
+      <result column="billing_approach" jdbcType="VARCHAR" property="billingApproach" />
+      <result column="client_birthday" jdbcType="DATE" property="clientBirthday" />
+      <result column="client_occupation" jdbcType="VARCHAR" property="clientOccupation" />
+      <result column="client_account" jdbcType="VARCHAR" property="clientAccount" />
+      <result column="manager_id" jdbcType="INTEGER" property="managerId" />
+      <result column="bank_id" jdbcType="INTEGER" property="bankId" />
+      <result column="risk_score" jdbcType="DOUBLE" property="riskScore" />
+    </association>
+    <association property="acCounter" javaType="com.ygjx.wsh.entity.AcCounter">
+      <id column="counter_id" jdbcType="INTEGER" property="counterId" />
+      <result column="operating_time" jdbcType="VARCHAR" property="operatingTime" />
+      <result column="operation_type" jdbcType="VARCHAR" property="operationType" />
+      <result column="admin_id" jdbcType="INTEGER" property="adminId" />
+      <result column="client_account" jdbcType="VARCHAR" property="clientAccount" />
+      <result column="fund_account" jdbcType="VARCHAR" property="fundAccount" />
+      <result column="status" jdbcType="INTEGER" property="status" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, fund_name, share_category, currency, discount_rate, fund_method, broker, purchase_amount, 
+    amount_available, available_share, fen
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ac_fund_money
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ac_fund_money
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ygjx.wyq.entity.AcFundMoney">
+    insert into ac_fund_money (id, fund_name, share_category, 
+      currency, discount_rate, fund_method, 
+      broker, purchase_amount, amount_available, 
+      available_share, fen)
+    values (#{id,jdbcType=INTEGER}, #{fundName,jdbcType=VARCHAR}, #{shareCategory,jdbcType=VARCHAR}, 
+      #{currency,jdbcType=VARCHAR}, #{discountRate,jdbcType=VARCHAR}, #{fundMethod,jdbcType=VARCHAR}, 
+      #{broker,jdbcType=VARCHAR}, #{purchaseAmount,jdbcType=DOUBLE}, #{amountAvailable,jdbcType=DOUBLE}, 
+      #{availableShare,jdbcType=INTEGER}, #{fen,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ygjx.wyq.entity.AcFundMoney"
+          useGeneratedKeys="true" keyProperty="id">
+    <selectKey keyProperty="id" resultType="Integer" order="AFTER">
+      select LAST_INSERT_ID();
+    </selectKey>
+    insert into ac_fund_money
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="fundName != null">
+        fund_name,
+      </if>
+      <if test="shareCategory != null">
+        share_category,
+      </if>
+      <if test="currency != null">
+        currency,
+      </if>
+      <if test="discountRate != null">
+        discount_rate,
+      </if>
+      <if test="fundMethod != null">
+        fund_method,
+      </if>
+      <if test="broker != null">
+        broker,
+      </if>
+      <if test="purchaseAmount != null">
+        purchase_amount,
+      </if>
+      <if test="amountAvailable != null">
+        amount_available,
+      </if>
+      <if test="availableShare != null">
+        available_share,
+      </if>
+      <if test="fen != null">
+        fen,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="fundName != null">
+        #{fundName,jdbcType=VARCHAR},
+      </if>
+      <if test="shareCategory != null">
+        #{shareCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="currency != null">
+        #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="discountRate != null">
+        #{discountRate,jdbcType=VARCHAR},
+      </if>
+      <if test="fundMethod != null">
+        #{fundMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="broker != null">
+        #{broker,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseAmount != null">
+        #{purchaseAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="amountAvailable != null">
+        #{amountAvailable,jdbcType=DOUBLE},
+      </if>
+      <if test="availableShare != null">
+        #{availableShare,jdbcType=INTEGER},
+      </if>
+      <if test="fen != null">
+        #{fen,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ygjx.wyq.entity.AcFundMoney">
+    update ac_fund_money
+    <set>
+      <if test="fundName != null">
+        fund_name = #{fundName,jdbcType=VARCHAR},
+      </if>
+      <if test="shareCategory != null">
+        share_category = #{shareCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="currency != null">
+        currency = #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="discountRate != null">
+        discount_rate = #{discountRate,jdbcType=VARCHAR},
+      </if>
+      <if test="fundMethod != null">
+        fund_method = #{fundMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="broker != null">
+        broker = #{broker,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseAmount != null">
+        purchase_amount = #{purchaseAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="amountAvailable != null">
+        amount_available = #{amountAvailable,jdbcType=DOUBLE},
+      </if>
+      <if test="availableShare != null">
+        available_share = #{availableShare,jdbcType=INTEGER},
+      </if>
+      <if test="fen != null">
+        fen = #{fen,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ygjx.wyq.entity.AcFundMoney">
+    update ac_fund_money
+    set fund_name = #{fundName,jdbcType=VARCHAR},
+      share_category = #{shareCategory,jdbcType=VARCHAR},
+      currency = #{currency,jdbcType=VARCHAR},
+      discount_rate = #{discountRate,jdbcType=VARCHAR},
+      fund_method = #{fundMethod,jdbcType=VARCHAR},
+      broker = #{broker,jdbcType=VARCHAR},
+      purchase_amount = #{purchaseAmount,jdbcType=DOUBLE},
+      amount_available = #{amountAvailable,jdbcType=DOUBLE},
+      available_share = #{availableShare,jdbcType=INTEGER},
+      fen = #{fen,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!--getAcFundMoneyById-->
+  <select id="getAcFundMoneyById" resultMap="BaseResultMap">
+    select * from ac_fund_money
+    where id = #{id}
+  </select>
+
+  <!--list-->
+  <select id="list" resultMap="BaseResultMap">
+    SELECT * FROM  ac_fund_money afm
+    LEFT JOIN ac_fund_info afi ON afm.`id`=afi.`fund_info_fund`
+    LEFT JOIN ac_fund_account afa ON afi.`fund_info_account`=afa.`fund_account`
+    LEFT JOIN ac_fund af ON afi.`fund_info_id`=af.`fund_id`
+    LEFT JOIN ac_client_documents acd ON afa.`client_type`=acd.`documents_id`
+    LEFT JOIN ac_client ac ON ac.`client_account`=afa.`client_account`
+  </select>
+
+  <!--mo-->
+  <select id="mo" resultMap="BaseResultMap">
+    SELECT * FROM  ac_fund_money afm
+    LEFT JOIN ac_fund_info afi ON afm.`id`=afi.`fund_info_fund`
+    LEFT JOIN ac_fund_account afa ON afi.`fund_info_account`=afa.`fund_account`
+    LEFT JOIN ac_fund af ON afi.`fund_info_id`=af.`fund_id`
+    LEFT JOIN ac_client_documents acd ON afa.`client_type`=acd.`documents_id`
+    LEFT JOIN ac_client ac ON ac.`client_account`=afa.`client_account`
+    <where>
+      <if test="fundAccount != null and fundAccount != ''and fundPassword != null and fundPassword != '' ">
+        and afa.fund_account = #{fundAccount} and afa.fund_password = #{fundPassword}
+      </if>
+      <if test="clientAccount != null and  clientAccount != '' and clientPassword != null and clientPassword != '' ">
+        and afa.client_account = #{clientAccount} and afa.client_password = #{clientPassword}
+      </if>
+    </where>
+  </select>
+
+  <!--update-->
+  <update id="update" >
+    update ac_fund_money
+    set fen = #{fen}
+    where id = #{id}
+  </update>
+  <!--getByFundCode-->
+  <select id="getByFundCode" resultMap="BaseResultMap">
+    SELECT * FROM  ac_fund_money afm
+    LEFT JOIN ac_fund_info afi ON afm.`id`=afi.`fund_info_fund`
+    LEFT JOIN ac_fund_account afa ON afi.`fund_info_account`=afa.`fund_account`
+    LEFT JOIN ac_fund af ON afi.`fund_info_id`=af.`fund_id`
+    LEFT JOIN ac_client_documents acd ON afa.`client_type`=acd.`documents_id`
+    LEFT JOIN ac_client ac ON ac.`client_account`=afa.`client_account`
+    where fund_code = #{fundCode}
+  </select>
+
+  <!--getByFundCodeList-->
+  <select id="getByFundCodeList" resultMap="BaseResultMap">
+    SELECT * FROM  ac_fund_money afm
+    LEFT JOIN ac_fund_info afi ON afm.`id`=afi.`fund_info_fund`
+    LEFT JOIN ac_fund_account afa ON afi.`fund_info_account`=afa.`fund_account`
+    LEFT JOIN ac_fund af ON afi.`fund_info_id`=af.`fund_id`
+    LEFT JOIN ac_client_documents acd ON afa.`client_type`=acd.`documents_id`
+    LEFT JOIN ac_client ac ON ac.`client_account`=afa.`client_account`
+    LEFT JOIN ac_counter acc ON acc.`client_account`=afa.`client_account`
+    <where>
+      <if test="fundCode != null and fundCode != '' ">
+        and fund_code = #{fundCode}
+      </if>
+      <if test="counterId != null and counterId != 0">
+        and counter_id = #{counterId}
+      </if>
+    </where>
+  </select>
+</mapper>

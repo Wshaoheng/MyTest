@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ygjx.wsh.dao.AcBankMapper">
+  <resultMap id="BaseResultMap" type="com.ygjx.wsh.entity.AcBank">
+    <id column="bank_id" jdbcType="INTEGER" property="bankId" />
+    <result column="bank_full_name" jdbcType="VARCHAR" property="bankFullName" />
+    <result column="bank_province" jdbcType="VARCHAR" property="bankProvince" />
+    <result column="bank_city" jdbcType="VARCHAR" property="bankCity" />
+    <result column="jones_lang_lasalle" jdbcType="VARCHAR" property="jonesLangLasalle" />
+    <result column="bank_name_id" jdbcType="INTEGER" property="bankNameId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    bank_id, bank_full_name, bank_province, bank_city, jones_lang_lasalle, bank_name_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ac_bank
+    where bank_id = #{bankId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ac_bank
+    where bank_id = #{bankId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ygjx.wsh.entity.AcBank">
+    insert into ac_bank ( bank_full_name, bank_province,
+      bank_city, jones_lang_lasalle, bank_name_id
+      )
+    values ( #{bankFullName,jdbcType=VARCHAR}, #{bankProvince,jdbcType=VARCHAR},
+      #{bankCity,jdbcType=VARCHAR}, #{jonesLangLasalle,jdbcType=VARCHAR}, #{bankNameId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ygjx.wsh.entity.AcBank">
+    insert into ac_bank
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bankId != null">
+        bank_id,
+      </if>
+      <if test="bankFullName != null">
+        bank_full_name,
+      </if>
+      <if test="bankProvince != null">
+        bank_province,
+      </if>
+      <if test="bankCity != null">
+        bank_city,
+      </if>
+      <if test="jonesLangLasalle != null">
+        jones_lang_lasalle,
+      </if>
+      <if test="bankNameId != null">
+        bank_name_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bankId != null">
+        #{bankId,jdbcType=INTEGER},
+      </if>
+      <if test="bankFullName != null">
+        #{bankFullName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankProvince != null">
+        #{bankProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCity != null">
+        #{bankCity,jdbcType=VARCHAR},
+      </if>
+      <if test="jonesLangLasalle != null">
+        #{jonesLangLasalle,jdbcType=VARCHAR},
+      </if>
+      <if test="bankNameId != null">
+        #{bankNameId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ygjx.wsh.entity.AcBank">
+    update ac_bank
+    <set>
+      <if test="bankFullName != null">
+        bank_full_name = #{bankFullName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankProvince != null">
+        bank_province = #{bankProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCity != null">
+        bank_city = #{bankCity,jdbcType=VARCHAR},
+      </if>
+      <if test="jonesLangLasalle != null">
+        jones_lang_lasalle = #{jonesLangLasalle,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null">
+        bank_name_id = #{bankNameId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where bank_id = #{bankId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ygjx.wsh.entity.AcBank">
+    update ac_bank
+    set bank_full_name = #{bankFullName,jdbcType=VARCHAR},
+      bank_province = #{bankProvince,jdbcType=VARCHAR},
+      bank_city = #{bankCity,jdbcType=VARCHAR},
+      jones_lang_lasalle = #{jonesLangLasalle,jdbcType=VARCHAR},
+      bank_name_id = #{bankNameId,jdbcType=INTEGER}
+    where bank_id = #{bankId,jdbcType=INTEGER}
+  </update>
+</mapper>

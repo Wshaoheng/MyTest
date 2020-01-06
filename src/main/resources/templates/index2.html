@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleleaf.org">
+<head>
+	<title>华夏基金后台系统</title>
+	<meta charset="utf-8"/>
+
+	<link rel="stylesheet" href="../static/css/style.css" media="screen" type="text/css" />
+	<script type="text/javascript" src="../static/js/jquery-2.1.0.js"></script>
+	<style type="text/css">
+		.main-sidebar{
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100%;
+			min-height: 100%;
+			width: 230px;
+			z-index: 810;
+			background-color: #222d32;
+		}
+		#content{
+			border:3px solid #F00;
+			position: absolute;
+			left: 12%;
+			top: 0%;
+			width: 1200px;
+		}
+		#admin{
+			border:3px solid #F00;
+			position: absolute;
+			left: 70%;
+			top: 0%;
+		}
+		li{
+			list-style: none;
+			line-height:50px;
+			cursor:pointer;
+		}
+		#aa{
+			position:fixed;
+			z-index:0;
+			top: 0.5px;
+			width: 11%;
+			padding-left: 3px;
+		}
+	</style>
+</head>
+<body>
+<div id="admin"><span th:text="${session.acAdmin.adminAccount}"></span></div>
+<aside class="main-sidebar">
+	<section id="aa"  class="sidebar">
+		<ul  class="userMenu">
+			<li class="current" data-id="center">个人账户开户</li>
+			<li data-id="acc_client" >机构账号开户</li>
+			<li data-id="trade">交易记录</li>
+			<li data-id="update_ac_client">客户资料修改</li>
+			<li data-id="update_acc_client">机构资料修改</li>
+			<li data-id="info">客户销户</li>
+			<li data-id="closing_account">机构销户</li>
+		</ul>
+	</section>
+</aside>
+<span id="content"></span>
+</body>
+<script>
+	$(function() {
+		$(".userMenu").on("click", "li", function() {
+			var sId = $(this).data("id"); //获取data-id的值
+			window.location.hash = sId; //设置锚点
+			loadInner(sId);
+		});
+		function loadInner(sId) {
+			var sId = window.location.hash;
+			var pathn, i;
+			switch(sId) {
+				case "#center":
+					pathn = "toAdd";
+					i = 0;
+					break;
+				case "#acc_client":
+					pathn = "toAddAccClient";
+					i = 1;
+					break;
+				case "#trade":
+					pathn = "toIndex2";
+					i = 2;
+					break;
+				case "#update_ac_client":
+					pathn = "toUpdateAcClient";
+					i = 3;
+					break;
+				case "#update_acc_client":
+					pathn = "toUpdateAccClient";
+					i = 4;
+					break;
+				case "#info":
+					pathn = "toExitPeopleAcount";
+					i = 5;
+					break;
+				case "#closing_account":
+					pathn = "toAccClientClose";
+					i = 6;
+					break;
+				default:
+					pathn = "toIntroduce";
+					i = 0;
+					break;
+			}
+			$("#content").load(pathn); //加载相对应的内容
+			$(".userMenu li").eq(i).addClass("current").siblings().removeClass("current"); //当前列表高亮
+		}
+		var sId = window.location.hash;
+		loadInner(sId);
+	});
+</script>
+</html>

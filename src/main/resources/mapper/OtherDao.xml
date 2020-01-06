@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ygjx.wyh.dao.OtherDao">
+
+    <!--登录-->
+    <select id="login" resultType="com.ygjx.wyh.entity.FundAccount">
+        select
+         client_account as clientAccount,
+         client_password as clientPassword
+        from
+           ac_fund_account
+    </select>
+
+</mapper>

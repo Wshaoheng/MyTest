@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ygjx.wyq.dao.AcFundMapper">
+  <resultMap id="BaseResultMap" type="com.ygjx.wyq.entity.AcFund">
+    <id column="fund_id" jdbcType="INTEGER" property="fundId" />
+    <result column="fund_name" jdbcType="VARCHAR" property="fundName" />
+    <result column="fund_type" jdbcType="INTEGER" property="fundType" />
+    <result column="fund_risk" jdbcType="INTEGER" property="fundRisk" />
+    <result column="fund_code" jdbcType="VARCHAR" property="fundCode" />
+    <result column="fund_share" jdbcType="INTEGER" property="fundShare" />
+    <result column="share_price" jdbcType="DOUBLE" property="sharePrice" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    fund_id, fund_name, fund_type, fund_risk, fund_code, fund_share, share_price
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ac_fund
+    where fund_id = #{fundId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ac_fund
+    where fund_id = #{fundId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ygjx.wyq.entity.AcFund">
+    insert into ac_fund (fund_id, fund_name, fund_type,
+    fund_risk, fund_code, fund_share,
+    share_price)
+    values (#{fundId,jdbcType=INTEGER}, #{fundName,jdbcType=VARCHAR}, #{fundType,jdbcType=INTEGER},
+    #{fundRisk,jdbcType=INTEGER}, #{fundCode,jdbcType=VARCHAR}, #{fundShare,jdbcType=INTEGER},
+    #{sharePrice,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ygjx.wyq.entity.AcFund">
+    insert into ac_fund
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fundId != null">
+        fund_id,
+      </if>
+      <if test="fundName != null">
+        fund_name,
+      </if>
+      <if test="fundType != null">
+        fund_type,
+      </if>
+      <if test="fundRisk != null">
+        fund_risk,
+      </if>
+      <if test="fundCode != null">
+        fund_code,
+      </if>
+      <if test="fundShare != null">
+        fund_share,
+      </if>
+      <if test="sharePrice != null">
+        share_price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="fundId != null">
+        #{fundId,jdbcType=INTEGER},
+      </if>
+      <if test="fundName != null">
+        #{fundName,jdbcType=VARCHAR},
+      </if>
+      <if test="fundType != null">
+        #{fundType,jdbcType=INTEGER},
+      </if>
+      <if test="fundRisk != null">
+        #{fundRisk,jdbcType=INTEGER},
+      </if>
+      <if test="fundCode != null">
+        #{fundCode,jdbcType=VARCHAR},
+      </if>
+      <if test="fundShare != null">
+        #{fundShare,jdbcType=INTEGER},
+      </if>
+      <if test="sharePrice != null">
+        #{sharePrice,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ygjx.wyq.entity.AcFund">
+    update ac_fund
+    <set>
+      <if test="fundName != null">
+        fund_name = #{fundName,jdbcType=VARCHAR},
+      </if>
+      <if test="fundType != null">
+        fund_type = #{fundType,jdbcType=INTEGER},
+      </if>
+      <if test="fundRisk != null">
+        fund_risk = #{fundRisk,jdbcType=INTEGER},
+      </if>
+      <if test="fundCode != null">
+        fund_code = #{fundCode,jdbcType=VARCHAR},
+      </if>
+      <if test="fundShare != null">
+        fund_share = #{fundShare,jdbcType=INTEGER},
+      </if>
+      <if test="sharePrice != null">
+        share_price = #{sharePrice,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where fund_id = #{fundId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ygjx.wyq.entity.AcFund">
+    update ac_fund
+    set fund_name = #{fundName,jdbcType=VARCHAR},
+      fund_type = #{fundType,jdbcType=INTEGER},
+      fund_risk = #{fundRisk,jdbcType=INTEGER},
+      fund_code = #{fundCode,jdbcType=VARCHAR},
+      fund_share = #{fundShare,jdbcType=INTEGER},
+      share_price = #{sharePrice,jdbcType=DOUBLE}
+    where fund_id = #{fundId,jdbcType=INTEGER}
+  </update>
+
+  <!--getList-->
+  <select id="getList"  resultMap="BaseResultMap">
+    SELECT * FROM ac_fund
+  </select>
+
+  <!--getByFundCode-->
+  <select id="getByFundName"  resultMap="BaseResultMap">
+    SELECT * FROM ac_fund where fund_name = #{fundName}
+  </select>
+</mapper>

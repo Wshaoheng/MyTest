@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>资金存入</title>
+    <style>
+        input {width: 250px}
+        select {width: 250px}
+
+        span {
+            width: auto;
+            height: 20px}
+    </style>
+</head>
+<body>
+<form action="/RedemptionController/depositOfFunds">
+    <table>
+        <tr>
+            <td>
+                <span>委托方式:</span>
+                <select>
+                    <option>柜台交易</option>
+                    <option>网上交易</option>
+                </select>
+                <span>账户类型:</span>
+                <select >
+                    <option>交易账号</option>
+                    <option>基金账号</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span>交易账号:</span><input type="text" >
+                <span>基金账号:</span> <input type="text" >
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span>密码:</span> <input type="password" ><input type="button" value="查询">
+            </td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td>
+                <span>票据类型:</span>
+                <select>
+                    <option value="银行转账">银行转账</option>
+                    <option value="汇款">汇款</option></select>
+                <span>票据日期:</span>
+                <input type="date">
+            </td>
+        </tr>
+        <tr>
+            <td><span>存入金额:</span>
+                <input type="text">
+                <span>币种:</span>
+                <select>
+                    <option value="人名币" selected>人名币</option>
+                    <option value="美元">美元</option>
+                    <option value="欧元">欧元</option>
+                    <option value="英镑">英镑</option></select>
+            </td>
+        </tr>
+        <tr>
+            <td><span>银行编号:</span>
+                <!--这里要查出来，还要循环-->
+            <select>
+                <option></option>
+            </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span>银行账号:</span>
+                <input type="text">
+            </td>
+        </tr>
+        <tr>
+            <td><span>开户银行:</span> <input type="text"></td>
+        </tr>
+        <tr>
+            <td><span>银行户名:</span> <input type="text"></td>
+        </tr>
+        <tr>
+            <td><span>收款账户:</span>
+            <select><option>014招商上海分行营业部</option></select>
+            </td>
+        </tr>
+    </table>
+
+    <!DOCTYPE html>
+    <html lang="en"   >
+    <head>
+        <meta charset="UTF-8">
+        <title>机构资料修改</title>
+        <script type="text/javascript" src="../static/js/updateAccClient.js"></script>
+        <style>
+            form { margin-left: 100px}
+            label {  width:200px; float:left; text-align:right; }
+            .button{ width: 70px; }
+            #search{ margin-left: 200px}
+        </style>
+    </head>
+    <body>
+    <form action="" id="form_update_info">
+        <table>
+            <tr>
+                <td><label>账户类型：</label><select name="" >
+                    <option value="">--请选择--</option>
+                    <option value="1">交易账号</option>
+                    <option value="2">基金账号</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td><label>交易账号：</label><input type="text" name="accAccount" value="" id="accValue"/></td>
+            </tr>
+            <tr>
+                <td><label>密    码：</label><input type="text" name="tradePassword" value=""/></td>
+                <td><input class="button" type="button" value="查询" id="search" /></td>
+            </tr>
+        </table>
+    </form>
+    <div id="acc_client_info"></div>
+
+
+    </body>
+    </html>
+</form>
+</body>
+</html>

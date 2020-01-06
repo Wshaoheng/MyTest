@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ygjx.wyh.dao.FundRedemptionDao">
+   <!-- 基金赎回中查询出 基金中个人的部分表格-->
+    <select id="selectFormByAc" resultType="com.ygjx.wyh.dto.RedemptionByAcDto">
+        SELECT
+        a.client_name as clientName,
+        a.client_people as clientPeople,
+        a.client_type as clientType,
+        a.client_num as clientNum,
+        b.bank_id as bankId,
+        c.bank_full_name as bankFullName,
+        b.bank_account as bankCode
+        from
+        ac_client a
+        inner join ac_bank_info b on a.client_account = b.client_account
+        inner join ac_bank c on b.bank_id = c.bank_id
+        where
+            a.client_account = #{clientAccount}
+    </select>
+    
+    <!--基金赎回中查询出 基金中机构的部分表格 -->
+    <select id="selectFormByAcc" resultType="com.ygjx.wyh.dto.RedemptionByAccDto">
+      SELECT
+        a.customer_name as clientName,
+        a.certificate_type as clientType,
+        a.certificate_num as clientNum,
+        d.admin_account as adminAccount,
+        d.admin_type as adminType,
+        d.admin_num as adminNum,
+        b.bank_id as bankId,
+        c.bank_full_name as  bankOpenName,
+        b.bank_account as bankCode
+        from
+        acc_client a
+        inner join ac_admin d on a.admin_id = d.admin_id
+        inner join ac_bank_info b on a.acc_account = b.client_account
+        inner join ac_bank c on b.bank_id = c.bank_id
+        where
+            a.acc_account = #{accAccount}
+    </select>
+    <!--修改基金赎回的第二个菜单栏信息  就是修改赎回份额，以及可用金额-->
+    <update id="updateRedemptionInfo" parameterType="com.ygjx.wyh.entity.FundMoney">
+        update
+        ac_fund_money
+        set
+        amount_available = #{amountAvailable},
+        available_share = #{availableShare}
+        where
+            fund_name = #{fundName}
+            and id = #{id}
+    </update>
+
+    <!--修改基金总表的基金份额-->
+    <update id="updateBankShare" parameterType="com.ygjx.wyh.entity.Fund">
+        update
+            ac_fund
+        set
+            fund_share  = #{fundShare}
+        where
+            fund_name  = #{fundName}
+    </update>
+
+    <!--查询最初的份额数量和金额-->
+    <select id="selectShare" resultType="com.ygjx.wyh.entity.FundMoney" parameterType="com.ygjx.wyh.dto.RedemptionInfo2Dto">
+        SELECT
+        b.id as id,
+        b.fund_name as fundName,
+        b.purchase_amount as purchaseAmount,
+        b.amount_available as amountAvailable,
+        b.available_share as availableShare
+        from
+        ac_fund_info a
+        inner join ac_fund_money b on a.fund_info_fund = b.id
+        <where>
+            <if test="fundInfoAccount != null">
+                and a.fund_info_account = #{fundInfoAccount}
+            </if>
+            <if test="fundName != null">
+                and b.fund_name = #{fundName}
+            </if>
+        </where>
+    </select>
+
+    <!--根据基金的名称查询基金的份额-->
+    <select id="selectShareByName" parameterType="java.lang.String" resultType="com.ygjx.wyh.entity.Fund">
+        select
+            fund_id as fundId,
+            fund_name as fundName,
+            fund_type as fundType,
+            fund_risk as fundRisk,
+            fund_code as fundCode,
+            fund_share as  fundShare,
+            share_price as sharePrice
+        from
+            ac_fund
+        <where>
+            <if test="fundName != null">
+               and fund_name = #{fundName}
+            </if>
+        </where>
+
+    </select>
+
+
+    <!--*指定赎回的时候的确认信息-->
+    <select id="selectOkInfo" resultType="com.ygjx.wyh.entity.FundOk">
+        select
+            ok_num as okNum,
+            ok_time as okTime
+        from
+            ac_fund_ok a
+            inner join ac_fund_money afm on a.fund_money_id = afm.id
+        where
+            afm.id = #{fundOkId}
+    </select>
+
+    <!--赎回中的表格-->
+    <select id="selectForm1" resultType="com.ygjx.wyh.dto.RedemptionForm1">
+        SELECT
+        a.fund_info_account,
+        c.fund_code as fundCode,
+        b.share_category as shareCategory,
+        b.amount_available as shareBalance1
+        from
+        ac_fund_info a
+        inner join ac_fund_money b on a.fund_info_fund = b.id
+        inner join ac_fund c on b.fund_name =c.fund_name
+        where
+        a.fund_info_account = #{fundAccount}
+    </select>
+
+    <!--指定赎回的表格-->
+    <select id="selectForm2" resultType="com.ygjx.wyh.dto.RedemptionForm2">
+        SELECT
+        a.fund_info_account,
+        c.fund_code as fundCode,
+        b.share_category as shareCategory,
+        d.ok_time as sureDate,
+        d.ok_num as sureNumWithTa,
+        b.amount_available as shareBalance
+        from
+        ac_fund_info a
+        inner join ac_fund_money b on a.fund_info_fund = b.id
+        inner join ac_fund c on b.fund_name =c.fund_name
+        inner join ac_fund_ok d on b.id = d.fund_money_id
+        where
+        a.fund_info_account = #{fundAccount}
+    </select>
+
+    <!--流水表新增-->
+    <insert id="inserBillInfo" parameterType="com.ygjx.wyh.entity.Counter">
+        insert  into
+            ac_counter
+        (operating_time,operation_type,
+        admin_id,client_account,
+        fund_account,status)
+        values (#{operatingTime,jdbcType=VARCHAR}, #{operationType,jdbcType=VARCHAR},
+        #{adminId,jdbcType=INTEGER}, #{clientAccount,jdbcType=VARCHAR}, 
+        #{fundAccount,jdbcType=VARCHAR},#{status,jdbcType=INTEGER})
+    </insert>
+
+    <!--查询流水表-->
+    <select id="selectBillInfo" resultType="com.ygjx.wyh.entity.Counter">
+        select
+            counter_id as counterId,
+            operating_time as operatingTime,
+            operation_type as operationType,
+            admin_id as adminId,
+            client_account as clientAccount,
+            fund_account as fundAccount,
+            status as status
+        from
+            ac_counter
+    </select>
+
+<!--
+    根据交易账号或者基金账号获得 客户所有的基金id
+-->
+    <select id="selectRedemptionAllId" resultType="com.ygjx.wyh.dto.AccountDto">
+        SELECT
+            c.id ,
+            a.fund_account
+        from
+        ac_fund_account a
+        inner join ac_fund_info b on a.fund_account = b.fund_info_account
+        inner join ac_fund_money c on b.fund_info_fund = c.id
+        <where>
+            <if test="clientAccount != null">
+              and  client_account = #{clientAccount}
+            </if>
+            <if test="fundAccount != null">
+              and  fund_account = #{fundAccount}
+            </if>
+        </where>
+    </select>
+
+    <!--机构根据基金账号得到管理员id-->
+    <select id="selectAdminIdFromAcc" resultType="string">
+        SELECT
+            admin_id
+        from
+            acc_client
+        where
+            fund_account = #{fundAccount}
+    </select>
+
+    <!--交易撤单1 根据流水编号 查询流水信息-->
+    <select id="queryCounterByCode" resultType="com.ygjx.wyh.entity.Counter">
+        select
+            counter_id as counterId,
+            operating_time as operatingTime,
+            operation_type as operationType,
+            admin_id as adminId,
+            client_account as clientAccount,
+            fund_account as fundAccount,
+            status as status
+        from
+            ac_counter
+        where
+            counter_id =#{counterId}
+    </select>
+
+    <!--交易撤单2 基金帐号基金密码 查client_type询基金撤回的回显信息-->
+    <select id="cd1" resultType="com.ygjx.wyh.dto.TransactionWithdrawalDto" parameterType="com.ygjx.wyh.dto.IsSaveInfoDto">
+        select
+            client_name as clientName,
+            client_type as codeType,
+            client_num as codeNum
+        from
+            ac_fund_account
+        where
+            fund_account = #{fundAccount}
+            and fund_password =#{fundPassword}
+    </select>
+
+    <!--交易撤单2 基金帐号基金密码 查client_type询基金撤回的回显信息-->
+    <select id="cd2" resultType="com.ygjx.wyh.dto.TransactionWithdrawalDto">
+        SELECT
+            e.admin_account as manager,
+            f.documents_name as managerCodeType,
+            e.admin_num as managerCodeNum
+        from
+            ac_fund_account c,
+        (
+        SELECT distinct
+            a.broker as bname,
+            b.fund_info_account
+        FROM
+            ac_fund_money a
+            inner join ac_fund_info b WHERE a.id = b.fund_info_fund
+        )d
+            inner join ac_admin e on d.bname = e.admin_account
+            inner join ac_client_documents f on e.admin_type = f.documents_id
+        where
+            c.fund_account = d.fund_info_account
+            and c.fund_account = #{fundAccount}
+    </select>
+</mapper>

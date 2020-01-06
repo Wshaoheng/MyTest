@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ygjx.wsh.dao.AcClientScoreMapper">
+  <resultMap id="BaseResultMap" type="com.ygjx.wsh.entity.AcClientScore">
+    <id column="client_score_id" jdbcType="INTEGER" property="clientScoreId" />
+    <result column="client_quesiton_num" jdbcType="INTEGER" property="clientQuesitonNum" />
+    <result column="client_selected" jdbcType="INTEGER" property="clientSelected" />
+    <result column="client_score" jdbcType="INTEGER" property="clientScore" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    client_score_id, client_quesiton_num, client_selected, client_score
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ac_client_score
+    where client_score_id = #{clientScoreId,jdbcType=INTEGER}
+  </select>
+  <!--根据题号查询这道题的所有选项分数 -->
+  <select id="getAcClientScoreByclientQuesitonNum" resultMap="BaseResultMap">
+    select * from ac_client_personal where client_quesiton_num = #{clientQuesitonNum}
+
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ac_client_score
+    where client_score_id = #{clientScoreId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ygjx.wsh.entity.AcClientScore">
+    insert into ac_client_score (client_score_id, client_quesiton_num, 
+      client_selected, client_score)
+    values (#{clientScoreId,jdbcType=INTEGER}, #{clientQuesitonNum,jdbcType=INTEGER}, 
+      #{clientSelected,jdbcType=INTEGER}, #{clientScore,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ygjx.wsh.entity.AcClientScore">
+    insert into ac_client_score
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="clientScoreId != null">
+        client_score_id,
+      </if>
+      <if test="clientQuesitonNum != null">
+        client_quesiton_num,
+      </if>
+      <if test="clientSelected != null">
+        client_selected,
+      </if>
+      <if test="clientScore != null">
+        client_score,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="clientScoreId != null">
+        #{clientScoreId,jdbcType=INTEGER},
+      </if>
+      <if test="clientQuesitonNum != null">
+        #{clientQuesitonNum,jdbcType=INTEGER},
+      </if>
+      <if test="clientSelected != null">
+        #{clientSelected,jdbcType=INTEGER},
+      </if>
+      <if test="clientScore != null">
+        #{clientScore,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ygjx.wsh.entity.AcClientScore">
+    update ac_client_score
+    <set>
+      <if test="clientQuesitonNum != null">
+        client_quesiton_num = #{clientQuesitonNum,jdbcType=INTEGER},
+      </if>
+      <if test="clientSelected != null">
+        client_selected = #{clientSelected,jdbcType=INTEGER},
+      </if>
+      <if test="clientScore != null">
+        client_score = #{clientScore,jdbcType=INTEGER},
+      </if>
+    </set>
+    where client_score_id = #{clientScoreId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ygjx.wsh.entity.AcClientScore">
+    update ac_client_score
+    set client_quesiton_num = #{clientQuesitonNum,jdbcType=INTEGER},
+      client_selected = #{clientSelected,jdbcType=INTEGER},
+      client_score = #{clientScore,jdbcType=INTEGER}
+    where client_score_id = #{clientScoreId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>个人开户</title>
+    <style>
+        .fff {
+            text-align: right;
+        }
+    </style>
+    <script type="text/javascript" src="../static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../static/js/fundAcOpenWyh.js"></script>
+    <script type="text/javascript" src="../static/js/addClient.js"></script>
+</head>
+<body>
+<form action="/addAcClient" id="rmor">
+    <span style="font-size: 20px;color: red">基本信息</span>
+    <input name="channelId" value="0" type="hidden" />
+    <table id="tblea">
+        <tr>
+            <td class="fff"> 委托方式:</td>
+            <td><select name="clientDelegationMethod">
+             <!--从数据库查出来-->
+            </select></td>
+        </tr>
+        <tr>
+            <td class="fff">客户姓名</td>
+            <td><input type="text" name="clientName"/></td>
+        </tr>
+        <tr>
+            <td class="fff"> 性别:</td>
+            <td><select name="clientSex">
+                <option value="">请选择</option>
+                <option value="男">男</option>
+                <option value="女">女</option>
+            </select></td>
+        </tr>
+        <tr>
+            <td class="fff">证件类型</td>
+            <td><select name="clientType">
+                <!--<option value="">请选择</option>
+                <option value="0">身份证</option>
+                <option value="1">居民身份证</option>
+                <option value="2">出生证</option>
+                <option value="3">护照</option>
+                <option value="4">警官证</option>
+                <option value="5">执行公务证</option>
+                <option value="6">学生证</option>-->
+                <!--写一个从数据库查的接口-->
+            </select></td>
+        </tr>
+        <tr>
+            <td class="fff">证件号码:</td>
+            <td><input type="text" name="clientNum"/></td>
+        </tr>
+        <tr>
+            <td class="fff">重复证件号码:</td>
+            <td><input type="text" name="clientNum1"/></td>
+        </tr>
+        <tr>
+            <td class="fff">国籍:</td>
+            <td><select name="laundNationality">
+                <option value="">请选择</option>
+                <option value="中国">中国</option>
+                <option value="外国">外国</option>
+            </select></td>
+        </tr>
+        <tr>
+            <td class="fff">证件有效期:</td>
+            <td><input type="date" name="clientValidity"/></td>
+            <td><input type="checkbox" name="clientValidity1" value="长期有效" />长期有效</td>
+        </tr>
+        <tr>
+            <td class="fff">交易密码</td>
+            <td><input type="password" name="clientPassword"/></td>
+        </tr>
+        <tr>
+            <td class="fff">重复输入密码</td>
+            <td><input type="password"  name="clientPassword1"/></td>
+        </tr>
+
+        <!--*开户银行，银行户名，银行编号，银行账号，联行号，汇兑标志-->
+        <tr>
+            <td class="fff">邮政编码:</td>
+            <td><input type="text" name="clientPostcode"/></td>
+        </tr>
+        <tr>
+            <td class="fff">联系电话:</td>
+            <td><input type="text" name="clientTel"/></td>
+        </tr>
+        <tr>
+            <td class="fff">手机号码:</td>
+            <td><input type="text" name="clientPhone"/></td>
+        </tr>
+        <!--传真号码-->
+        <tr>
+            <td class="fff">详细地址:</td>
+            <td><input type="text" name="clientAddress"/></td>
+        </tr>
+        <!--电子邮件,折扣率，分红方式，资金方式，寄送方式，账单寄送方式，对账单寄送途径，未委托方式-->
+
+
+        <tr>
+            <td class="fff">客户生日</td>
+            <td><input type="date" name="clientBirthday" value=""/></td>
+        </tr>
+        <tr>
+            <td class="fff">客户职业</td>
+            <td><select name="clientOccupation">
+                <option value="">请选择</option>
+                <option value="农林牧渔">农林牧渔</option>
+                <option value="医药卫生">医药卫生</option>
+                <option value="建筑建材">建筑建材</option>
+                <option value="冶金矿产">冶金矿产</option>
+                <option value="石油化工">石油化工</option>
+                <option value="其他">其他</option>
+            </select></td>
+            </td>
+        </tr>
+        <tr>
+            <td class="fff">年收入:</td>
+            <td><select name="laundAnnualincome">
+                <option value="">请选择客户年收入</option>
+                <option value="五千以下">5千以下</option>
+                <option value="五千-一万">5千到1万</option>
+                <option value="三万-八万">3万到8万</option>
+                <option value="八万-十五万">8万到15万</option>
+                <option value="十五万-八十万">15万到30万</option>
+                <option value="三十万-五十万">30万到50万</option>
+                <option value="五十万-三百万">50万到300万</option>
+                <option value="三百万-一千万">300万到1000万</option>
+                <option value="一千万以上">一千万以上</option>
+            </select></td>
+        </tr>
+        <tr>
+            <td class="fff">客户学历:</td>
+            <td><select name="laundEducation">
+                <option value="">请选择</option>
+                <option value="小学">小学</option>
+                <option value="中学">中学</option>
+                <option value="专科">专科</option>
+                <option value="本科">本科</option>
+                <option value="硕士研究生">硕士研究生</option>
+                <option value="博士研究生">博士研究生</option>
+            </select></td>
+        </tr>
+    </table>
+    <div style="position: absolute;left: 200px;"><input type="button" onclick="addAcClient()" value="开户"/>&nbsp;&nbsp;&nbsp;<input
+            type="button" value="取消"/></div>
+</form>
+</body>
+</html>

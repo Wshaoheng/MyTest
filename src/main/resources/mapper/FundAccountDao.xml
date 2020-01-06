@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ygjx.wyh.dao.FundAccountDao">
+    <resultMap id="BaseResultMap" type="com.ygjx.wyh.entity.FundAccount">
+        <id column="fund_account" jdbcType="VARCHAR" property="fundAccount" />
+        <result column="fund_password" jdbcType="VARCHAR" property="fundPassword" />
+        <result column="fund_wei" jdbcType="VARCHAR" property="fundWei" />
+        <result column="client_name" jdbcType="VARCHAR" property="clientName" />
+        <result column="client_sex" jdbcType="VARCHAR" property="clientSex" />
+        <result column="account_type" jdbcType="VARCHAR" property="accountType" />
+        <result column="client_type" jdbcType="INTEGER" property="clientType" />
+        <result column="client_num" jdbcType="VARCHAR" property="clientNum" />
+        <result column="fund_nationality" jdbcType="VARCHAR" property="fundNationality" />
+        <result column="client_validity" jdbcType="VARCHAR" property="clientValidity" />
+        <result column="client_password" jdbcType="VARCHAR" property="clientPassword" />
+        <result column="client_taCode" jdbcType="VARCHAR" property="clientTaCode" />
+        <result column="fund_sign" jdbcType="VARCHAR" property="fundSign" />
+        <result column="client_postCode" jdbcType="VARCHAR" property="clientPostCode" />
+        <result column="client_tel" jdbcType="VARCHAR" property="clientTel" />
+        <result column="fund_fax" jdbcType="VARCHAR" property="fundFax" />
+        <result column="client_phone" jdbcType="VARCHAR" property="clientPhone" />
+        <result column="mail_address" jdbcType="VARCHAR" property="mailAddress" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="discount_rate" jdbcType="REAL" property="discountRate" />
+        <result column="fen" jdbcType="VARCHAR" property="fen" />
+        <result column="capital" jdbcType="VARCHAR" property="capital" />
+        <result column="billing" jdbcType="VARCHAR" property="billing" />
+        <result column="billing_approach" jdbcType="VARCHAR" property="billingApproach" />
+        <result column="client_birthday" jdbcType="DATE" property="clientBirthday" />
+        <result column="client_occupation" jdbcType="VARCHAR" property="clientOccupation" />
+        <result column="client_account" jdbcType="VARCHAR" property="clientAccount" />
+        <result column="manager_id" jdbcType="INTEGER" property="managerId" />
+        <result column="bank_id" jdbcType="INTEGER" property="bankId" />
+    </resultMap>
+    <sql id="Base_Column_List">
+    fund_account, fund_password, fund_wei, client_name, client_sex, account_type, client_type,
+    client_num, fund_nationality, client_validity, client_password, client_taCode, bank_name,
+    bank_hu_name, bank_num, bank_account, jones_lang_lasalle, fund_sign, client_postCode,
+    client_tel, fund_fax, client_phone, mail_address, email, discount_rate, fen, capital,
+    billing, billing_approach, client_birthday, client_occupation, client_account
+  </sql>
+    <!--查询-->
+    <select id="listInfos" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select 'true' as QUERYID,
+        <include refid="Base_Column_List" />
+        from ac_fund_account
+        where fund_account = #{fundAccount,jdbcType=VARCHAR}
+    </select>
+ <!--登记-->
+    <insert id="insertInfos" parameterType="com.ygjx.wyh.entity.FundAccount">
+        insert into ac_fund_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fundAccount != null">
+                fund_account,
+            </if>
+            <if test="fundPassword != null">
+                fund_password,
+            </if>
+            <if test="fundWei != null">
+                fund_wei,
+            </if>
+            <if test="clientName != null">
+                client_name,
+            </if>
+            <if test="clientSex != null">
+                client_sex,
+            </if>
+            <if test="accountType != null">
+                account_type,
+            </if>
+            <if test="clientType != null">
+                client_type,
+            </if>
+            <if test="clientNum != null">
+                client_num,
+            </if>
+            <if test="fundNationality != null">
+                fund_nationality,
+            </if>
+            <if test="clientValidity != null">
+                client_validity,
+            </if>
+            <if test="clientPassword != null">
+                client_password,
+            </if>
+            <if test="clientTaCode != null">
+                client_taCode,
+            </if>
+            <if test="bankName != null">
+                bank_name,
+            </if>
+            <if test="bankHuName != null">
+                bank_hu_name,
+            </if>
+            <if test="bankNum != null">
+                bank_num,
+            </if>
+            <if test="bankAccount != null">
+                bank_account,
+            </if>
+            <if test="jonesLangLasalle != null">
+                jones_lang_lasalle,
+            </if>
+            <if test="fundSign != null">
+                fund_sign,
+            </if>
+            <if test="clientPostCode != null">
+                client_postCode,
+            </if>
+            <if test="clientTel != null">
+                client_tel,
+            </if>
+            <if test="fundFax != null">
+                fund_fax,
+            </if>
+            <if test="clientPhone != null">
+                client_phone,
+            </if>
+            <if test="mailAddress != null">
+                mail_address,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="discountRate != null">
+                discount_rate,
+            </if>
+            <if test="fen != null">
+                fen,
+            </if>
+            <if test="capital != null">
+                capital,
+            </if>
+            <if test="billing != null">
+                billing,
+            </if>
+            <if test="billingApproach != null">
+                billing_approach,
+            </if>
+            <if test="clientBirthday != null">
+                client_birthday,
+            </if>
+            <if test="clientOccupation != null">
+                client_occupation,
+            </if>
+            <if test="clientAccount != null">
+                client_account,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fundAccount != null">
+                #{fundAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="fundPassword != null">
+                #{fundPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="fundWei != null">
+                #{fundWei,jdbcType=VARCHAR},
+            </if>
+            <if test="clientName != null">
+                #{clientName,jdbcType=VARCHAR},
+            </if>
+            <if test="clientSex != null">
+                #{clientSex,jdbcType=VARCHAR},
+            </if>
+            <if test="accountType != null">
+                #{accountType,jdbcType=VARCHAR},
+            </if>
+            <if test="clientType != null">
+                #{clientType,jdbcType=VARCHAR},
+            </if>
+            <if test="clientNum != null">
+                #{clientNum,jdbcType=VARCHAR},
+            </if>
+            <if test="fundNationality != null">
+                #{fundNationality,jdbcType=VARCHAR},
+            </if>
+            <if test="clientValidity != null">
+                #{clientValidity,jdbcType=VARCHAR},
+            </if>
+            <if test="clientPassword != null">
+                #{clientPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="clientTaCode != null">
+                #{clientTaCode,jdbcType=VARCHAR},
+            </if>
+            <if test="bankName != null">
+                #{bankName,jdbcType=VARCHAR},
+            </if>
+            <if test="bankHuName != null">
+                #{bankHuName,jdbcType=VARCHAR},
+            </if>
+            <if test="bankNum != null">
+                #{bankNum,jdbcType=VARCHAR},
+            </if>
+            <if test="bankAccount != null">
+                #{bankAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="jonesLangLasalle != null">
+                #{jonesLangLasalle,jdbcType=VARCHAR},
+            </if>
+            <if test="fundSign != null">
+                #{fundSign,jdbcType=VARCHAR},
+            </if>
+            <if test="clientPostCode != null">
+                #{clientPostCode,jdbcType=VARCHAR},
+            </if>
+            <if test="clientTel != null">
+                #{clientTel,jdbcType=VARCHAR},
+            </if>
+            <if test="fundFax != null">
+                #{fundFax,jdbcType=VARCHAR},
+            </if>
+            <if test="clientPhone != null">
+                #{clientPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="mailAddress != null">
+                #{mailAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="discountRate != null">
+                #{discountRate,jdbcType=REAL},
+            </if>
+            <if test="fen != null">
+                #{fen,jdbcType=VARCHAR},
+            </if>
+            <if test="capital != null">
+                #{capital,jdbcType=VARCHAR},
+            </if>
+            <if test="billing != null">
+                #{billing,jdbcType=VARCHAR},
+            </if>
+            <if test="billingApproach != null">
+                #{billingApproach,jdbcType=VARCHAR},
+            </if>
+            <if test="clientBirthday != null">
+                #{clientBirthday,jdbcType=DATE},
+            </if>
+            <if test="clientOccupation != null">
+                #{clientOccupation,jdbcType=VARCHAR},
+            </if>
+            <if test="clientAccount != null">
+                #{clientAccount,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <!--修改-->
+    <update id="updateInfos" parameterType="com.ygjx.wyh.entity.FundAccount">
+        update ac_fund_account
+        <set>
+            <if test="fundPassword != null">
+                fund_password = #{fundPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="fundWei != null">
+                fund_wei = #{fundWei,jdbcType=VARCHAR},
+            </if>
+            <if test="clientName != null">
+                client_name = #{clientName,jdbcType=VARCHAR},
+            </if>
+            <if test="clientSex != null">
+                client_sex = #{clientSex,jdbcType=VARCHAR},
+            </if>
+            <if test="accountType != null">
+                account_type = #{accountType,jdbcType=VARCHAR},
+            </if>
+            <if test="clientType != null">
+                client_type = #{clientType,jdbcType=VARCHAR},
+            </if>
+            <if test="clientNum != null">
+                client_num = #{clientNum,jdbcType=VARCHAR},
+            </if>
+            <if test="fundNationality != null">
+                fund_nationality = #{fundNationality,jdbcType=VARCHAR},
+            </if>
+            <if test="clientValidity != null">
+                client_validity = #{clientValidity,jdbcType=VARCHAR},
+            </if>
+            <if test="clientPassword != null">
+                client_password = #{clientPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="clientTaCode != null">
+                client_taCode = #{clientTaCode,jdbcType=VARCHAR},
+            </if>
+            <if test="bankName != null">
+                bank_name = #{bankName,jdbcType=VARCHAR},
+            </if>
+            <if test="bankHuName != null">
+                bank_hu_name = #{bankHuName,jdbcType=VARCHAR},
+            </if>
+            <if test="bankNum != null">
+                bank_num = #{bankNum,jdbcType=VARCHAR},
+            </if>
+            <if test="bankAccount != null">
+                bank_account = #{bankAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="jonesLangLasalle != null">
+                jones_lang_lasalle = #{jonesLangLasalle,jdbcType=VARCHAR},
+            </if>
+            <if test="fundSign != null">
+                fund_sign = #{fundSign,jdbcType=VARCHAR},
+            </if>
+            <if test="clientPostCode != null">
+                client_postCode = #{clientPostCode,jdbcType=VARCHAR},
+            </if>
+            <if test="clientTel != null">
+                client_tel = #{clientTel,jdbcType=VARCHAR},
+            </if>
+            <if test="fundFax != null">
+                fund_fax = #{fundFax,jdbcType=VARCHAR},
+            </if>
+            <if test="clientPhone != null">
+                client_phone = #{clientPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="mailAddress != null">
+                mail_address = #{mailAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="discountRate != null">
+                discount_rate = #{discountRate,jdbcType=REAL},
+            </if>
+            <if test="fen != null">
+                fen = #{fen,jdbcType=VARCHAR},
+            </if>
+            <if test="capital != null">
+                capital = #{capital,jdbcType=VARCHAR},
+            </if>
+            <if test="billing != null">
+                billing = #{billing,jdbcType=VARCHAR},
+            </if>
+            <if test="billingApproach != null">
+                billing_approach = #{billingApproach,jdbcType=VARCHAR},
+            </if>
+            <if test="clientBirthday != null">
+                client_birthday = #{clientBirthday,jdbcType=DATE},
+            </if>
+            <if test="clientOccupation != null">
+                client_occupation = #{clientOccupation,jdbcType=VARCHAR},
+            </if>
+            <if test="clientAccount != null">
+                client_account = #{clientAccount,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where fund_account = #{AcFundAccount,jdbcType=VARCHAR}
+    </update>
+    <!--注册-->
+    <insert id="registeredFundCode" parameterType="com.ygjx.wyh.dto.RegisteredInfoDto">
+        insert into ac_fund_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userName != null">
+                fund_account,
+            </if>
+            <if test="name != null">
+                client_name,
+            </if>
+            <if test="cardType != null">
+                client_type,
+            </if>
+            <if test="cardNum != null">
+                client_num,
+            </if>
+            <if test="passWord != null">
+                fund_password,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="cardType != null">
+                #{cardType,jdbcType=VARCHAR},
+            </if>
+            <if test="cardNum != null">
+                #{cardNum,jdbcType=VARCHAR},
+            </if>
+            <if test="passWord != null">
+                #{passWord,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <!--查询全部-->
+    <select id="queryInfos" resultMap="BaseResultMap">
+        select * from ac_fund_account;
+    </select>
+
+    <!--点击查询的条件  如果基金账号和密码一致，或者交易账号和交易密码一致-->
+    <select id="ifSave" parameterType="com.ygjx.wyh.dto.IsSaveInfoDto" resultType="com.ygjx.wyh.dto.IsSaveInfoDto">
+        select
+            fund_wei as delegationMethod,
+            account_type as accountType,
+            client_account as transactionAccount,
+            client_password as transactionPassword,
+            fund_account  as fundAccount,
+            fund_password  as  fundPassword
+        from
+            ac_fund_account
+        <where>
+            <if test="delegationMethod != null">
+                and fund_wei = #{delegationMethod}
+            </if>
+            <if test="accountType != null">
+                and account_type = #{accountType}
+            </if>
+            <if test="transactionAccount != null">
+                and client_account = #{transactionAccount}
+            </if>
+            <if test="transactionPassword != null">
+                and client_password = #{transactionPassword}
+            </if>
+            <if test="fundAccount != null">
+                and fund_account = #{fundAccount}
+            </if>
+            <if test="fundPassword != null">
+                and fund_password = #{fundPassword}
+            </if>
+        </where>
+
+    </select>
+
+    <!--/**查询基金名称和code*/-->
+    <select id="selectFundName" resultType="com.ygjx.wyh.entity.Fund">
+        select
+        a.fund_id as fundId,
+        a.fund_name as fundName,
+        a.fund_code as fundCode,
+        b.risk_name as fundRisk,
+        c.type_name as fundType,
+        a.fund_share as fundShare,
+        a.share_price  as sharePrice
+        from
+        ac_fund  a
+        inner join fund_risk	b on a.fund_risk = b.risk_id
+        inner join fund_type	c on a.fund_type = c.type_id
+        <where>
+            <if test="fundId != null">
+                and fund_id = #{fundId}
+            </if>
+            <if test="fundName != null">
+                and a.fund_name = #{fundName}
+            </if>
+        </where>
+    </select>
+
+    <!--获取-->
+    <select id="checkPurchaseInfos" resultType="com.ygjx.wyh.dto.PurchaseDto" parameterType="com.ygjx.wyh.entity.FundAccount">
+        select
+            a.client_name as clientName,
+            a.client_type as codeType,
+            a.client_num as clientNum,
+            b.admin_account as adminName,
+            c.amount_available as amountAvailable,
+            d.documents_name as documentsName,
+            b.admin_num as adminNum
+        from
+            ac_fund_account a
+            inner join ac_admin b on a.manager_id = b.admin_id
+            inner join ac_fund_money c on a.fund_account = c.fund_account
+            inner join ac_client_documents d on b.admin_type = d.documents_id
+        <where>
+            <if test="clientAccount != null">
+                and a.client_account = #{clientAccount},
+            </if>
+            <if test="fundAccount != null">
+                and a.fund_account =#{fundAccount},
+            </if>
+        </where>
+    </select>
+
+    <!--新增申购信息-->
+    <insert id="addPurchaseInfo" parameterType="com.ygjx.wyh.dto.PurchaseDto">
+        insert into
+            ac_fund_money
+            (
+            fund_name,
+            share_category,
+            currency,
+            discount_rate,
+            fund_method,
+            broker,
+            purchase_amount,
+            amount_available,
+            fund_account
+            )
+        values (
+        #{fundName},#{shareCategory},#{currency},
+        #{discountRate},#{fundMethod}, #{broker},
+        #{purchaseAmount},#{amountAvailable},#{fundAccount}
+        )
+    </insert>
+
+    <!--根据基金帐号查询基金名称-->
+    <select id="selectFundNameByFundAccount" parameterType="string" resultType="string">
+        SELECT
+        a.fund_name
+        from
+        ac_fund_money a
+        inner join ac_fund_info b on a.id = b.fund_info_fund
+        where
+        b.fund_info_account = #{fundAccount}
+    </select>
+
+    <!--查询+回显信息-->
+    <select id="selectFundAccountInfoss" parameterType="string" resultMap="BaseResultMap">
+        select
+            *
+        from
+            ac_fund_account
+        where
+            client_account = #{clientAccount}
+    </select>
+    <!--根据银行id获取银行信息-->
+    <select id="selectBnakInfo" resultType="com.ygjx.wsh.entity.AcBank">
+        select
+            bank_id as bankId,
+            bank_full_name as bankFullName,
+            bank_province as bankProvince,
+            bank_city as bankCity,
+            jones_lang_lasalle as jonesLangLasalle,
+            bank_name_id as bankNameId
+        from
+            ac_bank
+        where bank_id = #{id}
+    </select>
+</mapper>

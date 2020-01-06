@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ygjx.fxm.dao.AcLaunderingMapper">
+  <resultMap id="BaseResultMap" type="com.ygjx.fxm.entity.AcLaundering">
+    <id column="laund_id" jdbcType="INTEGER" property="laundId" />
+    <result column="laund_account" jdbcType="VARCHAR" property="laundAccount" />
+    <result column="laund_nationality" jdbcType="VARCHAR" property="laundNationality" />
+    <result column="laund_annualIncome" jdbcType="VARCHAR" property="laundAnnualincome" />
+    <result column="laund_education" jdbcType="VARCHAR" property="laundEducation" />
+    <result column="laund_social" jdbcType="INTEGER" property="laundSocial" />
+    <result column="laund_risk" jdbcType="INTEGER" property="laundRisk" />
+    <result column="laund_marriage" jdbcType="VARCHAR" property="laundMarriage" />
+    <result column="laund_address" jdbcType="VARCHAR" property="laundAddress" />
+    <result column="laund_grade" jdbcType="INTEGER" property="laundGrade" />
+    <result column="laund_antiremarks" jdbcType="VARCHAR" property="laundAntiremarks" />
+    <result column="laund_remarks" jdbcType="VARCHAR" property="laundRemarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    laund_id, laund_account, laund_nationality, laund_annualIncome, laund_education, 
+    laund_social, laund_risk, laund_marriage, laund_address, laund_grade, laund_antiremarks, 
+    laund_remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ac_laundering
+    where laund_id = #{laundId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByClientAcCount" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ac_laundering
+    where laund_account = #{laundAccount,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ac_laundering
+    where laund_id = #{laundId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ygjx.fxm.entity.AcLaundering">
+    insert into ac_laundering (laund_id, laund_account, laund_nationality, 
+      laund_annualIncome, laund_education, laund_social, 
+      laund_risk, laund_marriage, laund_address, 
+      laund_grade, laund_antiremarks, laund_remarks
+      )
+    values (#{laundId,jdbcType=INTEGER}, #{laundAccount,jdbcType=VARCHAR}, #{laundNationality,jdbcType=VARCHAR}, 
+      #{laundAnnualincome,jdbcType=VARCHAR}, #{laundEducation,jdbcType=VARCHAR}, #{laundSocial,jdbcType=INTEGER}, 
+      #{laundRisk,jdbcType=INTEGER}, #{laundMarriage,jdbcType=VARCHAR}, #{laundAddress,jdbcType=VARCHAR}, 
+      #{laundGrade,jdbcType=INTEGER}, #{laundAntiremarks,jdbcType=VARCHAR}, #{laundRemarks,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ygjx.fxm.entity.AcLaundering">
+    insert into ac_laundering
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="laundId != null">
+        laund_id,
+      </if>
+      <if test="laundAccount != null">
+        laund_account,
+      </if>
+      <if test="laundNationality != null">
+        laund_nationality,
+      </if>
+      <if test="laundAnnualincome != null">
+        laund_annualIncome,
+      </if>
+      <if test="laundEducation != null">
+        laund_education,
+      </if>
+      <if test="laundSocial != null">
+        laund_social,
+      </if>
+      <if test="laundRisk != null">
+        laund_risk,
+      </if>
+      <if test="laundMarriage != null">
+        laund_marriage,
+      </if>
+      <if test="laundAddress != null">
+        laund_address,
+      </if>
+      <if test="laundGrade != null">
+        laund_grade,
+      </if>
+      <if test="laundAntiremarks != null">
+        laund_antiremarks,
+      </if>
+      <if test="laundRemarks != null">
+        laund_remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="laundId != null">
+        #{laundId,jdbcType=INTEGER},
+      </if>
+      <if test="laundAccount != null">
+        #{laundAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="laundNationality != null">
+        #{laundNationality,jdbcType=VARCHAR},
+      </if>
+      <if test="laundAnnualincome != null">
+        #{laundAnnualincome,jdbcType=VARCHAR},
+      </if>
+      <if test="laundEducation != null">
+        #{laundEducation,jdbcType=VARCHAR},
+      </if>
+      <if test="laundSocial != null">
+        #{laundSocial,jdbcType=INTEGER},
+      </if>
+      <if test="laundRisk != null">
+        #{laundRisk,jdbcType=INTEGER},
+      </if>
+      <if test="laundMarriage != null">
+        #{laundMarriage,jdbcType=VARCHAR},
+      </if>
+      <if test="laundAddress != null">
+        #{laundAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="laundGrade != null">
+        #{laundGrade,jdbcType=INTEGER},
+      </if>
+      <if test="laundAntiremarks != null">
+        #{laundAntiremarks,jdbcType=VARCHAR},
+      </if>
+      <if test="laundRemarks != null">
+        #{laundRemarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeyAccount" parameterType="com.ygjx.fxm.entity.AcLaundering">
+    update ac_laundering
+    <set>
+      <if test="laundNationality != null">
+        laund_nationality = #{laundNationality,jdbcType=VARCHAR},
+      </if>
+      <if test="laundAnnualincome != null">
+        laund_annualIncome = #{laundAnnualincome,jdbcType=VARCHAR},
+      </if>
+      <if test="laundEducation != null">
+        laund_education = #{laundEducation,jdbcType=VARCHAR},
+      </if>
+      <if test="laundSocial != null">
+        laund_social = #{laundSocial,jdbcType=INTEGER},
+      </if>
+      <if test="laundRisk != null">
+        laund_risk = #{laundRisk,jdbcType=INTEGER},
+      </if>
+      <if test="laundMarriage != null">
+        laund_marriage = #{laundMarriage,jdbcType=VARCHAR},
+      </if>
+      <if test="laundAddress != null">
+        laund_address = #{laundAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="laundGrade != null">
+        laund_grade = #{laundGrade,jdbcType=INTEGER},
+      </if>
+      <if test="laundAntiremarks != null">
+        laund_antiremarks = #{laundAntiremarks,jdbcType=VARCHAR},
+      </if>
+      <if test="laundRemarks != null">
+        laund_remarks = #{laundRemarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where laund_account = #{laundAccount,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ygjx.fxm.entity.AcLaundering">
+    update ac_laundering
+    set laund_account = #{laundAccount,jdbcType=VARCHAR},
+      laund_nationality = #{laundNationality,jdbcType=VARCHAR},
+      laund_annualIncome = #{laundAnnualincome,jdbcType=VARCHAR},
+      laund_education = #{laundEducation,jdbcType=VARCHAR},
+      laund_social = #{laundSocial,jdbcType=INTEGER},
+      laund_risk = #{laundRisk,jdbcType=INTEGER},
+      laund_marriage = #{laundMarriage,jdbcType=VARCHAR},
+      laund_address = #{laundAddress,jdbcType=VARCHAR},
+      laund_grade = #{laundGrade,jdbcType=INTEGER},
+      laund_antiremarks = #{laundAntiremarks,jdbcType=VARCHAR},
+      laund_remarks = #{laundRemarks,jdbcType=VARCHAR}
+    where laund_id = #{laundId,jdbcType=INTEGER}
+  </update>
+</mapper>

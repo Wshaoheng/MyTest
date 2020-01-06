@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="../static/css/basic_layout.css" rel="stylesheet" type="text/css">
+<link href="../static/css/fundAccountOpening.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../static/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript">
+    function op() {
+        alert(123);
+        var fundWei = $("#wei").val();
+        var accountType = $("[name='accountType']").val();
+        var clientAccount = $("[name='clientAccount']").val();
+        var fundAccount = $("[name='fundAccount']").val();
+        var fundPassword = $("[name='fundPassword']").val();
+        var fundName = $("[name='fundName']").val();
+        var shareCategory = $("[name='shareCategory']").val();
+        var currency = $("[name='currency']").val();
+        var discountRate = $("[name='discountRate']").val();
+        var fundMethod = $("[name='fundMethod']").val();
+        var broker = $("[name='broker']").val();
+        var purchaseAmount = $("[name='purchaseAmount']").val();
+        $.ajax({
+            url:"/fund/gouAdd",
+            type:"post",
+            data:{"fundWei":fundWei,"accountType":accountType,"clientAccount":clientAccount,"fundAccount":fundAccount,
+              "fundPassword":fundPassword,"fundName":fundName,"shareCategory":shareCategory,"currency":currency,
+            "discountRate":discountRate,"fundMethod":fundMethod,"broker":broker,"purchaseAmount":purchaseAmount},
+            success:function(obj){
+                if (obj) {
+                    alert("添加成功");
+                }
+            },
+            dataType:"json"
+        })
+    }
+</script>
+<title>基金申购</title>
+</head>
+<body>
+    <table class="aa">
+        <tr>
+            <td class="cc" >委托方式: </td>
+            <td class="cc">
+                <select name="fundWei">
+                    <option>柜台交易</option>
+                    <option>网上交易</option>
+                 </select>
+            <td class="cc">账户类型: </td>
+            <td class="cc">
+                <select name="accountType">
+                    <option>交易账号</option>
+                    <option>基金账号</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="cc">交易账号:</td>
+            <td class="cc">
+                <input type="text" name="clientAccount">
+            </td>
+            <td class="cc">基金账号: </td>
+            <td class="cc">
+                <input type="text" name="fundAccount">
+            </td>
+        </tr>
+        <tr>
+            <td class="cc">密码: </td>
+            <td class="cc">
+                <input type="password" name="fundPassword">
+            </td>
+            <td class="cc">
+                <button  value="查询">查询</button>
+            </td>
+        </tr>
+        <tr></tr>
+        <tr></tr>
+        <tr>
+            <td class="cc">基金名称: </td>
+            <td class="cc">
+                <select name="fundName">
+                    <option th:each="f : ${flist}" th:text="${f.fundName}"></option>
+                </select>
+            </td>
+            <td class="cc">份额类别: </td>
+            <td class="cc">
+                <select name="shareCategory">
+                    <option>前收费</option>
+                    <option>后收费</option>
+                    <option>水平收费</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="cc">币种: </td>
+            <td class="cc">
+                <select name="currency">
+                    <option>人民币</option>
+                    <option>美元</option>
+                </select>
+            </td>
+            <td class="cc">折扣率: </td>
+            <td class="cc">
+                <input type="text" name="discountRate" value="1.00">
+            </td>
+        </tr>
+        <tr>
+            <td class="cc">资金方式: </td>
+            <td class="cc">
+                <select name="fundMethod">
+                    <option>普通方式</option>
+                </select>
+            </td>
+            <td class="cc">经纪人: </td>
+            <td class="cc">
+                <input type="text" name="broker">
+            </td>
+        </tr>
+        <tr>
+            <td class="cc">申请金额: </td>
+            <td class="cc">
+                <input type="text" name="purchaseAmount">
+            </td>
+        </tr>
+        <tr></tr>
+        <tr></tr>
+        <tr>
+            <td class="cc"  style="color: #316AC5">客户名称: </td>
+            <td class="cc">
+                <input type="text" th:value="${session.acFundAccount.clientName}" name="clientName">
+            </td>
+            <td class="cc" style="color: #316AC5">客户类型: </td>
+            <td class="cc">
+                <input type="text" value="普通客户">
+            </td>
+        </tr>
+        <tr>
+            <td class="cc" style="color: #316AC5">证件类型: </td>
+            <td class="cc">
+                <input type="text" th:value="${session.acFundAccount.acClientDocuments.documentsName}" name="clientType">
+            </td>
+            <td class="cc" style="color: #316AC5">证件号码: </td>
+            <td class="cc">
+                <input type="text" th:value="${session.acFundAccount.clientNum}" name="clientNum">
+            </td>
+        </tr>
+        <tr>
+            <td class="cc" style="color: #316AC5">经办人: </td>
+            <td class="cc">
+                <input type="text" th:value="${session.acFundAccount.acFundMoney.broker}" name="broker">
+            </td>
+            <td class="cc" style="color: #316AC5">可用资金: </td>
+            <td class="cc">
+                <input type="text" th:value="${session.acFundAccount.acFundMoney.amountAvailable}" name="amountAvailable" >
+            </td>
+        </tr>
+        <tr>
+            <td class="cc" style="color: #316AC5">经办人证件: </td>
+            <td class="cc">
+                <input type="text" name="adminType">
+            </td>
+            <td class="cc" style="color: #316AC5">经办人号码: </td>
+            <td class="cc">
+                <input type="text" name="adminNum" >
+            </td>
+        </tr>
+        <tr>
+            <td class="cc">
+                <button type="button" value="授权">授权</button>
+                <button type="button" onclick="op()" value="提交">提交</button>
+                <button type="reset" value="取消">取消</button>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

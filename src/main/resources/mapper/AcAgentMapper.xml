@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ygjx.fxm.dao.AcAgentMapper">
+    <resultMap id="BaseResultMap" type="com.ygjx.fxm.entity.AcAgent">
+        <id column="agent_id" jdbcType="INTEGER" property="agentId" />
+        <result column="agent_name" jdbcType="VARCHAR" property="agentName" />
+        <result column="agent_phone" jdbcType="VARCHAR" property="agentPhone" />
+        <result column="agent_type" jdbcType="INTEGER" property="agentType" />
+        <result column="agent_num" jdbcType="VARCHAR" property="agentNum" />
+        <result column="agent_validity" jdbcType="VARCHAR" property="agentValidity" />
+        <result column="agent_power" jdbcType="VARCHAR" property="agentPower" />
+        <result column="agent_agency" jdbcType="INTEGER" property="agentAgency" />
+        <result column="agent_relation" jdbcType="VARCHAR" property="agentRelation" />
+        <result column="agent_reson" jdbcType="VARCHAR" property="agentReson" />
+        <result column="agent_address" jdbcType="VARCHAR" property="agentAddress" />
+        <result column="agent_zipcode" jdbcType="VARCHAR" property="agentZipcode" />
+        <result column="agent_client" jdbcType="VARCHAR" property="agentClient" />
+    </resultMap>
+    <insert id="insertSelective" parameterType="com.ygjx.fxm.entity.AcAgent" useGeneratedKeys="true" keyProperty="agentId">
+        insert into ac_agent
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="agentName != null">
+                agent_name,
+            </if>
+            <if test="agentPhone != null">
+                agent_phone,
+            </if>
+            <if test="agentType != null">
+                agent_type,
+            </if>
+            <if test="agentNum != null">
+                agent_num,
+            </if>
+            <if test="agentValidity != null">
+                agent_validity,
+            </if>
+            <if test="agentPower != null">
+                agent_power,
+            </if>
+            <if test="agentAgency != null">
+                agent_agency,
+            </if>
+            <if test="agentRelation != null">
+                agent_relation,
+            </if>
+            <if test="agentReson != null">
+                agent_reson,
+            </if>
+            <if test="agentAddress != null">
+                agent_address,
+            </if>
+            <if test="agentZipcode != null">
+                agent_zipcode,
+            </if>
+            <if test="agentClient != null">
+                agent_client,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="agentName != null">
+                #{agentName,jdbcType=VARCHAR},
+            </if>
+            <if test="agentPhone != null">
+                #{agentPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="agentType != null">
+                #{agentType,jdbcType=INTEGER},
+            </if>
+            <if test="agentNum != null">
+                #{agentNum,jdbcType=VARCHAR},
+            </if>
+            <if test="agentValidity != null">
+                #{agentValidity,jdbcType=VARCHAR},
+            </if>
+            <if test="agentPower != null">
+                #{agentPower,jdbcType=VARCHAR},
+            </if>
+            <if test="agentAgency != null">
+                #{agentAgency,jdbcType=INTEGER},
+            </if>
+            <if test="agentRelation != null">
+                #{agentRelation,jdbcType=VARCHAR},
+            </if>
+            <if test="agentReson != null">
+                #{agentReson,jdbcType=VARCHAR},
+            </if>
+            <if test="agentAddress != null">
+                #{agentAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="agentZipcode != null">
+                #{agentZipcode,jdbcType=VARCHAR},
+            </if>
+            <if test="agentClient != null">
+                #{agentClient,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+</mapper>

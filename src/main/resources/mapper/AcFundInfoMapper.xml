@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ygjx.wyq.dao.AcFundInfoMapper">
+  <resultMap id="BaseResultMap" type="com.ygjx.wyq.entity.AcFundInfo">
+    <id column="fund_info_id" jdbcType="INTEGER" property="fundInfoId" />
+    <result column="fund_info_account" jdbcType="VARCHAR" property="fundInfoAccount" />
+    <result column="fund_info_fund" jdbcType="INTEGER" property="fundInfoFund" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    fund_info_id, fund_info_account, fund_info_fund
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ac_fund_info
+    where fund_info_id = #{fundInfoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ac_fund_info
+    where fund_info_id = #{fundInfoId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ygjx.wyq.entity.AcFundInfo">
+    insert into ac_fund_info (fund_info_id, fund_info_account, fund_info_fund
+      )
+    values (#{fundInfoId,jdbcType=INTEGER}, #{fundInfoAccount,jdbcType=VARCHAR}, #{fundInfoFund,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ygjx.wyq.entity.AcFundInfo">
+    insert into ac_fund_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fundInfoId != null">
+        fund_info_id,
+      </if>
+      <if test="fundInfoAccount != null">
+        fund_info_account,
+      </if>
+      <if test="fundInfoFund != null">
+        fund_info_fund,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="fundInfoId != null">
+        #{fundInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="fundInfoAccount != null">
+        #{fundInfoAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="fundInfoFund != null">
+        #{fundInfoFund,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ygjx.wyq.entity.AcFundInfo">
+    update ac_fund_info
+    <set>
+      <if test="fundInfoAccount != null">
+        fund_info_account = #{fundInfoAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="fundInfoFund != null">
+        fund_info_fund = #{fundInfoFund,jdbcType=INTEGER},
+      </if>
+    </set>
+    where fund_info_id = #{fundInfoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ygjx.wyq.entity.AcFundInfo">
+    update ac_fund_info
+    set fund_info_account = #{fundInfoAccount,jdbcType=VARCHAR},
+      fund_info_fund = #{fundInfoFund,jdbcType=INTEGER}
+    where fund_info_id = #{fundInfoId,jdbcType=INTEGER}
+  </update>
+</mapper>

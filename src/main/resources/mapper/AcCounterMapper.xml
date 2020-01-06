@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ygjx.wsh.dao.AcCounterMapper">
+  <resultMap id="BaseResultMap" type="com.ygjx.wsh.entity.AcCounter">
+    <id column="counter_id" jdbcType="INTEGER" property="counterId" />
+    <result column="operating_time" jdbcType="VARCHAR" property="operatingTime" />
+    <result column="operation_type" jdbcType="VARCHAR" property="operationType" />
+    <result column="admin_id" jdbcType="INTEGER" property="adminId" />
+    <result column="client_account" jdbcType="VARCHAR" property="clientAccount" />
+    <result column="fund_account" jdbcType="VARCHAR" property="fundAccount" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    counter_id, operating_time, operation_type, admin_id, client_account, fund_account,status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ac_counter
+    where counter_id = #{counterId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ac_counter
+    where counter_id = #{counterId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ygjx.wsh.entity.AcCounter">
+    insert into ac_counter (operating_time, operation_type,
+      admin_id, client_account, fund_account,status
+      )
+    values ( #{operatingTime,jdbcType=VARCHAR}, #{operationType,jdbcType=VARCHAR},
+      #{adminId,jdbcType=INTEGER}, #{clientAccount,jdbcType=VARCHAR}, #{fundAccount,jdbcType=VARCHAR},
+      #{status,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ygjx.wsh.entity.AcCounter">
+    insert into ac_counter
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="counterId != null">
+        counter_id,
+      </if>
+      <if test="operatingTime != null">
+        operating_time,
+      </if>
+      <if test="operationType != null">
+        operation_type,
+      </if>
+      <if test="adminId != null">
+        admin_id,
+      </if>
+      <if test="clientAccount != null">
+        client_account,
+      </if>
+      <if test="fundAccount != null">
+        fund_account,
+      </if>
+      <if test="status != null">
+        status
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="counterId != null">
+        #{counterId,jdbcType=INTEGER},
+      </if>
+      <if test="operatingTime != null">
+        #{operatingTime,jdbcType=VARCHAR},
+      </if>
+      <if test="operationType != null">
+        #{operationType,jdbcType=VARCHAR},
+      </if>
+      <if test="adminId != null">
+        #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="clientAccount != null">
+        #{clientAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="fundAccount != null">
+        #{fundAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER}
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ygjx.wsh.entity.AcCounter">
+    update ac_counter
+    <set>
+      <if test="operatingTime != null">
+        operating_time = #{operatingTime,jdbcType=VARCHAR},
+      </if>
+      <if test="operationType != null">
+        operation_type = #{operationType,jdbcType=VARCHAR},
+      </if>
+      <if test="adminId != null">
+        admin_id = #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="clientAccount != null">
+        client_account = #{clientAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="fundAccount != null">
+        fund_account = #{fundAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER}
+      </if>
+    </set>
+    where counter_id = #{counterId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ygjx.wsh.entity.AcCounter">
+    update ac_counter
+    set operating_time = #{operatingTime,jdbcType=VARCHAR},
+      operation_type = #{operationType,jdbcType=VARCHAR},
+      admin_id = #{adminId,jdbcType=INTEGER},
+      client_account = #{clientAccount,jdbcType=VARCHAR},
+      fund_account = #{fundAccount,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
+    where counter_id = #{counterId,jdbcType=INTEGER}
+  </update>
+
+</mapper>

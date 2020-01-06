@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="box"></div>
+</body>
+<script>
+    //5秒跳转页面
+    var b=document.getElementById("box");
+    b.innerHTML="登录失败,5秒钟后跳转页面";
+    var time=2;
+    //每隔一秒执行定时器
+    var timer=setInterval(function(){
+        if(time>0){
+            time--;
+            b.innerHTML=time+"秒钟跳转登录页面";
+        }else{//终止定时器
+            window.location.href="/toFundLogin";
+            timer.clearInterval();
+        }
+    },1000);
+</script>
+</html>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ygjx.wsh.dao.AcClientPersonalMapper">
+  <resultMap id="BaseResultMap" type="com.ygjx.wsh.entity.AcClientPersonal">
+    <id column="client_id" jdbcType="INTEGER" property="clientId" />
+    <result column="client_personal_checked" jdbcType="INTEGER" property="clientPersonalChecked" />
+    <result column="client_account" jdbcType="VARCHAR" property="clientAccount" />
+    <result column="client_personal_id" jdbcType="INTEGER" property="clientPersonalId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    client_id, client_personal_checked, client_account, client_personal_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ac_client_personal
+    where client_id = #{clientId,jdbcType=INTEGER}
+  </select>
+      <!--根据交易账号查询所有的选项-->
+  <select id="getByclientAccount" resultMap="BaseResultMap">
+    select * from ac_client_personal where client_account = #{clientAccount}
+
+  </select>
+
+  <select id="getByclientPersonalId" resultMap="BaseResultMap" >
+    select * from ac_client_personal where client_personal_id = #{clientPersonalId}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ac_client_personal
+    where client_id = #{clientId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ygjx.wsh.entity.AcClientPersonal">
+    insert into ac_client_personal (client_id, client_personal_checked, 
+      client_account, client_personal_id)
+    values (#{clientId,jdbcType=INTEGER}, #{clientPersonalChecked,jdbcType=INTEGER}, 
+      #{clientAccount,jdbcType=VARCHAR}, #{clientPersonalId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ygjx.wsh.entity.AcClientPersonal">
+    insert into ac_client_personal
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="clientId != null">
+        client_id,
+      </if>
+      <if test="clientPersonalChecked != null">
+        client_personal_checked,
+      </if>
+      <if test="clientAccount != null">
+        client_account,
+      </if>
+      <if test="clientPersonalId != null">
+        client_personal_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="clientId != null">
+        #{clientId,jdbcType=INTEGER},
+      </if>
+      <if test="clientPersonalChecked != null">
+        #{clientPersonalChecked,jdbcType=INTEGER},
+      </if>
+      <if test="clientAccount != null">
+        #{clientAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="clientPersonalId != null">
+        #{clientPersonalId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ygjx.wsh.entity.AcClientPersonal">
+    update ac_client_personal
+    <set>
+      <if test="clientPersonalChecked != null">
+        client_personal_checked = #{clientPersonalChecked,jdbcType=INTEGER},
+      </if>
+      <if test="clientAccount != null">
+        client_account = #{clientAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="clientPersonalId != null">
+        client_personal_id = #{clientPersonalId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where client_id = #{clientId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ygjx.wsh.entity.AcClientPersonal">
+    update ac_client_personal
+    set client_personal_checked = #{clientPersonalChecked,jdbcType=INTEGER},
+      client_account = #{clientAccount,jdbcType=VARCHAR},
+      client_personal_id = #{clientPersonalId,jdbcType=INTEGER}
+    where client_id = #{clientId,jdbcType=INTEGER}
+  </update>
+</mapper>

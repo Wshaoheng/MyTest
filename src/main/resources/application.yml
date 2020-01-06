@@ -1,0 +1,31 @@
+server:
+  port: 8080
+spring:
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+      exclude: WEB-INF/**
+  freemarker:
+    cache: false
+  output:
+      ansi:
+        enabled:
+          ALWAYS
+  mvc:
+     static-path-pattern: /static/**
+     date-format: yyyy-MM-dd
+  thymeleaf:
+    cache: false
+    encoding: UTF-8
+    mode: LEGACYHTML5
+    suffix: .html
+    check-template-location: true
+    prefix:classpath: /templates/
+  datasource:
+    username: root
+    password:
+    url: jdbc:mysql://192.168.0.101:3306/huaxiafund?serverTimezone=GMT
+    type: com.alibaba.druid.pool.DruidDataSource
+mybatis:
+  mapperLocations: classpath*:/mapper/*.xml

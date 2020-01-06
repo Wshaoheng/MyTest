@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>机构销户</title>
+    <script type="text/javascript" src="../static/js/jquery-2.1.0.js"></script>
+    <script type="text/javascript" src="../static/js/confirmClose.js"></script>
+    <script type="text/javascript">
+    </script>
+    <style>
+        label {  width:150px; float:left; text-align:right; }
+        #btn{ color: #b51d1a}
+
+    </style>
+</head>
+<body>
+<select id="select" style="display:none;">
+    <option value="">--请选择--</option>
+    <option value="1">营业执照</option>
+    <option value="2">组织机构代码证</option>
+    <option value="3">税务登记证</option>
+    <option value="4">银行开户许可证</option>
+    <option value="5">银行贷款证</option>
+    <option value="6">统计登记证</option>
+    <option value="7">财政登记证</option>
+    <option value="8">对外贸易经营资格备案表</option>
+    <option value="9">海关报关注册登记证</option>
+    <option value="10">检验检疫备案证书</option>
+    <option value="11">外商投资企业批准证书</option>
+    <option value="12">消防安全生产许可证</option>
+    <option value="13">食品卫生许可证</option>
+    <option value="14">公共场所卫生许可证</option>
+</select>
+<h3 style="color: #b51d1a">机构销户</h3>
+<hr color="red">
+<table style="border-collapse:separate; border-spacing:0px 10px;">
+    <tr>
+        <td><label>交易账号：</label><input id="account" type="text" name="accAccount" /></td>
+    </tr>
+    <tr>
+        <td><label>密码：</label><input id="pwd" type="password" name="tradePassword" onblur="getAccClient()"/></td>
+    </tr>
+    <tr>
+        <td><input id="btn" type="button" value="注销" style="margin-left: 150px" onclick="abc()"/></td>
+    </tr>
+</table>
+</body>
+</html>

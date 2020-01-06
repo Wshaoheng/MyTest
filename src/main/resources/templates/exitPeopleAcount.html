@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>客户注销</title>
+    <script type="text/javascript" src="../static/js/jquery-2.1.0.js"></script>
+    <script type="text/javascript">
+        var acClient = "";
+        function findAcClient(){
+            if($("#accont").val()!=""&&$("#accont").val()!=null){
+                $.ajax({
+                    type: "get",
+                    url: "findAcClient?clientAccount="+$("#accont").val(),
+                    dataType: "json",
+                    success: function (AcClient) {
+                        if(AcClient!=null&&AcClient!=""){
+                            acClient=AcClient;
+                        }else{
+                            alert("账号输入有误");
+                        }
+                    }
+                });
+            }
+        }
+        function exit(){
+            $('select>option').each(function(){
+                if(acClient.clientType==($(this).val())){
+                    $("#sect").val(acClient.clientType);
+                }
+            });
+            var x = prompt ("请输入"+$("#sect").find("option:selected").text()+"号码: ", "");/*第一个变量为提示语，第二个变量为默认初始值*/
+            if(x!=""){
+                if(x==acClient.clientNum){
+                    $.ajax({
+                        type: "get",
+                        url: "exitAcClient?clientIsdel="+1+"&clientAccount="+$("#accont").val(),
+                        dataType: "json",
+                        success: function (i) {
+                            if(i>0){
+                                alert("销户成功");
+                                window.location.href="toIndex2"
+                            }else{
+                                alert("销户失败");
+                            }
+                        }
+                    });
+                }else{
+                    alert("证件信息错误");
+                }
+            }else{
+                alert("请输入您的证件信息");
+            }
+        }
+    </script>
+</head>
+<body>
+<select id="sect" style="display:none;">
+    <option value="">请选择</option>
+    <option value="0">身份证</option>
+    <option value="1">居民身份证</option>
+    <option value="2">出生证</option>
+    <option value="3">护照</option>
+    <option value="4">警官证</option>
+    <option value="5">执行公务证</option>
+    <option value="6">学生证</option>
+</select>
+<table>
+    <tr>
+        <td>请输入客户的交易账号</td>
+        <td><input onblur="findAcClient()" id="accont" type="text"/></td>
+    </tr>
+    <tr>
+        <td>请让客户输入交易密码</td>
+        <td><input name="clientPassword" id="pwd" type="password"/></td>
+    </tr>
+    <tr>
+        <td><button onclick="exit()">注销</button></td>
+        <td></td>
+    </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="../static/css/basic_layout.css" rel="stylesheet" type="text/css">
+<link href="../static/css/fundAccountOpening.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../static/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript">
+
+</script>
+<title>赎回</title>
+</head>
+<body>
+<table class="aa">
+    <tr>
+        <td class="cc">委托方式:</td>
+        <td class="cc">
+            <select name="fundWei">
+            <option>柜台交易</option>
+            <option>网上交易</option>
+        </select>
+        </td>
+        <td class="cc">账户类型: </td>
+        <td class="cc">
+            <select name="accountType">
+                <option>交易账号</option>
+                <option>基金账号</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td class="cc">交易账号: </td>
+        <td class="cc">
+            <input type="text" id="c" name="clientAccount">
+        </td>
+        <td class="cc">基金账号: </td>
+        <td class="cc">
+            <input type="text" id="f" name="fundAccount">
+        </td>
+    </tr>
+    <tr>
+        <td class="cc">密码: </td>
+        <td class="cc">
+            <input id="pa" name="fundPassword" type="password" >
+        </td>
+        <td class="cc">
+            <button onclick="mo()" value="查询">查询</button>
+        </td>
+    </tr>
+
+
+    <tr>
+        <td class="cc">基金名称: </td>
+        <td class="cc">
+            <select class="na" name="fundName">
+                <option></option>
+            </select>
+        </td>
+        <td class="cc">份额类别: </td>
+        <td class="cc">
+            <select  name="shareCategory" id="sh">
+                <option  value="前收费">前收费</option><!--th:if="${l.shareCategory eq '前收费'}" th:selected="selected"-->
+                <option  value="水平收费">水平收费</option>
+                <option  value="后收费">后收费</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td class="cc">巨额赎回: </td>
+        <td class="cc">
+            <select id="fen">
+                <option value="放弃超额部分">放弃超额部分</option>
+            </select>
+        </td>
+        <td class="cc">资金方式: </td>
+        <td class="cc">
+            <select name="fundMethod">
+                <option value="银行付款">银行付款</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td class="cc">赎回份额: </td>
+        <td class="cc">
+          <input type="text">
+        </td>
+        <td class="cc">交易费折扣: </td>
+        <td class="cc">
+            <input type="text" name="discountRate" value="1.00">
+        </td>
+    </tr>
+    <tr>
+        <td class="cc">后收费折扣: </td>
+        <td class="cc">
+            <input type="text" value="1.00">
+        </td>
+        <td class="cc">回款账号: </td>
+        <td class="cc">
+            <select >
+                <option></option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td class="cc">经纪人: </td>
+        <td class="cc">
+            <input type="text" value="1386" name="broker">
+        </td>
+    </tr>
+    <tr>
+        <td class="cc">份额大写: </td>
+        <td class="cc">
+            <input type="text">
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+    </tr>
+    <tr>
+        <td class="cc" style="color: #316AC5">客户名称: </td>
+        <td class="cc">
+            <input id="ss" type="text" name="clientName">
+        </td>
+        <td class="cc">客户类型: </td>
+        <td class="cc">
+            <input id="cp" type="text" >
+        </td>
+    </tr>
+    <tr>
+        <td class="cc" style="color: #316AC5">证件类型: </td>
+        <td class="cc">
+            <input id="ct" type="text" name="clientType">
+        </td>
+        <td class="cc">证件号码: </td>
+        <td class="cc">
+            <input id="cn" type="text" name="clientNum">
+        </td>
+    </tr>
+    <tr>
+        <td class="cc" style="color: #316AC5">经办人: </td>
+        <td class="cc">
+            <input id="br" type="text" name="adminAccount">
+        </td>
+    </tr>
+    <tr>
+        <td class="cc" style="color: #316AC5">经办人证件: </td>
+        <td class="cc">
+            <input id="at" type="text" name="adminType">
+        </td>
+        <td class="cc">经办人号码: </td>
+        <td class="cc">
+            <input id="an" type="text" name="adminNum">
+        </td>
+    </tr>
+    <tr>
+        <td class="cc" style="color: #316AC5">银行编号: </td>
+        <td class="cc">
+            <input  type="text" name="bankId">
+        </td>
+        <td class="cc">银行名称: </td>
+        <td class="cc">
+            <input  type="text" name="bankName">
+        </td>
+    </tr>
+    <tr>
+        <td class="cc" style="color: #316AC5">银行户名: </td>
+        <td class="cc">
+            <input  type="text">
+        </td>
+        <td class="cc">银行账号: </td>
+        <td class="cc">
+            <input  type="text" name="bankAccount">
+        </td>
+    </tr>
+</table>
+<table style="text-align: center;margin-left: 12%;margin-top: -2%" border="1">
+    <tr>
+        <td>基金代码</td>
+        <td>收费方式</td>
+        <td>当前份额余额</td>
+        <td>可用份额余额</td>
+        <td>冻结份额余额</td>
+        <td>交易冻结份额</td>
+        <td>基金赎回</td>
+    </tr>
+    <tbody class="fu" id="myfu">
+    </tbody>
+    <tr>
+        <td  colspan="8">
+            <button  value="授权">授权</button>
+            <button type="button" onclick="up()" value="提交">提交</button>
+            <button type="reset" value="取消">取消</button>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

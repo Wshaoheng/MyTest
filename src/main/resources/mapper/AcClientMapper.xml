@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ygjx.fxm.dao.AcClientMapper">
+    <resultMap id="BaseResultMap" type="com.ygjx.fxm.entity.AcClient">
+        <id column="client_account" jdbcType="VARCHAR" property="clientAccount" />
+        <result column="client_name" jdbcType="VARCHAR" property="clientName" />
+        <result column="client_sex" jdbcType="VARCHAR" property="clientSex" />
+        <result column="client_type" jdbcType="INTEGER" property="clientType" />
+        <result column="client_num" jdbcType="VARCHAR" property="clientNum" />
+        <result column="client_validity" jdbcType="VARCHAR" property="clientValidity" />
+        <result column="client_birthday" jdbcType="DATE" property="clientBirthday" />
+        <result column="client_province" jdbcType="VARCHAR" property="clientProvince" />
+        <result column="client_city" jdbcType="INTEGER" property="clientCity" />
+        <result column="client_address" jdbcType="VARCHAR" property="clientAddress" />
+        <result column="client_postCode" jdbcType="VARCHAR" property="clientPostcode" />
+        <result column="client_tel" jdbcType="VARCHAR" property="clientTel" />
+        <result column="client_phone" jdbcType="VARCHAR" property="clientPhone" />
+        <result column="client_password" jdbcType="VARCHAR" property="clientPassword" />
+        <result column="client_occupation" jdbcType="VARCHAR" property="clientOccupation" />
+        <result column="client_beneficiary" jdbcType="VARCHAR" property="clientBeneficiary" />
+        <result column="client_controller" jdbcType="VARCHAR" property="clientController" />
+        <result column="client_experience" jdbcType="INTEGER" property="clientExperience" />
+        <result column="agent_id" jdbcType="INTEGER" property="agentId" />
+        <result column="client_people" jdbcType="VARCHAR" property="clientPeople" />
+        <result column="client_isdel" jdbcType="VARCHAR" property="clientIsdel" />
+    </resultMap>
+    <insert id="insertSelective" parameterType="com.ygjx.fxm.entity.AcClient">
+        insert into ac_client
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="clientAccount != null">
+                client_account,
+            </if>
+            <if test="clientName != null">
+                client_name,
+            </if>
+            <if test="clientSex != null">
+                client_sex,
+            </if>
+            <if test="clientType != null">
+                client_type,
+            </if>
+            <if test="clientNum != null">
+                client_num,
+            </if>
+            <if test="clientValidity != null">
+                client_validity,
+            </if>
+            <if test="clientBirthday != null">
+                client_birthday,
+            </if>
+            <if test="clientProvince != null">
+                client_province,
+            </if>
+            <if test="clientCity != null">
+                client_city,
+            </if>
+            <if test="clientAddress != null">
+                client_address,
+            </if>
+            <if test="clientPostcode != null">
+                client_postCode,
+            </if>
+            <if test="clientTel != null">
+                client_tel,
+            </if>
+            <if test="clientPhone != null">
+                client_phone,
+            </if>
+            <if test="clientPassword != null">
+                client_password,
+            </if>
+            <if test="clientOccupation != null">
+                client_occupation,
+            </if>
+            <if test="clientBeneficiary != null">
+                client_beneficiary,
+            </if>
+            <if test="clientController != null">
+                client_controller,
+            </if>
+            <if test="clientExperience != null">
+                client_experience,
+            </if>
+            <if test="agentId != null">
+                agent_id,
+            </if>
+            <if test="clientIsdel != null">
+                client_isdel,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="clientAccount != null">
+                #{clientAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="clientName != null">
+                #{clientName,jdbcType=VARCHAR},
+            </if>
+            <if test="clientSex != null">
+                #{clientSex,jdbcType=VARCHAR},
+            </if>
+            <if test="clientType != null">
+                #{clientType,jdbcType=INTEGER},
+            </if>
+            <if test="clientNum != null">
+                #{clientNum,jdbcType=VARCHAR},
+            </if>
+            <if test="clientValidity != null">
+                #{clientValidity,jdbcType=VARCHAR},
+            </if>
+            <if test="clientBirthday != null">
+                #{clientBirthday,jdbcType=DATE},
+            </if>
+            <if test="clientProvince != null">
+                #{clientProvince,jdbcType=VARCHAR},
+            </if>
+            <if test="clientCity != null">
+                #{clientCity,jdbcType=INTEGER},
+            </if>
+            <if test="clientAddress != null">
+                #{clientAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="clientPostcode != null">
+                #{clientPostcode,jdbcType=VARCHAR},
+            </if>
+            <if test="clientTel != null">
+                #{clientTel,jdbcType=VARCHAR},
+            </if>
+            <if test="clientPhone != null">
+                #{clientPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="clientPassword != null">
+                #{clientPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="clientOccupation != null">
+                #{clientOccupation,jdbcType=VARCHAR},
+            </if>
+            <if test="clientBeneficiary != null">
+                #{clientBeneficiary,jdbcType=VARCHAR},
+            </if>
+            <if test="clientController != null">
+                #{clientController,jdbcType=VARCHAR},
+            </if>
+            <if test="clientExperience != null">
+                #{clientExperience,jdbcType=INTEGER},
+            </if>
+            <if test="agentId != null">
+                #{agentId,jdbcType=INTEGER},
+            </if>
+            <if test="clientIsdel != null">
+                #{client_isdel,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <!--getAcClientList-->
+    <select id="getAcClientByAccount" resultMap="BaseResultMap">
+        SELECT * FROM ac_client WHERE client_account = #{clientAccount}
+    </select>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.ygjx.fxm.entity.AcClient">
+        update ac_client
+        <set>
+            <if test="clientName != null">
+                client_name = #{clientName,jdbcType=VARCHAR},
+            </if>
+            <if test="clientSex != null">
+                client_sex = #{clientSex,jdbcType=VARCHAR},
+            </if>
+            <if test="clientType != null">
+                client_type = #{clientType,jdbcType=INTEGER},
+            </if>
+            <if test="clientNum != null">
+                client_num = #{clientNum,jdbcType=VARCHAR},
+            </if>
+            <if test="clientValidity != null">
+                client_validity = #{clientValidity,jdbcType=VARCHAR},
+            </if>
+            <if test="clientBirthday != null">
+                client_birthday = #{clientBirthday,jdbcType=DATE},
+            </if>
+            <if test="clientProvince != null">
+                client_province = #{clientProvince,jdbcType=VARCHAR},
+            </if>
+            <if test="clientCity != null">
+                client_city = #{clientCity,jdbcType=INTEGER},
+            </if>
+            <if test="clientAddress != null">
+                client_address = #{clientAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="clientPostcode != null">
+                client_postCode = #{clientPostcode,jdbcType=VARCHAR},
+            </if>
+            <if test="clientTel != null">
+                client_tel = #{clientTel,jdbcType=VARCHAR},
+            </if>
+            <if test="clientPhone != null">
+                client_phone = #{clientPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="clientPassword != null">
+                client_password = #{clientPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="clientOccupation != null">
+                client_occupation = #{clientOccupation,jdbcType=VARCHAR},
+            </if>
+            <if test="clientBeneficiary != null">
+                client_beneficiary = #{clientBeneficiary,jdbcType=VARCHAR},
+            </if>
+            <if test="clientController != null">
+                client_controller = #{clientController,jdbcType=VARCHAR},
+            </if>
+            <if test="clientExperience != null">
+                client_experience = #{clientExperience,jdbcType=INTEGER},
+            </if>
+            <if test="agentId != null">
+                agent_id = #{agentId,jdbcType=INTEGER},
+            </if>
+            <if test="clientIsdel != null">
+                client_isdel = #{clientIsdel,jdbcType=INTEGER},
+            </if>
+            <if test="clientPeople != null">
+                client_people = #{clientPeople,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where client_account = #{clientAccount,jdbcType=VARCHAR}
+    </update>
+
+    <!--addAcClient-->
+    <insert id="addAcClient" >
+        insert into ac_client (client_account, client_name, client_sex,
+          client_type, client_num, client_validity,
+          client_birthday, client_province, client_city,
+          client_address, client_postCode, client_tel,
+          client_phone, client_password,
+          agent_id, client_isdel, client_people
+          )
+        values (#{clientAccount,jdbcType=VARCHAR}, #{clientName,jdbcType=VARCHAR}, #{clientSex,jdbcType=VARCHAR},
+          #{clientType,jdbcType=INTEGER}, #{clientNum,jdbcType=VARCHAR}, #{clientValidity,jdbcType=VARCHAR},
+          #{clientBirthday,jdbcType=DATE}, #{clientProvince,jdbcType=VARCHAR}, #{clientCity,jdbcType=INTEGER},
+          #{clientAddress,jdbcType=VARCHAR}, #{clientPostcode,jdbcType=VARCHAR}, #{clientTel,jdbcType=VARCHAR},
+          #{clientPhone,jdbcType=VARCHAR}, #{clientPassword,jdbcType=VARCHAR},#{agentId,jdbcType=INTEGER},
+           #{clientIsdel,jdbcType=INTEGER}, #{clientPeople,jdbcType=VARCHAR}
+          )
+  </insert>
+
+</mapper>

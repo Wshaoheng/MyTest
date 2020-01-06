@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>管理员登录页面</title>
+    <script type="text/javascript" src="../static/js/jquery-2.1.0.js"></script>
+    <script type="text/javascript" src="../static/js/getAdminDot.js"></script>
+    <style>
+        label {  width:150px; float:left; text-align:right; }
+        #form-div{ width: 450px;height: 150px; border: #c3c8cd solid 1px;
+        margin-left:1000px}
+        #top{width: 450px;height:20px;border: #c3c8cd solid 1px;margin-left: 1000px;
+        margin-top: 200px; background-color: #b51d1a}
+        #form-btn{margin-left: 100px; background-color: #b51d1a; }
+        #findAdminDot{ width: 168px}
+        table{ margin-top: 25px}
+        .required{ background-color: #fdf59a}
+
+    </style>
+</head>
+<body>
+    <div id="top"></div>
+    <div id="form-div">
+        <form action="/adminLogin" method="post">
+            <table align="center">
+                <tr><td><label><span style="color:red;">* </span>网点名称：</label></td><td><select id="findAdminDot" name="adminDot" class="required">
+                </select></td></tr>
+                <tr><td><label><span style="color:red;">* </span>用户名：</label></td><td><input type="text" name="adminAccount"  class="required"/></td></tr>
+                <tr><td><label><span style="color:red;">* </span>密码：</label></td><td><input type="password" name="adminPassword"  class="required"/></td></tr>
+                <tr ><td ><input id="form-btn" type="button" onclick="adminlogin()" value="登录"  style="color: ghostwhite" /></td></tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>

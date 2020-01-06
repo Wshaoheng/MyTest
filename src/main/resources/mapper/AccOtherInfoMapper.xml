@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ygjx.wsh.dao.AccOtherInfoMapper">
+  <resultMap id="BaseResultMap" type="com.ygjx.wsh.entity.AccOtherInfo">
+    <id column="legal_person_id" jdbcType="INTEGER" property="legalPersonId" />
+    <result column="legal_person_name" jdbcType="VARCHAR" property="legalPersonName" />
+    <result column="corporate_document_type" jdbcType="VARCHAR" property="corporateDocumentType" />
+    <result column="corporate_number" jdbcType="VARCHAR" property="corporateNumber" />
+    <result column="legal_period_of_legal_person" jdbcType="VARCHAR" property="legalPeriodOfLegalPerson" />
+    <result column="organization_code" jdbcType="VARCHAR" property="organizationCode" />
+    <result column="organization_code_expiration_date" jdbcType="VARCHAR" property="organizationCodeExpirationDate" />
+    <result column="tax_registration_number" jdbcType="VARCHAR" property="taxRegistrationNumber" />
+    <result column="name_of_person_in_charge" jdbcType="VARCHAR" property="nameOfPersonInCharge" />
+    <result column="responsible_person_type" jdbcType="VARCHAR" property="responsiblePersonType" />
+    <result column="responsible_person_number" jdbcType="VARCHAR" property="responsiblePersonNumber" />
+    <result column="principal_validity_period" jdbcType="VARCHAR" property="principalValidityPeriod" />
+    <result column="controlling_shareholder_name" jdbcType="VARCHAR" property="controllingShareholderName" />
+    <result column="controlling_shareholder_type" jdbcType="VARCHAR" property="controllingShareholderType" />
+    <result column="controlling_shareholder_type_of_certificate" jdbcType="VARCHAR" property="controllingShareholderTypeOfCertificate" />
+    <result column="controlling_shareholder_license_number" jdbcType="VARCHAR" property="controllingShareholderLicenseNumber" />
+    <result column="controlling_shareholder_license_number_time" jdbcType="VARCHAR" property="controllingShareholderLicenseNumberTime" />
+    <result column="business_scope" jdbcType="VARCHAR" property="businessScope" />
+    <result column="actual_account_controller" jdbcType="VARCHAR" property="actualAccountController" />
+    <result column="actual_beneficiary_of_the_account" jdbcType="VARCHAR" property="actualBeneficiaryOfTheAccount" />
+    <result column="registered_capital" jdbcType="VARCHAR" property="registeredCapital" />
+    <result column="a_tax_registration_code" jdbcType="VARCHAR" property="aTaxRegistrationCode" />
+    <result column="a_organization_code_number" jdbcType="VARCHAR" property="aOrganizationCodeNumber" />
+    <result column="industry_type" jdbcType="VARCHAR" property="industryType" />
+    <result column="nature_of_business" jdbcType="VARCHAR" property="natureOfBusiness" />
+    <result column="registered_address" jdbcType="VARCHAR" property="registeredAddress" />
+    <result column="money_laundering_risk_level" jdbcType="VARCHAR" property="moneyLaunderingRiskLevel" />
+    <result column="qualification_type" jdbcType="VARCHAR" property="qualificationType" />
+    <result column="qualification_certificate_number" jdbcType="VARCHAR" property="qualificationCertificateNumber" />
+    <result column="validity_period" jdbcType="VARCHAR" property="validityPeriod" />
+    <result column="acc_account" jdbcType="VARCHAR" property="accAccount" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    legal_person_id, legal_person_name, corporate_document_type, corporate_number, legal_period_of_legal_person, 
+    organization_code, organization_code_expiration_date, tax_registration_number, name_of_person_in_charge, 
+    responsible_person_type, responsible_person_number, principal_validity_period, controlling_shareholder_name, 
+    controlling_shareholder_type, controlling_shareholder_type_of_certificate, controlling_shareholder_license_number, 
+    controlling_shareholder_license_number_time, business_scope, actual_account_controller, 
+    actual_beneficiary_of_the_account, registered_capital, a_tax_registration_code, a_organization_code_number, 
+    industry_type, nature_of_business, registered_address, money_laundering_risk_level, 
+    qualification_type, qualification_certificate_number, validity_period,acc_account
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from acc_other_info
+    where legal_person_id = #{legalPersonId,jdbcType=INTEGER}
+  </select>
+  <select id="getAccOtherInfoByaccAccount"  resultMap="BaseResultMap">
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from acc_other_info
+    where acc_account = #{accAccount}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from acc_other_info
+    where legal_person_id = #{legalPersonId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ygjx.wsh.entity.AccOtherInfo" useGeneratedKeys="false" keyProperty="legalPersonId">
+    insert into acc_other_info ( legal_person_name, corporate_document_type,
+      corporate_number, legal_period_of_legal_person, 
+      organization_code, organization_code_expiration_date, 
+      tax_registration_number, name_of_person_in_charge, 
+      responsible_person_type, responsible_person_number, 
+      principal_validity_period, controlling_shareholder_name, 
+      controlling_shareholder_type, controlling_shareholder_type_of_certificate, 
+      controlling_shareholder_license_number, controlling_shareholder_license_number_time, 
+      business_scope, actual_account_controller, 
+      actual_beneficiary_of_the_account, registered_capital, 
+      a_tax_registration_code, a_organization_code_number, 
+      industry_type, nature_of_business, registered_address, 
+      money_laundering_risk_level, qualification_type, 
+      qualification_certificate_number, validity_period,acc_account
+      )
+    values (  #{legalPersonName,jdbcType=VARCHAR}, #{corporateDocumentType,jdbcType=VARCHAR},
+      #{corporateNumber,jdbcType=VARCHAR}, #{legalPeriodOfLegalPerson,jdbcType=VARCHAR},
+      #{organizationCode,jdbcType=VARCHAR}, #{organizationCodeExpirationDate,jdbcType=VARCHAR}, 
+      #{taxRegistrationNumber,jdbcType=VARCHAR}, #{nameOfPersonInCharge,jdbcType=VARCHAR}, 
+      #{responsiblePersonType,jdbcType=VARCHAR}, #{responsiblePersonNumber,jdbcType=VARCHAR}, 
+      #{principalValidityPeriod,jdbcType=VARCHAR}, #{controllingShareholderName,jdbcType=VARCHAR}, 
+      #{controllingShareholderType,jdbcType=VARCHAR}, #{controllingShareholderTypeOfCertificate,jdbcType=VARCHAR}, 
+      #{controllingShareholderLicenseNumber,jdbcType=VARCHAR}, #{controllingShareholderLicenseNumberTime,jdbcType=VARCHAR}, 
+      #{businessScope,jdbcType=VARCHAR}, #{actualAccountController,jdbcType=VARCHAR}, 
+      #{actualBeneficiaryOfTheAccount,jdbcType=VARCHAR}, #{registeredCapital,jdbcType=VARCHAR}, 
+      #{aTaxRegistrationCode,jdbcType=VARCHAR}, #{aOrganizationCodeNumber,jdbcType=VARCHAR}, 
+      #{industryType,jdbcType=VARCHAR}, #{natureOfBusiness,jdbcType=VARCHAR}, #{registeredAddress,jdbcType=VARCHAR}, 
+      #{moneyLaunderingRiskLevel,jdbcType=VARCHAR}, #{qualificationType,jdbcType=VARCHAR}, 
+      #{qualificationCertificateNumber,jdbcType=VARCHAR}, #{validityPeriod,jdbcType=VARCHAR},
+      #{accAccount,jdbcType=VARCHAR}
+      )
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.ygjx.wsh.entity.AccOtherInfo">
+    update acc_other_info
+    <set>
+      <if test="legalPersonName != null">
+        legal_person_name = #{legalPersonName,jdbcType=VARCHAR},
+      </if>
+      <if test="corporateDocumentType != null">
+        corporate_document_type = #{corporateDocumentType,jdbcType=VARCHAR},
+      </if>
+      <if test="corporateNumber != null">
+        corporate_number = #{corporateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPeriodOfLegalPerson != null">
+        legal_period_of_legal_person = #{legalPeriodOfLegalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationCode != null">
+        organization_code = #{organizationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationCodeExpirationDate != null">
+        organization_code_expiration_date = #{organizationCodeExpirationDate,jdbcType=VARCHAR},
+      </if>
+      <if test="taxRegistrationNumber != null">
+        tax_registration_number = #{taxRegistrationNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="nameOfPersonInCharge != null">
+        name_of_person_in_charge = #{nameOfPersonInCharge,jdbcType=VARCHAR},
+      </if>
+      <if test="responsiblePersonType != null">
+        responsible_person_type = #{responsiblePersonType,jdbcType=VARCHAR},
+      </if>
+      <if test="responsiblePersonNumber != null">
+        responsible_person_number = #{responsiblePersonNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="principalValidityPeriod != null">
+        principal_validity_period = #{principalValidityPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="controllingShareholderName != null">
+        controlling_shareholder_name = #{controllingShareholderName,jdbcType=VARCHAR},
+      </if>
+      <if test="controllingShareholderType != null">
+        controlling_shareholder_type = #{controllingShareholderType,jdbcType=VARCHAR},
+      </if>
+      <if test="controllingShareholderTypeOfCertificate != null">
+        controlling_shareholder_type_of_certificate = #{controllingShareholderTypeOfCertificate,jdbcType=VARCHAR},
+      </if>
+      <if test="controllingShareholderLicenseNumber != null">
+        controlling_shareholder_license_number = #{controllingShareholderLicenseNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="controllingShareholderLicenseNumberTime != null">
+        controlling_shareholder_license_number_time = #{controllingShareholderLicenseNumberTime,jdbcType=VARCHAR},
+      </if>
+      <if test="businessScope != null">
+        business_scope = #{businessScope,jdbcType=VARCHAR},
+      </if>
+      <if test="actualAccountController != null">
+        actual_account_controller = #{actualAccountController,jdbcType=VARCHAR},
+      </if>
+      <if test="actualBeneficiaryOfTheAccount != null">
+        actual_beneficiary_of_the_account = #{actualBeneficiaryOfTheAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="registeredCapital != null">
+        registered_capital = #{registeredCapital,jdbcType=VARCHAR},
+      </if>
+      <if test="aTaxRegistrationCode != null">
+        a_tax_registration_code = #{aTaxRegistrationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="aOrganizationCodeNumber != null">
+        a_organization_code_number = #{aOrganizationCodeNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="industryType != null">
+        industry_type = #{industryType,jdbcType=VARCHAR},
+      </if>
+      <if test="natureOfBusiness != null">
+        nature_of_business = #{natureOfBusiness,jdbcType=VARCHAR},
+      </if>
+      <if test="registeredAddress != null">
+        registered_address = #{registeredAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="moneyLaunderingRiskLevel != null">
+        money_laundering_risk_level = #{moneyLaunderingRiskLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="qualificationType != null">
+        qualification_type = #{qualificationType,jdbcType=VARCHAR},
+      </if>
+      <if test="qualificationCertificateNumber != null">
+        qualification_certificate_number = #{qualificationCertificateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="validityPeriod != null">
+        validity_period = #{validityPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="accAccount != null">
+        acc_account = #{accAccount,jdbcType=VARCHAR}
+      </if>
+    </set>
+    where legal_person_id = #{legalPersonId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ygjx.wsh.entity.AccOtherInfo">
+    update acc_other_info
+    set legal_person_name = #{legalPersonName,jdbcType=VARCHAR},
+      corporate_document_type = #{corporateDocumentType,jdbcType=VARCHAR},
+      corporate_number = #{corporateNumber,jdbcType=VARCHAR},
+      legal_period_of_legal_person = #{legalPeriodOfLegalPerson,jdbcType=VARCHAR},
+      organization_code = #{organizationCode,jdbcType=VARCHAR},
+      organization_code_expiration_date = #{organizationCodeExpirationDate,jdbcType=VARCHAR},
+      tax_registration_number = #{taxRegistrationNumber,jdbcType=VARCHAR},
+      name_of_person_in_charge = #{nameOfPersonInCharge,jdbcType=VARCHAR},
+      responsible_person_type = #{responsiblePersonType,jdbcType=VARCHAR},
+      responsible_person_number = #{responsiblePersonNumber,jdbcType=VARCHAR},
+      principal_validity_period = #{principalValidityPeriod,jdbcType=VARCHAR},
+      controlling_shareholder_name = #{controllingShareholderName,jdbcType=VARCHAR},
+      controlling_shareholder_type = #{controllingShareholderType,jdbcType=VARCHAR},
+      controlling_shareholder_type_of_certificate = #{controllingShareholderTypeOfCertificate,jdbcType=VARCHAR},
+      controlling_shareholder_license_number = #{controllingShareholderLicenseNumber,jdbcType=VARCHAR},
+      controlling_shareholder_license_number_time = #{controllingShareholderLicenseNumberTime,jdbcType=VARCHAR},
+      business_scope = #{businessScope,jdbcType=VARCHAR},
+      actual_account_controller = #{actualAccountController,jdbcType=VARCHAR},
+      actual_beneficiary_of_the_account = #{actualBeneficiaryOfTheAccount,jdbcType=VARCHAR},
+      registered_capital = #{registeredCapital,jdbcType=VARCHAR},
+      a_tax_registration_code = #{aTaxRegistrationCode,jdbcType=VARCHAR},
+      a_organization_code_number = #{aOrganizationCodeNumber,jdbcType=VARCHAR},
+      industry_type = #{industryType,jdbcType=VARCHAR},
+      nature_of_business = #{natureOfBusiness,jdbcType=VARCHAR},
+      registered_address = #{registeredAddress,jdbcType=VARCHAR},
+      money_laundering_risk_level = #{moneyLaunderingRiskLevel,jdbcType=VARCHAR},
+      qualification_type = #{qualificationType,jdbcType=VARCHAR},
+      qualification_certificate_number = #{qualificationCertificateNumber,jdbcType=VARCHAR},
+      validity_period = #{validityPeriod,jdbcType=VARCHAR},
+      acc_account = #{accAccount,jdbcType=VARCHAR}
+    where legal_person_id = #{legalPersonId,jdbcType=INTEGER}
+  </update>
+
+
+</mapper>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="../static/css/basic_layout.css" rel="stylesheet" type="text/css">
+<link href="../static/css/fundAccountOpening.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../static/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript">
+    function op() {
+        alert(123);
+        var fundWei = $("#wei").val();
+        var customerName = $("[name='customerName']").val();
+        var customerReferred = $("[name='customerReferred']").val();
+        var accountType = $("[name='accountType']").val();
+        var clientType = $("[name='clientType']").val();
+        var clientNum = $("[name='clientNum']").val();
+        var clientNum1 = $("[name='clientNum1']").val();
+        var clientValidity = $("[name='clientValidity']").val();
+        var clientPassword = $("[name='clientPassword']").val();
+        var clientPassword1 = $("[name='clientPassword1']").val();
+        var clientTaCode = $("[name='clientTaCode']").val();
+        var adminAccount = $("[name='adminAccount']").val();
+        var telphone1 = $("[name='telphone1']").val();
+        var adminType = $("[name='adminType']").val();
+        var adminNum = $("[name='adminNum']").val();
+        var certificateValidity = $("[name='certificateValidity']").val();
+        var adminNum1 = $("[name='adminNum1']").val();
+        var bankName = $("[name='bankName']").val();
+        var clientName = $("[name='clientName']").val();
+        var bankId = $("[name='bankId']").val();
+        var bankAccount = $("[name='bankAccount']").val();
+        var jonesLangLasalle = $("[name='jonesLangLasalle']").val();
+        var fundSign = $("[name='fundSign']").val();
+        var clientPostCode = $("[name='clientPostCode']").val();
+        var clientTel = $("[name='clientTel']").val();
+        var fundFax = $("[name='fundFax']").val();
+        var clientPhone = $("[name='clientPhone']").val();
+        var mailAddress = $("[name='mailAddress']").val();
+        var email = $("[name='email']").val();
+        var discountRate = $("[name='discountRate']").val();
+        var fen = $("[name='fen']").val();
+        var capital = $("[name='capital']").val();
+        $.ajax({
+            url:"/fund/organization",
+            type:"post",
+            data:{"fundWei":fundWei,"customerName":customerName,"customerReferred":customerReferred,"accountType":accountType,"clientType":clientType,"clientNum":clientNum,
+                "clientNum1":clientNum1,"clientValidity":clientValidity,"clientPassword":clientPassword,"clientPassword1":clientPassword1,"clientTaCode":clientTaCode,"adminAccount":adminAccount,
+                "telphone1":telphone1,"adminType":adminType,"adminNum":adminNum,"certificateValidity":certificateValidity,"adminNum1":adminNum1,"bankName":bankName,
+                "clientName":clientName,"bankId":bankId,"bankAccount":bankAccount,"jonesLangLasalle":jonesLangLasalle,"fundSign":fundSign,"clientPostCode":clientPostCode,
+                "clientTel":clientTel,"fundFax":fundFax,"clientPhone":clientPhone,"mailAddress":mailAddress,"email":email,"discountRate":discountRate,
+                "fen":fen,"capital":capital},
+            success:function(obj){
+                if (obj.status== 200) {
+                    alert("添加成功")
+                }
+            },
+            dataType:"json"
+        })
+    }
+
+    function power() {
+        var customerName = $("[name='customerName']").val();
+        var clientName = $("[name='clientName']").val();
+        if(customerName == clientName){
+            alert("银行户名正确")
+        }else{
+            alert("银行户名错误,请经理财中心负责人授权");
+        }
+    }
+</script>
+<title>机构开户</title>
+</head>
+<body>
+<form>
+<table class="aa">
+    <tr>
+        <td class="cc">委托方式: </td>
+        <td class="cc">
+            <select name="fundWei" id="wei" >
+                <option>柜台交易</option>
+                <option>网上交易</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td class="cc">客户全称: </td>
+        <td class="cc">
+            <input name="customerName" id="cn" type="text" >
+        </td>
+    </tr>
+    <tr>
+        <td class="cc">客户简称: </td>
+        <td class="cc">
+            <input name="customerReferred"  type="text">
+        </td>
+    </tr>
+    <tr>
+        <td class="cc">账户类型: </td>
+        <td class="cc">
+            <select name="accountType">
+            <option>普通账户</option>
+            <option>会员账户</option>
+            </select>
+        </td>
+        <td class="cc">证件类型: </td>
+        <td class="cc">
+            <select name="clientType" id="ct">
+            <option value="">请选择</option>
+            <option value="0">身份证</option>
+            <option value="1">居民身份证</option>
+            <option value="2">出生证</option>
+            <option value="3">护照</option>
+            <option value="4">警官证</option>
+            <option value="5">执行公务证</option>
+            <option value="6">学生证</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td class="cc">证件号码: </td>
+        <td class="cc">
+            <input name="clientNum" type="text" >
+        </td>
+        <td class="cc">重复证件号码: </td>
+        <td class="cc">
+            <input name="clientNum1" type="text" >
+        </td>
+    </tr>
+    <tr>
+        <td class="cc">证件有效期: </td>
+        <td class="cc">
+            <input name="clientValidity" type="text" >
+        </td>
+    </tr>
+    <tr>
+        <td class="cc">交易密码: </td>
+        <td class="cc">
+            <input name="clientPassword" id="clientPassword" type="password" >
+        </td>
+        <td class="cc">重复密码: </td>
+        <td class="cc">
+            <input name="clientPassword1" id="clientPassword1" type="password" >
+        </td>
+    </tr>
+    <tr>
+        <td class="cc">TA代码: </td>
+        <td class="cc">
+            <select name="clientTaCode" id="clientTaCode">
+                <option>华夏TA</option>
+                <option>中登上海</option>
+                <option>中登深圳</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td class="cc">经办人: </td>
+        <td class="cc">
+            <input name="adminAccount" th:value="${session.acFundAccount.acAdmin.adminAccount}" type="text" >
+        </td>
+        <td class="cc">经办人联系电话: </td>
+        <td class="cc">
+            <input name="clientTel" value="13904592469" type="text" >
+        </td>
+    </tr>
+    <tr>
+        <td class="cc">经办人证件类型: </td>
+        <td class="cc">
+            <select name="adminType"  th:selected="${session.acFundAccount.acAdmin.adminType}" >
+                <option value="">请选择</option>
+                <option th:selected="${0 == session.acFundAccount.acAdmin.adminType}" value="0">身份证</option>
+                <option th:selected="${1 == session.acFundAccount.acAdmin.adminType}" value="1">居民身份证</option>
+                <option th:selected="${2 == session.acFundAccount.acAdmin.adminType}" value="2">出生证</option>
+                <option th:selected="${3 == session.acFundAccount.acAdmin.adminType}" value="3">护照</option>
+                <option th:selected="${4 == session.acFundAccount.acAdmin.adminType}" value="4">警官证</option>
+                <option th:selected="${5 == session.acFundAccount.acAdmin.adminType}" value="5">执行公务证</option>
+                <option th:selected="${6 == session.acFundAccount.acAdmin.adminType}" value="6">学生证</option>
+            </select>
+        </td>
+        <td class="cc">经办人证件号码: </td>
+        <td class="cc">
+            <input name="adminNum" th:value = "${session.acFundAccount.acAdmin.adminNum}" id="adminNum" type="text">
+        </td>
+    </tr>
+    <tr>
+        <td class="cc">经办人证件有效期: </td>
+        <td class="cc">
+            <input name="certificateValidity" value="2025-09-15" type="text" >
+        </td>
+        <td class="cc">重复经办人证件号码: </td>
+        <td class="cc">
+            <input name="adminNum1" th:value = "${session.acFundAccount.acAdmin.adminNum}"  id="adminNum1" type="text" >
+        </td>
+    </tr>
+    <tr>
+        <td class="cc">开户银行: </td>
+        <td class="cc">
+            <input name="bankName" id="bankName" type="text" th:value = "${session.acBankName.bankName}" >
+        </td>
+    </tr>
+    <tr>
+        <td class="cc">银行户名: </td>
+        <td class="cc">
+            <input name="clientName" onchange="power()"  type="text" >
+        </td>
+    </tr>
+    <tr>
+        <td class="cc">银行编号: </td>
+        <td class="cc">
+            <select name="bankId" th:selected= "${session.acFundAccount.acAdmin.adminDotName}" >
+                <option>--</option>
+                <option th:selected= "${session.acFundAccount.acAdmin.adminDotName}">28</option>
+                <option th:selected= "${session.acFundAccount.acAdmin.adminDotName}">29</option>
+                <option th:selected= "${session.acFundAccount.acAdmin.adminDotName}">30</option>
+                <option th:selected= "${session.acFundAccount.acAdmin.adminDotName}">31</option>
+                <option th:selected= "${session.acFundAccount.acAdmin.adminDotName}">32</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td class="cc">银行账号: </td>
+        <td class="cc">
+            <input name="bankAccount" id="bankAccount" type="text">
+        </td>
+    </tr>
+    <tr>
+        <td class="cc">联行号: </td>
+        <td class="cc">
+            <input name="jonesLangLasalle" th:value="${session.acBank.jonesLangLasalle}" type="text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </td>
+        <td class="cc">汇兑标志: </td>
+        <td class="cc">
+            <select name="fundSign"  >
+                <option>--</option>
+                <option>人民币</option>
+                <option>美元</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td class="cc">邮政编码: </td>
+        <td class="cc">
+            <input name="clientPostCode" id="clientPostCode" type="text">
+        </td>
+        <td class="cc">联系电话: </td>
+        <td class="cc">
+            <input name="telphone1"  type="text">
+        </td>
+    </tr>
+    <tr>
+        <td class="cc">传真号码: </td>
+        <td class="cc">
+            <input name="fundFax" type="text">
+        </td>
+        <td class="cc">手机号码: </td>
+        <td class="cc">
+            <input name="clientPhone" type="text">
+        </td>
+    </tr>
+    <tr>
+        <td class="cc">通讯地址: </td>
+        <td class="cc">
+            <input name="mailAddress" type="text" >
+        </td>
+    </tr>
+    <tr>
+        <td class="cc">电子邮件: </td>
+        <td class="cc">
+            <input name="email" type="text" >
+        </td>
+    </tr>
+    <tr>
+        <td class="cc">折扣率: </td>
+        <td class="cc">
+            <input name="discountRate" type="text" value="1.00">
+        </td>
+        <td class="cc">分红方式: </td>
+        <td class="cc">
+            <select name="fen" >
+                <option>现金红利</option>
+                <option>分红再投资</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td class="cc">资金方式: </td>
+        <td class="cc">
+            <select name="capital" >
+                <option>普通方式</option>
+                <option>交易账户</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td class="cc">
+            <button  onclick="op()" value="提交">提交</button>
+            <button type="reset" value="取消">取消</button>
+        </td>
+    </tr>
+</table>
+</form>
+</body>
+</html>

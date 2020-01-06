@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>账单信息页面</title>
+    <style>
+        .int label{width: 200px;  float:left; text-align:right;}
+        .norequired {width: 500px;}
+    </style>
+</head>
+<body>
+<form>
+    <div class="int"><label >账单收件人姓名：</label><input type="text" class="norequired" ></div>
+    <div class="int"><label  >账单收件人证件：</label><select class="notype">
+        <option value="0">--请选择--</option>
+        <option></option>
+        <option></option>
+    </select></div>
+    <div class="int"><label >账单收件人证件号：</label><input type="text" class="norequired" ></div>
+    <div class="int"><label >账单收件人证件有效期：</label><input type="text" class="" ><input type="checkbox">长期有效</div>
+    <div class="int"><label >反洗钱备注：</label><input type="text" class="norequired" ></div>
+    <div class="int"><label >是否信托资产：</label><input type="checkbox" class="" ></div>
+    <div class="int"><label >信托委托人电话：</label><input type="text" class="norequired" ></div>
+    <div class="int"><label >信托委托人名称：</label><input type="text" class="norequired" ></div>
+    <div class="int"><label >公立机构：</label><input type="checkbox" class="" >(是否为国家行政机关、公立医院、公立学校、银行分支)</div>
+    <div class="int"><label >实际受益人：</label><input type="checkbox" class="" >(是否股权结构过于复杂、难以辨认实际受益人)</div>
+    <div class="int"><label >上市公司：</label><input type="checkbox" class="" >(是否为上市公司)</div>
+    <div class="int"><label >国有企业：</label><input type="checkbox" class="" >(是否为大型国有企业及国有控股公司)</div>
+    <div class="int"><label >金融机构：</label><input type="checkbox" class="" >(是否为金融机构)</div>
+    <div class="int"><label >产品：</label><input type="checkbox" class="" >(是否为社保、年金或理财产品)</div>
+    <div class="int"><label >行业风险：</label><input type="checkbox" class="" >(是否从事高风险行业)</div>
+    <div class="int"><label >社会关系：</label><input type="checkbox" class="" >(是否为政要及相关亲属)</div>
+    <div class="int"><label >备注：</label> <textarea style="width: 500px; height: 50px;"></textarea></div>
+</form>
+</body>
+</html>

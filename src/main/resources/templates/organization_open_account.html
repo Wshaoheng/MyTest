@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>机构开户</title>
+    <script type="text/javascript" src="../static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../static/js/addpeopleAccount.js"></script>
+    <script type="text/javascript" src="../static/js/check_AccClient.js"></script>
+    <style>
+
+       div{ margin-bottom: 5px}
+       form { margin-left: 50px}
+       .int label{width:250px;text-align: right;display:inline-block}
+        .required {width: 500px; background-color: #fdf59a;}
+        .norequired {width: 500px;}
+        .code{ background-color: #fdf59a; width: 230px;}
+        .select{ background-color: #fdf59a; text-align: right;}
+        #province{ background-color: #fdf59a; width: 180px;}
+        #shi{ background-color: #fdf59a; width: 100px}
+        .service{ background-color: #fdf59a; width: 180px;}
+        .type{ background-color: #fdf59a}
+        .validity { background-color: #fdf59a}
+        .ta{ width: 180px;}
+        h4{ color: red}
+        .btn{  background-color: #1d7db1; width: 70px; color: whitesmoke}
+        #form-btn{ margin-left: 183px}
+        #cancel{ margin-left: 100px}
+    </style>
+
+</head>
+<body>
+    <form action="/accClient/addAccClient" id="form_accClient">
+        <h4>基本信息</h4>
+        <hr color="red" width="98%" />
+        <div class="int"><label ><span style="color:red;">* </span>客户全称：</label><input type="text"  name="customerName" class="required" ></div>
+        <div class="int"><label><span style="color:red;">* </span>证件类型：</label><select name="certificateType" class="select">
+            <option value="">--请选择--</option>
+            <option value="1">营业执照</option>
+            <option value="2">组织机构代码证</option>
+            <option value="3">税务登记证</option>
+            <option value="4">银行开户许可证</option>
+            <option value="5">银行贷款证</option>
+            <option value="6">统计登记证</option>
+            <option value="7">财政登记证</option>
+            <option value="8">对外贸易经营资格备案表</option>
+            <option value="9">海关报关注册登记证</option>
+            <option value="10">检验检疫备案证书</option>
+            <option value="11">外商投资企业批准证书</option>
+            <option value="12">消防安全生产许可证</option>
+            <option value="13">食品卫生许可证</option>
+            <option value="14">公共场所卫生许可证</option>
+        </select></div>
+        <div class="int"><label  ><span style="color:red;">* </span>证件号码：</label><input type="text" name="certificateNum" class="required"></div>
+        <div class="int"><label  ><span style="color:red;">* </span>重复证件号码：</label><input type="text" name="certificateNum1" class="required"></div>
+        <div class="int"><label  ><span style="color:red;">* </span>证件有效期：</label><input type="date" name="certificateValidity" class="code"><input name="certificateValidity1"  type="checkbox"  value="长期有效" id="certificateValidity">长期有效</div>
+        <div class="int"><label  ><span style="color:red;">* </span>省：</label><select  id="province"  onchange="getCityes()" name="province">
+
+        </select></div>
+               <div class="int"><label  ><span style="color:red;">* </span>市：</label><select id="shi" name="city" >
+
+        </select></div>
+        <div class="int"><label  ><span style="color:red;">* </span>通讯地址：</label><input name="correspondenceAddress" type="text" class="required"></div>
+        <div class="int"><label  ><span style="color:red;">* </span>邮政编码：</label><input name="postCode" type="text" class="required"></div>
+        <div class="int"><label  ><span style="color:red;">* </span>联系电话：</label><input name="telphone1" type="text" class="required"></div>
+        <div class="int"><label  >联系电话2：</label><input name="telphone2" type="text" class="norequired"></div><br/>
+        <div class="int"><label  ><span style="color:red;">* </span>服务定制：</label> <select  name="customService" class="service">
+            <option value="">--请选择--</option>
+            <option value="1">新产品信息</option>
+        </select></div>
+        <div class="int"><label  >Email地址：</label><input  name="emailAddress"type="text" class="norequired"></div>
+        <div class="int"><label  >手机号码：</label><input  name="phone" type="text" class="norequired"></div>
+        <div class="int"><label  >客户简称：</label><input  name="customerReferred"type="text" class="norequired"></div>
+        <div class="int"><label  >传真号码：</label><input  name="faxNum1"type="text" class="norequired"></div>
+        <div class="int"><label  >传真号码2：</label><input  name="faxNum2"type="text" class="norequired"></div>
+        <div class="int"><label  ><span style="color:red;">* </span>交易密码：</label><input name="tradePassword" type="password"  class="required"></div>
+        <div class="int"><label  ><span style="color:red;">* </span>重复交易密码：</label><input  name="tradePassword1"type="password" class="required"></div>
+        <div class="int"><label  >是否寄送确认书：</label><input name="sendConfirmation"  type="checkbox"  value="1">寄送确认书</div>
+       <!-- <div class="int"><label  >上交所账号：</label><input  name="shanghaiStockExchangeAccount"type="text" class="norequired"></div>
+        <div class="int"><label  >深交所账号：</label><input  name="shenzhenStockExchangeAccount"type="text" class="norequired"></div>
+        <div class="int"><label  >TA代码：</label><select name="taCode" class="ta">
+            <option value="0">&#45;&#45;请选择&#45;&#45;</option>
+            <option></option>
+            <option></option>
+        </select></div>
+        <div class="int"><label  >基金账号：</label><input name="fundAccount" type="text" class="norequired"></div>-->
+        <div class="int"><label  >委托方式：</label><input name="channelId" type="checkbox"  value="1" >柜台</div>
+        <div class="int"><label  >传真委托：</label><input name="commissionedByFacsimile" type="checkbox"  value="1">允许传真委托</div>
+
+
+    <h4>银行信息</h4><!-- ----------------------------------------------------->
+    <hr color="red" width="98%" />
+        <!--<input id="bankName" type="hidden" th:text="${abn.bankId}">-->
+        <div class="int"><label>开户银行名称：</label><input id ="" type="text" name="bankName"  th:value = "${session.acBankName.bankName}" readonly="true"/></div>
+
+
+          <!--  <select id="seBank" name="bankName">
+            <option th:selected="${acBankName.bankId}"   th:text="${acBankName.bankName}" ></option>
+        </select></div>-->
+       <!-- <div class="int"><label  ><span style="color:red;">* </span>银行户名：</label><input name="bankName" type="text" class="required"></div>
+        <div class="int"><label  ><span style="color:red;">* </span>银行账号：</label><input name="bankCode" type="text" class="required"></div>
+        <div class="int"><label  ><span style="color:red;">* </span>重复银行号码：</label><input name="bankCode1" type="text" class="required"></div>-->
+        <div class="int"><label>开户行所在省：</label><select name="bankProvince" class=" "  >
+
+           <option th:selected="${session.acBank.bankProvince==province.provinceCode}" th:each="province:${session.pList}" th:value="${province.provinceCode}" th:text="${province.provinceName}"></option>
+        </select></div>
+        <div class="int"><label>市：</label><select name="bankCity" class="" >
+           <option  th:selected="${city.cityId==session.acBank.bankCity}" th:each="city:${session.cList}" th:value="${city.cityId}" th:text="${city.cityName}"></option>
+        </select></div>
+        <div class="int"><label  ><span style="color:red;">* </span>开户行全称：</label><input name="bankFullName"   type="text" class="required" th:value="${session.acBank.bankFullName}" readonly="true"></div>
+        <div class="int"><label  >联行号：</label><input name="jonesLangLasalle" type="text" class="norequired" th:value="${session.acBank.jonesLangLasalle}" readonly="true"></div>
+
+    <h4>经办人信息</h4><!-- ----------------------------------------------------->
+    <hr color="red" width="98%"/>
+       <!-- th:text="${acAdmin.adminAccount}"-->
+        <div class="int"><label  ><span style="color:red;">* </span>经办人姓名：</label><input name="adminAccount"  type="text" class="required"  th:value="${session.acAdmin.adminAccount}" readonly="true"></div>
+            <!--<div class="int"><label><span style="color:red;">* </span>经办人证件类型：</label><input name="adminType" class="small" style="background-color: #fdf59a"  th:value="${session.acAdmin.adminType}" readonly="true"/></div>-->
+        <div class="int"><label><span style="color:red;">* </span>经办人证件类型：</label><select name="adminType" class="small" style="background-color: #fdf59a"   readonly="true">
+            <option th:each="document:${session.acdList}" th:selected="${document.documentsId==session.acAdmin.adminType}" th:value="${document.documentsId}" th:text="${document.documentsName}"></option>
+        </select></div>
+        <div class="int"><label  ><span style="color:red;">* </span>经办人证件号码：</label><input name="adminNum" type="text" class="required"  th:value="${session.acAdmin.adminNum}"  readonly="true"></div>
+        <input type="hidden" name="adminId"  value="" id="admin-id" >
+       <!-- <div class="int"><label  >授权经办人名单：</label><input name="" type="text" class="norequired"></div>
+
+        <div class="int"><label>授权经办人详细信息：</label><textarea name="" style="width: 498px;height: 50px;"></textarea></div>-->
+
+    <h4>其他信息</h4><!-- ----------------------------------------------------->
+    <hr color="red" width="98%"/>
+
+        <div class="int"><label ><span style="color:red;">* </span>法人姓名：</label><input name="legalPersonName" type="text" class="required" ></div>
+        <div class="int"><label  ><span style="color:red;">* </span>法人证件类型：</label><select name="corporateDocumentType" class="type">
+            <option value="">--请选择--</option>
+            <option value="1">身份证</option>
+            <option value="2">居民身份证</option>
+            <option value="3">出生证</option>
+            <option value="4">护照</option>
+            <option value="5">警官证</option>
+            <option value="6">执行公务证</option>
+            <option value="7">学生证</option>
+        </select></div>
+        <div class="int"><label ><span style="color:red;">* </span>法人证件号码：</label><input name="corporateNumber" type="text" class="required" ></div>
+        <div class="int"><label ><span style="color:red;">* </span>法人证件有效期：</label><input name="legalPeriodOfLegalPerson" type="date" class="validity"><input name="legalPeriodOfLegalPerson1" type="checkbox" value="长期有效">长期有效</div>
+        <div class="int"><label ><span style="color:red;">* </span>组织机构代码：</label><input name="organizationCode" type="text" class="required" ></div>
+        <div class="int"><label ><span style="color:red;">* </span>组织机构代码有效期：</label><input name="organizationCodeExpirationDate" type="date" class="required" ></div>
+        <div class="int"><label ><span style="color:red;">* </span>税务登记证号码：</label><input name="taxRegistrationNumber" type="text" class="required" ></div>
+        <div class="int"><label ><span style="color:red;">* </span>负责人姓名：</label><input name="nameOfPersonInCharge" type="text" class="required" ></div>
+        <div class="int"><label  ><span style="color:red;">* </span>负责人证件类型：</label><select name="responsiblePersonType" class="type">
+            <option value="">--请选择--</option>
+            <option value="1">身份证</option>
+            <option value="2">居民身份证</option>
+            <option value="3">出生证</option>
+            <option value="4">护照</option>
+            <option value="5">警官证</option>
+            <option value="6">执行公务证</option>
+            <option value="7">学生证</option>
+        </select></div>
+        <div class="int"><label ><span style="color:red;">* </span>负责人证件号码：</label><input name="responsiblePersonNumber" type="text" class="required" ></div>
+        <div class="int"><label ><span style="color:red;">* </span>负责人证件有效期：</label><input name="principalValidityPeriod" type="date" class="validity"><input name="principalValidityPeriod1" type="checkbox" value="长期有效">长期有效</div>
+        <div class="int"><label ><span style="color:red;">* </span>控股股东名称：</label><input name="controllingShareholderName" type="text" class="required" ></div>
+        <div class="int"><label  ><span style="color:red;">* </span>控股股东类别：</label><select name="controllingShareholderType" class="type">
+            <option value="">--请选择--</option>
+            <option value="1">绝对控股股东</option>
+            <option value="2">相对控股股东</option>
+        </select></div>
+        <div class="int"><label  ><span style="color:red;">* </span>控股股东证件类型：</label><select name="controllingShareholderTypeOfCertificate" class="type">
+            <option value="">--请选择--</option>
+            <option value="1">身份证</option>
+            <option value="2">居民身份证</option>
+            <option value="3">出生证</option>
+            <option value="4">护照</option>
+            <option value="5">警官证</option>
+            <option value="6">执行公务证</option>
+            <option value="7">学生证</option>
+        </select></div>
+        <div class="int"><label ><span style="color:red;">* </span>控股股东证件号：</label><input name="controllingShareholderLicenseNumber" type="text" class="required" ></div>
+        <div class="int"><label ><span style="color:red;">* </span>控股股东证件有效期：</label><input name="controllingShareholderLicenseNumberTime" type="date" class="required" ></div>
+        <div class="int"><label ><span style="color:red;">* </span>经营范围：</label><input name="businessScope" type="text" class="required" ></div>
+        <div class="int"><label ><span style="color:red;">* </span>账户实际控制人：</label><input name="actualAccountController" type="text" class="required" ></div>
+        <div class="int"><label ><span style="color:red;">* </span>账户实际受益人：</label><input name="actualBeneficiaryOfTheAccount" type="text" class="required" ></div>
+        <div class="int"><label ><span style="color:red;">* </span>注册资本：</label><input name="registeredCapital" type="text" class="required" ></div>
+        <div class="int"><label >控股股东税务登记账号：</label><input name="aTaxRegistrationCode" type="text" class="norequired" ></div>
+        <div class="int"><label >控制股东组织代码证号：</label><input name="aOrganizationCodeNumber" type="text" class="norequired" ></div>
+        <div class="int"><label  >行业类型：</label><select name="industryType" class="notype">
+            <option value="">--请选择--</option>
+            <option value="1">农林牧渔</option>
+            <option value="2">医药卫生</option>
+            <option value="3">建筑建材</option>
+            <option value="4">冶金矿产</option>
+            <option value="5">石油化工</option>
+
+        </select></div>
+        <div class="int"><label  >企业性质：</label><select name="natureOfBusiness" class="notype">
+            <option value="">--请选择--</option>
+            <option value="1">国有企业</option>
+            <option value="2">独资企业</option>
+            <option value="3">合资企业</option>
+            <option value="4">个体工商户</option>
+        </select></div>
+        <div class="int"><label >注册地址：</label><input name="registeredAddress" type="text" class="norequired" ></div>
+        <div class="int"><label  >反洗钱风险等级：</label><select name="moneyLaunderingRiskLevel" class="notype">
+            <option value="">--请选择--</option>
+            <option value="1">低风险</option>
+            <option value="2">中风险</option>
+            <option value="3">高风险</option>
+        </select></div>
+        <div class="int"><label  >资格证书类型：</label><select name="qualificationType" class="notype">
+            <option value="">--请选择--</option>
+            <option value="1">企业资质证书</option>
+            <option value="2">工程设计资质证书</option>
+            <option value="3">室内装饰资质证书</option>
+            <option value="4">建筑资质证书</option>
+        </select></div>
+        <div class="int"><label >资格证书号码：</label><input name="qualificationCertificateNumber" type="text" class="norequired" ></div>
+        <div class="int"><label >资格证书有效期：</label><input name="validityPeriod" type="date" class="" ></div>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input id="form-btn" class="btn" type="button" value="提交"  onclick="addAccCount()" />
+        <input id="cancel" class="btn" type="reset" value="取消"   />
+
+    </form>
+</body>
+</html>

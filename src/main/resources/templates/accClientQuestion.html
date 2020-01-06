@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>机构风险问卷</title>
+</head>
+<link href="../static/css/basic_layout.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../static/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript">
+
+</script>
+<style>
+
+</style>
+<body>
+<table style="margin-left: 100px">
+    <tr>
+        <td class="int">1.贵公司的财务状况属于一下哪一种</td>
+        <tr>
+            <td class="cc2">
+                <input type="radio">有较大数额未到期负债
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" value="收支相抵">收支相抵
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" value="有一定积蓄">有一定积蓄
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" value="有较为丰厚的积蓄并有一定的投资">有较为丰厚的积蓄并有一定的投资
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" value="比较富裕且有相当的投资">比较富裕且有相当的投资
+            </td>
+        </tr>
+    </tr>
+    <tr>
+        <td class="int">2.贵公司目前已经或者准备投资的基金金额占贵公司总资产的比重是多少：(备注：总资产包括存款、证券投资、房地产以及实业等)</td>
+        <tr>
+            <td>
+                <input type="radio" value="80-100%">80-100%
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" value="50-80%">50-80%
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" value="20-50%">20-50%
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" value="0-20%">0-20%
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" value="零">零
+            </td>
+        </tr>
+    <tr>
+    </tr>
+        <td class="int">3.贵公司的投资规模是？</td>
+        <tr>
+            <td>
+                <input type="radio" value="大于5000万元">大于5000万
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" value="2000万至5000万元">2000万至5000万元
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" value="1000万至2000万元">1000万至2000万元
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" value="500万至1000万元">500万至1000万元
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" value="500万元以下">500万元以下
+            </td>
+        </tr>
+    </tr>
+
+    <tr>
+        <td class="int">4.贵公司计划的基金投资期限是多长？</td>
+        <tr>
+            <td>
+                <input type="radio" value="少于一年">少于一年
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" value="1-3年">1-3年
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" value="3-5年">3-5年
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" value="5-8年">5-8年
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" value="8年以上">8年以上
+            </td>
+        </tr>
+    </tr>
+
+    <tr>
+        <td class="int">5.贵公司是否有过股票或者基金的投资经历，如有投资时间是多长？</td>
+        <tr>
+            <td>
+                <input type="radio" value="没有">没有
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" value="有，但是少于三年">有，但是少于三年
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" value="有，在3-5年之间">有，在3-5年之间
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" value="有，在5-10年之间">有，在5-10年之间
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" value="有，长于10年">有，长于10年
+            </td>
+        </tr>
+    </tr>
+    <tr>
+        <td class="int">6.贵公司的投资目标是？</td>
+        <tr>
+            <td>
+                <input type="radio" value="激进增长">激进增长
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" value="显著增长">显著增长
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" value="稳健增值">稳健增值
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" value="谨慎增值">谨慎增值
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" value="避免亏损">避免亏损
+            </td>
+        </tr>
+    </tr>
+
+    <tr>
+        <td class="int">7.贵公司希望获得的年收益率是多少？</td>
+        <tr>
+            <td>
+                <input type="radio" value="相当于储蓄存款收益率">相当于储蓄存款收益率
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" value="相当于通货膨胀率">相当于通货膨胀率
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" value="高于通货膨胀率，只要保值并略有增值即可">高于通货膨胀率，只要保值并略有增值即可
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" value="接近或相当于股票市场平均收益率">接近或相当于股票市场平均收益率
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" value="大大超过股票市场平均收益率">大大超过股票市场平均收益率
+            </td>
+        </tr>
+    </tr>
+
+    <tr>
+        <td class="int">8.以下几种投资模式，贵公司更偏好哪种模式？</td>
+        <tr>
+            <td>
+                <input type="radio" value="最高收益5%，不亏损">最高收益5%，不亏损
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" value="可能的最高收益是15%，可能的最高亏损是5%">可能的最高收益是15%，可能的最高亏损是5%
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" value="可能的最高收益是30%，可能的最高亏损是15%">可能的最高收益是30%，可能的最高亏损是15%
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" value="可能最高收益100%，可能最高亏损60%">可能最高收益100%，可能最高亏损60%
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="radio" value="可能最高收益100%，可能最高亏损90%">可能最高收益100%，可能最高亏损90%
+            </td>
+        </tr>
+    </tr>
+</table>
+</body>
+</html>

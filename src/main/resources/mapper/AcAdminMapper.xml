@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ygjx.fxm.dao.AcAdminMapper">
+  <resultMap id="BaseResultMap" type="com.ygjx.wsh.entity.AcAdmin">
+    <id column="admin_id" jdbcType="INTEGER" property="adminId" />
+    <result column="admin_dot_name" jdbcType="INTEGER" property="adminDotName" />
+    <result column="admin_account" jdbcType="VARCHAR" property="adminAccount" />
+    <result column="admin_password" jdbcType="VARCHAR" property="adminPassword" />
+    <result column="admin_state" jdbcType="INTEGER" property="adminState" />
+    <result column="admin_type" jdbcType="INTEGER" property="adminType" />
+    <result column="admin_num" jdbcType="VARCHAR" property="adminNum" />
+    <result column="admin_dot" jdbcType="INTEGER" property="adminDot" />
+  </resultMap>
+
+  <select id="getAllAcAdmin" resultMap="BaseResultMap">
+    select * from ac_admin;
+  </select>
+  <select id="findByAdminAccount" resultMap="BaseResultMap">
+    select * from ac_admin where admin_account = #{adminAccount}
+  </select>
+  <insert id="insertSelective" parameterType="com.ygjx.wsh.entity.AcAdmin">
+    insert into ac_admin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="adminId != null">
+        admin_id,
+      </if>
+      <if test="adminAccount != null">
+        admin_account,
+      </if>
+      <if test="adminPassword != null">
+        admin_password,
+      </if>
+      <if test="adminState != null">
+        admin_state,
+      </if>
+      <if test="adminType != null">
+        admin_type,
+      </if>
+      <if test="adminNum != null">
+        admin_num,
+      </if>
+      <if test="adminDot != null">
+        admin_dot,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="adminId != null">
+        #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="adminAccount != null">
+        #{adminAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPassword != null">
+        #{adminPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="adminState != null">
+        #{adminState,jdbcType=INTEGER},
+      </if>
+      <if test="adminType != null">
+        #{adminType,jdbcType=INTEGER},
+      </if>
+      <if test="adminNum != null">
+        #{adminNum,jdbcType=VARCHAR},
+      </if>
+      <if test="adminDot != null">
+        #{adminDot,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>基金远程交易柜台</title>
+    <script type="text/javascript" src="../static/js/jquery-2.1.0.js"></script>
+    <style>
+        .code {
+            font-family: Arial;
+            font-style: italic;
+            color: blue;
+            font-size: 30px;
+            border: 0;
+            padding: 2px 3px;
+            letter-spacing: 3px;
+            font-weight: bolder;
+            float: left;
+            cursor: pointer;
+            width: 150px;
+            height: 50px;
+            line-height: 60px;
+            text-align: center;
+            vertical-align: middle;
+            background-color: #D8B7E3;
+        }
+
+        span {
+            text-decoration: none;
+            font-size: 12px;
+            color: #288bc4;
+            padding-left: 10px;
+        }
+
+        /**其他的元素*/
+        label {
+            width: 150px;
+            float: left;
+            text-align: right;
+        }
+
+        #form-div {
+            width: 450px;
+            height: 230px;
+            border: #c3c8cd solid 1px;
+            margin-left: 1000px
+        }
+
+        #top {
+            width: 450px;
+            height: 20px;
+            margin-left: 1000px;
+            margin-top: 200px
+        }
+
+
+        table {
+            margin-top: 25px
+        }
+
+        .required {
+            background-color: #fdf59a
+        }
+
+        #form-btn {
+            margin-left: 100px;
+            background-color: #b51d1a;
+        }
+
+    </style>
+    <!--wyh  2019年11月2日11点45分-->
+    <script type="text/javascript">
+        //页面加载时，生成随机验证码
+        window.onload = function () {
+            createCode(4);
+        }
+
+        //生成验证码的方法
+        function createCode(length) {
+            var code = "";
+            var codeLength = parseInt(length); //验证码的长度
+            var checkCode = document.getElementById("checkCode");
+            ////所有候选组成验证码的字符，当然也可以用中文的
+            var codeChars = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+                'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
+            //循环组成验证码的字符串
+            for (var i = 0; i < codeLength; i++) {
+                //获取随机验证码下标
+                var charNum = Math.floor(Math.random() * 62);
+                //组合成指定字符验证码
+                code += codeChars[charNum];
+            }
+            if (checkCode) {
+                //为验证码区域添加样式名
+                checkCode.className = "code";
+                //将生成验证码赋值到显示区
+                checkCode.innerHTML = code;
+            }
+        }
+
+        //检查验证码是否正确
+        function fundLogin() {
+
+            if ($("input[name='clientAccount']").val() != "" && $("input[name='clientAccount']").val() != null) {
+                if ($("input[name='clientPassword']").val() != "" && $("input[name='clientPassword']").val() != null) {
+                    $("form").submit();
+                } else {
+                    alert("请输入密码");
+                }
+            } else {
+                alert("请输入账号")
+            }
+            //获取显示区生成的验证码
+            var checkCode = document.getElementById("checkCode").innerHTML;
+            //获取输入的验证码
+            var inputCode = document.getElementById("inputCode").value;
+            console.log(checkCode);
+            console.log(inputCode);
+            if (inputCode.length <= 0) {
+                alert("请输入验证码！");
+            } else if (inputCode.toUpperCase() != checkCode.toUpperCase()) {
+                alert("验证码输入有误！");
+                createCode(4);
+            }
+        }
+
+    </script>
+</head>
+<body>
+<div id="top"></div>
+<div id="form-div">
+    <form action="/otherUtilsController/fundLogin" method="post">
+        <table align="center">
+            <tr>
+                <td><label>交易账号:</label><input type="text" name="clientAccount" class="required"/></td>
+            </tr>
+            <tr>
+                <td><label>交易密码:</label><input type="password" name="clientPassword" class="required"/></td>
+            </tr>
+            <tr>
+                <td>
+                    <label>验证码:</label>
+                    <input type="text" id="inputCode" class="required"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="checkCode" class="code" onclick="createCode(4)"></div>
+                    <span onclick="createCode(4)">看不清换一张</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="button" onclick="fundLogin()" id="form-btn" style="color: ghostwhite" value="登录"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>
