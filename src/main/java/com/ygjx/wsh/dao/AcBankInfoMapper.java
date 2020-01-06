@@ -9,8 +9,6 @@ public interface AcBankInfoMapper {
 
     int insert(AcBankInfo record);
 
-    int insertSelective(AcBankInfo record);
-
     AcBankInfo selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(AcBankInfo record);
