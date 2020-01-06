@@ -25,7 +25,6 @@ public class AcCounterController {
         acCounterService.create(counter);
         Result result = new Result();
         result.setResultCode(ResultCode.SUCCESS);
-
         return result;
     }
 
