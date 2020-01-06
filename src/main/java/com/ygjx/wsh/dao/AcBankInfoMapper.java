@@ -11,7 +11,5 @@ public interface AcBankInfoMapper {
 
     AcBankInfo selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(AcBankInfo record);
-
     int updateByPrimaryKey(AcBankInfo record);
 }
